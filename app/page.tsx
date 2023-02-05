@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div
@@ -17,6 +19,19 @@ export default function Home() {
         <p>
           This website <del>is</del> will be designed by my good friend Yu Jian
           (insert link and last name here).
+        </p>
+        <p>
+          You can:
+          <br />
+          <Link href="/projects">
+            <button>See a list of my projects.</button>
+          </Link>
+          <br />
+          <Link href="/skills">
+            <button>
+              See a list of my skills with projects to back them up.
+            </button>
+          </Link>
         </p>
       </div>
     </div>
