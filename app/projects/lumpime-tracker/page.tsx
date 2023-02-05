@@ -1,3 +1,3 @@
 export default function Projects() {
-  return 'Hello projects';
+  return "hello lumpime-tracker";
 }
