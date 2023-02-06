@@ -35,7 +35,7 @@ export default function ProjectsLayout({
         }}
       >
         {projects.map((project) => {
-          const link = project.replaceAll(' ', '-')
+          const link = project.replaceAll(' ', '-').replaceAll('.', '-')
           return (
             <>
               <Link
