@@ -1,16 +1,18 @@
-FROM node:19 AS builder
-WORKDIR /app
-COPY ./package.json ./package-lock.json ./
-RUN npm ci
+FROM debian:bullseye AS builder
+# set up flutter
+RUN apt-get update && apt-get install -y curl git unzip xz-utils zip
+USER root
+WORKDIR /home/root
+RUN git clone --depth 1 --branch stable https://github.com/flutter/flutter.git
+ENV PATH $PATH:/home/root/flutter/bin
+RUN flutter precache --web
+# build
+WORKDIR /home/root/app
 COPY ./ ./
-RUN npm run build
+RUN flutter pub get
+RUN flutter build web
 
-FROM node:19-alpine AS runner
+FROM busybox:1 AS server
 WORKDIR /app
-ENV NODE_ENV production
-
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
-
-CMD ["node", "server.js"]
+COPY --from=builder /home/root/app/build/web ./
+CMD busybox httpd -f -p $PORT
