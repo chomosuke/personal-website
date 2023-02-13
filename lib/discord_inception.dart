@@ -22,8 +22,8 @@ class DiscordInception extends HookWidget {
         children[(startingIndex + 1) % children.length],
         children[(startingIndex + 2) % children.length],
       ];
-      if (length < 1) {
-        return const SizedBox.shrink();
+      if (length < 2) {
+        return cs[0];
       } else {
         return Column(
           children: [
@@ -40,16 +40,27 @@ class DiscordInception extends HookWidget {
     }
 
     final scale = useState(1.0);
+    final initLayer = useState(0);
     return Listener(
       onPointerSignal: (signal) {
         if (signal is PointerScrollEvent) {
-          scale.value *= pow(1.001, signal.scrollDelta.dy);
+          var newScale = scale.value * pow(1.001, signal.scrollDelta.dy);
+          if (newScale > 3) {
+            newScale /= 2;
+            initLayer.value += 1;
+          }
+          if (newScale < 1) {
+            newScale *= 2;
+            initLayer.value -= 1;
+          }
+          scale.value = newScale;
         }
       },
       child: LayoutBuilder(
-        builder: (context, constraint) =>
-            rec(0, max(constraint.maxWidth, constraint.maxHeight))
-                .scale(all: scale.value, alignment: Alignment.bottomRight),
+        builder: (context, constraint) => rec(
+          initLayer.value,
+          max(constraint.maxWidth, constraint.maxHeight) * scale.value,
+        ).scale(all: scale.value, alignment: Alignment.bottomRight),
       ),
     );
   }
