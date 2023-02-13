@@ -41,14 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -62,6 +54,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_hooks:
+    dependency: "direct main"
+    description:
+      name: flutter_hooks
+      sha256: "2b202559a4ed3656bbb7aae9d8b335fb0037b23acc7ae3f377d1ba0b95c21aec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.5+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -70,11 +70,27 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_riverpod:
+    dependency: transitive
+    description:
+      name: flutter_riverpod
+      sha256: "0c997763ce06359ee4686553b74def84062e9d6929ac63f61fa02465c1f8e32c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      sha256: "71695b2e1dfc22a39f1f9c67b798f8f8f1521f2d0349817d13ccdd5c4cd7acba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.3"
   js:
     dependency: transitive
     description:
@@ -83,6 +99,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.5"
+  lint:
+    dependency: transitive
+    description:
+      name: lint
+      sha256: "4a539aa34ec5721a2c7574ae2ca0336738ea4adc2a34887d54b7596310b33c85"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.10.0"
   lints:
     dependency: transitive
     description:
@@ -123,6 +147,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  riverpod:
+    dependency: transitive
+    description:
+      name: riverpod
+      sha256: "0f43c64f1f79c2112c843305a879a746587fb7c1e388f1d4717737796756e2c4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -144,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: "8fe42610f179b843b12371e40db58c9444f8757f8b69d181c97e50787caed289"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2+1"
   stream_channel:
     dependency: transitive
     description:
@@ -160,6 +200,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  styled_widget:
+    dependency: "direct main"
+    description:
+      name: styled_widget
+      sha256: "4d439802919b6ccf10d1488798656da8804633b03012682dd1c8ca70a084aa84"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   term_glyph:
     dependency: transitive
     description:
@@ -186,3 +234,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.19.1 <3.0.0"
+  flutter: ">=3.0.0"
