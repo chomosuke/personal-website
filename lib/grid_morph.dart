@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:fraction/fraction.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class GridMorph extends HookWidget {
@@ -20,31 +19,59 @@ class GridMorph extends HookWidget {
 
     final iFocused = useState<int?>(null);
     final jFocused = useState<int?>(null);
-    final controller = useAnimationController(
-      duration: const Duration(seconds: 1),
-    );
-    final animation = CurvedAnimation(parent: controller, curve: Curves.ease);
-    final flex = useAnimation(animation);
 
-    final flexFraction = Fraction.fromDouble(flex + 1).reduce();
+    final controllersIJ = [<AnimationController>[], <AnimationController>[]];
+    final flexFractionsIJ = [<int>[], <int>[]];
+
+    for (var i = 0; i < 2; i++) {
+      for (var j = 0; j < numCol; j++) {
+        final controller = useAnimationController(
+          duration: const Duration(milliseconds: 500),
+        );
+        final animation =
+            CurvedAnimation(parent: controller, curve: Curves.easeInOut);
+        final flex = useAnimation(animation);
+
+        controllersIJ[i].add(controller);
+        flexFractionsIJ[i].add(((flex + 1) * 1000000).floor());
+      }
+    }
+
+    final controllersI = controllersIJ[0];
+    final controllersJ = controllersIJ[1];
+    final flexFractionsI = flexFractionsIJ[0];
+    final flexFractionsJ = flexFractionsIJ[1];
+
+    void onFocus(int i, int j) {
+      if (jFocused.value != null) {
+        controllersJ[jFocused.value!].reverse();
+      }
+      if (iFocused.value != null) {
+        controllersI[iFocused.value!].reverse();
+      }
+      iFocused.value = i;
+      jFocused.value = j;
+      controllersI[i].forward();
+      controllersJ[j].forward();
+    }
+
     return Column(
       children: [
         for (var i = 0; i < numRow; i++)
           Row(
             children: [
               for (var j = 0; j < numCol; j++)
-                children[i * numCol + j].gestures(
-                  onTap: () {
-                    iFocused.value = i;
-                    jFocused.value = j;
-                    controller.forward(from: 0);
-                  },
-                ).expanded(
-                  flex: j == jFocused.value ? flexFraction[0] : flexFraction[1],
-                )
+                children[i * numCol + j]
+                    .gestures(
+                      onTap: () => onFocus(i, j),
+                    )
+                    .mouseRegion(onEnter: (_) => onFocus(i, j))
+                    .expanded(
+                      flex: flexFractionsJ[j],
+                    )
             ],
           ).expanded(
-            flex: i == iFocused.value ? flexFraction[0] : flexFraction[1],
+            flex: flexFractionsI[i],
           )
       ],
     );
