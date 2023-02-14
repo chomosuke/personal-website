@@ -42,7 +42,7 @@ class DiscordInception extends HookWidget {
     final scale = useState(1.0);
     final initLayer = useState(0);
     void scroll(double delta) {
-      var newScale = scale.value * pow(1.001, delta);
+      var newScale = scale.value * pow(2, delta);
       if (newScale > 2) {
         newScale /= 2;
         initLayer.value += 1;
@@ -57,12 +57,12 @@ class DiscordInception extends HookWidget {
     return Listener(
       onPointerSignal: (signal) {
         if (signal is PointerScrollEvent) {
-          scroll(signal.scrollDelta.dy);
+          scroll(signal.scrollDelta.dy / 500);
         }
       },
       child: GestureDetector(
         onPanUpdate: (details) {
-            scroll(-details.delta.dx - details.delta.dy);
+            scroll(-(details.delta.dx + details.delta.dy) / 100);
         },
         child: LayoutBuilder(
           builder: (context, constraint) => rec(
