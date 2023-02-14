@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:styled_widget/styled_widget.dart';
+
 import 'discord_inception.dart';
+import 'grid_morph.dart';
 
 void main() {
   runApp(const App());
@@ -34,13 +37,28 @@ class App extends HookWidget {
 
     return MaterialApp(
       title: 'Richard Li',
-      home: toggle.value
-          ? DiscordInception(
+      home: Stack(
+        children: [
+          if (toggle.value)
+            GridMorph(
               children: [
                 for (Color color in colors) Container(color: color),
               ],
             )
-          : const Center(),
+          else
+            DiscordInception(
+              children: [
+                for (Color color in colors) Container(color: color),
+              ],
+            ),
+          ElevatedButton(
+            child: const Text('Toggle'),
+            onPressed: () {
+              toggle.value = !toggle.value;
+            },
+          ).padding(all: 16),
+        ],
+      ),
     );
   }
 }
