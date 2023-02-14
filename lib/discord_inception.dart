@@ -43,11 +43,11 @@ class DiscordInception extends HookWidget {
     final initLayer = useState(0);
     void scroll(double delta) {
       var newScale = scale.value * pow(2, delta);
-      if (newScale > 4) {
+      while (newScale > 4) {
         newScale /= 2;
         initLayer.value += 1;
       }
-      if (newScale < 2) {
+      while (newScale < 2) {
         newScale *= 2;
         initLayer.value -= 1;
       }
