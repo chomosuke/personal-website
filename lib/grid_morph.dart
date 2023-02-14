@@ -28,8 +28,10 @@ class GridMorph extends HookWidget {
         final controller = useAnimationController(
           duration: const Duration(milliseconds: 500),
         );
-        final animation =
-            CurvedAnimation(parent: controller, curve: Curves.easeInOut);
+        final animation = CurvedAnimation(
+          parent: controller,
+          curve: Curves.easeInOut,
+        );
         final flex = useAnimation(animation);
 
         controllersIJ[i].add(controller);
@@ -42,13 +44,15 @@ class GridMorph extends HookWidget {
     final flexFractionsI = flexFractionsIJ[0];
     final flexFractionsJ = flexFractionsIJ[1];
 
-    void onFocus(int i, int j) {
-      if (jFocused.value != null) {
+    void onLoseFocus() {
+      if (iFocused.value != null && jFocused.value != null) {
         controllersJ[jFocused.value!].reverse();
-      }
-      if (iFocused.value != null) {
         controllersI[iFocused.value!].reverse();
       }
+    }
+
+    void onFocus(int i, int j) {
+      onLoseFocus();
       iFocused.value = i;
       jFocused.value = j;
       controllersI[i].forward();
@@ -65,7 +69,10 @@ class GridMorph extends HookWidget {
                     .gestures(
                       onTap: () => onFocus(i, j),
                     )
-                    .mouseRegion(onEnter: (_) => onFocus(i, j))
+                    .mouseRegion(
+                      onEnter: (_) => onFocus(i, j),
+                      onExit: (_) => onLoseFocus(),
+                    )
                     .expanded(
                       flex: flexFractionsJ[j],
                     )
