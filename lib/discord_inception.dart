@@ -62,13 +62,15 @@ class DiscordInception extends HookWidget {
       },
       child: GestureDetector(
         onPanUpdate: (details) {
-            scroll(-(details.delta.dx + details.delta.dy) / 100);
+          scroll(-(details.delta.dx + details.delta.dy) / 100);
         },
         child: LayoutBuilder(
           builder: (context, constraint) => rec(
             initLayer.value,
             max(constraint.maxWidth, constraint.maxHeight) * scale.value,
-          ).scale(all: scale.value, alignment: Alignment.bottomRight),
+          )
+              .scale(all: scale.value, alignment: Alignment.bottomRight)
+              .clipRect(),
         ),
       ),
     );

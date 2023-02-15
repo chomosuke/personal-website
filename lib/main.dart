@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import 'discord_inception.dart';
 import 'grid_morph.dart';
+import 'tabbed_pages.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(const App());
 }
 
@@ -14,11 +17,8 @@ class App extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final toggle = useState<bool>(true);
-
     const colors = [
       Colors.red,
-      Colors.pink,
       Colors.blue,
       Colors.cyan,
       Colors.yellow,
@@ -27,6 +27,7 @@ class App extends HookWidget {
       Colors.lime,
       Colors.grey,
       Colors.black,
+      Colors.pink,
       Colors.white,
       Colors.green,
       Colors.amber,
@@ -36,13 +37,13 @@ class App extends HookWidget {
       Colors.yellow,
       Colors.orange,
       Colors.red,
-      Colors.pink,
       Colors.blue,
       Colors.cyan,
       Colors.teal,
       Colors.lime,
       Colors.grey,
       Colors.black,
+      Colors.pink,
       Colors.white,
       Colors.green,
       Colors.amber,
@@ -57,28 +58,26 @@ class App extends HookWidget {
 
     return MaterialApp(
       title: 'Richard Li',
-      home: Stack(
+      home: TabbedPages(
         children: [
-          if (toggle.value)
+          TabbedPage(
             GridMorph(
               children: [
                 for (Color color in colors) Container(color: color),
               ],
-            )
-          else
+            ),
+            const Text('Skills'),
+          ),
+          TabbedPage(
             DiscordInception(
               children: [
                 for (Color color in colors) Container(color: color),
               ],
             ),
-          ElevatedButton(
-            child: const Text('Toggle'),
-            onPressed: () {
-              toggle.value = !toggle.value;
-            },
-          ).padding(all: 16),
+            const Text('Works'),
+          ),
         ],
-      ),
+      ).material(textStyle: const TextStyle(fontSize: 32)),
     );
   }
 }
