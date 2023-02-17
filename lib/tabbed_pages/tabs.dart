@@ -1,36 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 class Tabs extends StatelessWidget {
   const Tabs({
     super.key,
-    required this.height,
-    required this.overlap,
-    required this.children,
+    required this.tabs,
     required this.focusedTab,
   });
 
-  final double overlap;
-  final double height;
-  final List<Widget> children;
+  final List<TabElement> tabs;
   final int focusedTab;
 
   @override
   Widget build(BuildContext context) {
+    Widget decoratedChild(int i) => tabs[i]
+            .child
+            .padding(left: i == 0 ? 16 : 48, right: 32, vertical: 4)
+            .decorated(
+          color: i == focusedTab ? Colors.white : const Color(0xFFF3F3F3),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(40),
+            topLeft: Radius.circular(10),
+          ),
+          boxShadow: [
+            const BoxShadow(
+              offset: Offset(1, -1),
+              blurRadius: 2,
+            ),
+          ],
+        ).gestures(onTap: tabs[i].onTap);
+
     return CustomMultiChildLayout(
-      delegate: _TabsLayoutDelegate(height: height, overlap: overlap),
+      delegate: _TabsLayoutDelegate(height: 93, overlap: 32),
       children: [
-        for (var i = children.length - 1; i >= 0; i--)
+        for (var i = tabs.length - 1; i >= 0; i--)
           if (i != focusedTab)
             LayoutId(
               id: i,
-              child: children[i],
+              child: decoratedChild(i),
             ),
         LayoutId(
           id: focusedTab,
-          child: children[focusedTab],
+          child: decoratedChild(focusedTab),
         ),
       ],
-    );
+    ).decorated(color: const Color(0xFF525252));
   }
 }
 
@@ -60,4 +74,10 @@ class _TabsLayoutDelegate extends MultiChildLayoutDelegate {
   @override
   bool shouldRelayout(_TabsLayoutDelegate old) =>
       old.height != height || old.overlap != overlap;
+}
+
+class TabElement {
+  TabElement({required this.child, this.onTap});
+  final Widget child;
+  final void Function()? onTap;
 }

@@ -15,36 +15,17 @@ class TabbedPages extends HookWidget {
     return Column(
       children: [
         Tabs(
-          height: 93,
-          overlap: 32,
           focusedTab: focusedPage.value,
-          children: [
+          tabs: [
             for (var i = 0; i < children.length; i++)
-              children[i]
-                  .tab
-                  .gestures(
-                    onTap: () {
-                      focusedPage.value = i;
-                    },
-                  )
-                  .padding(left: i == 0 ? 16 : 48, right: 32, vertical: 4)
-                  .decorated(
-                    color: i == focusedPage.value
-                        ? Colors.white
-                        : const Color(0xFFF3F3F3),
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(10),
-                    ),
-                    boxShadow: [
-                      const BoxShadow(
-                        offset: Offset(1, -1),
-                        blurRadius: 2,
-                      ),
-                    ],
-                  )
+              TabElement(
+                child: children[i].tab,
+                onTap: () {
+                  focusedPage.value = i;
+                },
+              ),
           ],
-        ).decorated(color: const Color(0xFF525252)),
+        ),
         children[focusedPage.value].content.expanded(),
       ],
     );
