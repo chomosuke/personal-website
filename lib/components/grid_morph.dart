@@ -72,7 +72,9 @@ class GridMorph extends HookWidget {
     final flexFractionsI = flexFractionsIJ[0];
     final flexFractionsJ = flexFractionsIJ[1];
 
-    void updateClickController() {
+    void updateClicked() {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+      clicked.notifyListeners();
       final iClicked = List.filled(numRow, false);
       final jClicked = List.filled(numCol, false);
       for (final ij in clicked.value) {
@@ -97,7 +99,7 @@ class GridMorph extends HookWidget {
 
     void onUnclick(_IJ ij) {
       clicked.value.remove(ij);
-      updateClickController();
+      updateClicked();
     }
 
     void onClick(_IJ ij) {
@@ -107,7 +109,7 @@ class GridMorph extends HookWidget {
       while (clicked.value.length > maxClicked) {
         clicked.value.removeFirst();
       }
-      updateClickController();
+      updateClicked();
     }
 
     void onHover(_IJ? ij) {
