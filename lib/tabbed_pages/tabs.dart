@@ -15,23 +15,23 @@ class Tabs extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget decoratedChild(int i) => tabs[i]
             .child
-            .padding(left: i == 0 ? 16 : 48, right: 32, vertical: 4)
+            .padding(left: 32, right: 32, vertical: 4)
             .decorated(
           color: i == focusedTab ? Colors.white : const Color(0xFFF3F3F3),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40),
-            topLeft: Radius.circular(10),
+            topLeft: Radius.circular(40),
           ),
           boxShadow: [
             const BoxShadow(
-              offset: Offset(1, -1),
               blurRadius: 2,
+              spreadRadius: 1,
             ),
           ],
         ).gestures(onTap: tabs[i].onTap);
 
     return CustomMultiChildLayout(
-      delegate: _TabsLayoutDelegate(height: 93, overlap: 32),
+      delegate: _TabsLayoutDelegate(height: 93, overlap: 16),
       children: [
         for (var i = tabs.length - 1; i >= 0; i--)
           if (i != focusedTab)
