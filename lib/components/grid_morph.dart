@@ -8,13 +8,15 @@ class GridMorph extends HookWidget {
   const GridMorph({
     super.key,
     required this.children,
+    required this.defaultFactory,
   });
 
   final List<Widget> children;
+  final Widget Function(BuildContext, int) defaultFactory;
 
   @override
   Widget build(BuildContext context) {
-    final numCol = sqrt(children.length).floor();
+    final numCol = sqrt(children.length).ceil();
     final numRow = (children.length / numCol).ceil();
 
     final iFocused = useState<int?>(null);
@@ -24,7 +26,7 @@ class GridMorph extends HookWidget {
     final flexFractionsIJ = [<int>[], <int>[]];
 
     for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < numCol; j++) {
+      for (var j = 0; j < (i == 0 ? numRow : numCol); j++) {
         final controller = useAnimationController(
           duration: const Duration(milliseconds: 500),
         );
@@ -65,7 +67,9 @@ class GridMorph extends HookWidget {
           Row(
             children: [
               for (var j = 0; j < numCol; j++)
-                children[i * numCol + j]
+                (i * numCol + j < children.length
+                        ? children[i * numCol + j]
+                        : defaultFactory(context, i * numCol + j))
                     .gestures(
                       onTap: () => onFocus(i, j),
                     )

@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import 'discord_inception.dart';
-import 'grid_morph.dart';
+import 'components/discord_inception.dart';
+import 'components/grid_morph.dart';
 import 'tabbed_pages/tabbed_pages.dart';
 
 void main() {
@@ -66,6 +66,8 @@ class App extends HookWidget {
               children: [
                 for (Color color in colors) Container(color: color),
               ],
+              defaultFactory: (context, i) =>
+                  Container(color: colors[i % colors.length]),
             ),
           ),
           TabbedPage(
