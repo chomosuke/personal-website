@@ -63,11 +63,10 @@ class App extends HookWidget {
           TabbedPage(
             tab: const Text('Skills', style: TextStyle(fontSize: 32)),
             content: GridMorph(
-              children: [
-                for (Color color in colors) Container(color: color),
-              ],
-              defaultFactory: (context, i) =>
-                  Container(color: colors[i % colors.length]),
+              childFactory: (context, i, clicked, hovered) => Text(
+                "${clicked ? 'clicked\n' : ''}${hovered ? 'hovered' : ''}",
+              ).center().backgroundColor(colors[i % colors.length]),
+              childrenCount: colors.length,
             ),
           ),
           TabbedPage(
