@@ -138,6 +138,7 @@ class GridMorph extends HookWidget {
                             hovered.value == _IJ(i, j),
                           ).gestures(
                             onTap: () => onUnclick(_IJ(i, j)),
+                            behavior: HitTestBehavior.opaque,
                           )
                         : childFactory(
                             context,
@@ -146,6 +147,7 @@ class GridMorph extends HookWidget {
                             hovered.value == _IJ(i, j),
                           ).gestures(
                             onTap: () => onClick(_IJ(i, j)),
+                            behavior: HitTestBehavior.opaque,
                           ))
                     .mouseRegion(
                       onEnter: (_) => onHover(_IJ(i, j)),

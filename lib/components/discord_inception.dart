@@ -15,13 +15,19 @@ class DiscordInception extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget rec(int layer, num length) {
+    Widget rec(int layer, num length, BoxConstraints constraints) {
       final startingIndex = layer * 3;
       final cs = [
         children[startingIndex % children.length],
         children[(startingIndex + 1) % children.length],
         children[(startingIndex + 2) % children.length],
       ];
+      for (var i = 0; i < cs.length; i++) {
+        cs[i] = cs[i]
+            .width(constraints.maxWidth / 2)
+            .height(constraints.maxHeight / 2)
+            .fittedBox();
+      }
       if (length < 2) {
         return cs[0];
       } else {
@@ -31,7 +37,7 @@ class DiscordInception extends HookWidget {
             Row(
               children: [
                 cs[2].expanded(),
-                rec(layer + 1, length / 2).expanded()
+                rec(layer + 1, length / 2, constraints).expanded()
               ],
             ).expanded(),
           ],
@@ -64,10 +70,12 @@ class DiscordInception extends HookWidget {
         onPanUpdate: (details) {
           scroll(-(details.delta.dx + details.delta.dy) / 100);
         },
+        behavior: HitTestBehavior.opaque,
         child: LayoutBuilder(
           builder: (context, constraint) => rec(
             initLayer.value,
             max(constraint.maxWidth, constraint.maxHeight) * scale.value,
+            constraint,
           )
               .scale(all: scale.value, alignment: Alignment.bottomRight)
               .clipRect(),

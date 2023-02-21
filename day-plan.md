@@ -1,12 +1,11 @@
 21st
-- content
-22nd
 - Routing
+22nd, 23rd
+- Skills
+- Projects
 - PopupColorButton
 - ColoredText
-23rd
-- Skills
 24th
-- Projects
+- content
 26th
 - Page animation
