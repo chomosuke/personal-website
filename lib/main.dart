@@ -6,7 +6,9 @@ import 'package:styled_widget/styled_widget.dart';
 
 import 'components/tabs.dart';
 import 'pages/home.dart';
+import 'pages/skill.dart';
 import 'pages/skills.dart';
+import 'pages/work.dart';
 import 'pages/works.dart';
 
 void main() {
@@ -45,29 +47,71 @@ class App extends HookWidget {
                   },
                 ),
               ];
-              final pathToFocuse = {'/': 0, '/skills': 1, '/works': 2};
-              print('state.path: ${state.subloc}');
-              print('state.path[]: ${pathToFocuse[state.subloc]}');
+              int pathToFocused(String path) {
+                if (path == '/') {
+                  return 0;
+                } else if (path.substring(0, 6) == '/works') {
+                  return 2;
+                } else if (path.substring(0, 7) == '/skills') {
+                  return 1;
+                } else {
+                  throw Exception(path);
+                }
+              }
+
               return Column(
                 children: [
-                  Tabs(focusedTab: pathToFocuse[state.subloc]!, tabs: tabs),
+                  Tabs(focusedTab: pathToFocused(state.fullpath!), tabs: tabs),
                   child.expanded(),
                 ],
               ).material();
             },
             routes: [
               GoRoute(
-                path: '/',
-                builder: (context, state) => const Home(),
-              ),
-              GoRoute(
-                path: '/works',
-                builder: (context, state) => const Works(),
-              ),
-              GoRoute(
-                path: '/skills',
-                builder: (context, state) => const Skills(),
-              ),
+                  path: '/',
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const Home(),
+                        transitionsBuilder: (context, a, sa, child) => child,
+                      ),
+                  routes: [
+                    GoRoute(
+                      path: 'skills',
+                      pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const Skills(),
+                        transitionsBuilder: (context, a, sa, child) => child,
+                      ),
+                      routes: [
+                        GoRoute(
+                          path: ':name',
+                          pageBuilder: (context, state) => CustomTransitionPage(
+                            child: Skill(path: state.fullpath!),
+                            transitionsBuilder: (context, a, sa, child) =>
+                                child,
+                          ),
+                        ),
+                      ],
+                    ),
+                    GoRoute(
+                      path: 'works',
+                      pageBuilder: (context, state) => CustomTransitionPage(
+                        child: const Works(),
+                        transitionsBuilder: (context, a, sa, child) => child,
+                      ),
+                      routes: [
+                        GoRoute(
+                          path: ':name',
+                          pageBuilder: (context, state) {
+                            return CustomTransitionPage(
+                              child:
+                                  Work(path: 'works/${state.params['name']}'),
+                              transitionsBuilder: (context, a, sa, child) =>
+                                  child,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ]),
             ],
           )
         ],
