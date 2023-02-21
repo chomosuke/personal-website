@@ -9,6 +9,6 @@ class Work extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(path).center();
+    return Text(path).center().border(all: 1);
   }
 }

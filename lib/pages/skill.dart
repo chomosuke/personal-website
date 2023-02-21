@@ -13,7 +13,7 @@ class Skill extends HookWidget {
   Widget build(BuildContext context) {
     final content = useFuture(SkillContent.fromPath(path));
     return (content.hasData
-            ? Row(
+            ? Column(
                 children: [
                   Image(
                     image: content.data!.icon,
@@ -23,10 +23,10 @@ class Skill extends HookWidget {
                   ),
                   Text(content.data!.name),
                 ],
-              ).center()
+              ).fittedBox(fit: BoxFit.scaleDown).center()
             : content.hasError
                 ? Text(content.error.toString())
                 : const Text('Loading').center())
-        .border(all: 1);
+        .border(all: 1).decorated(color: Colors.white);
   }
 }
