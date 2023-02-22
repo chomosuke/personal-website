@@ -8,11 +8,13 @@ import '../contents/get_paths.dart';
 import 'work.dart';
 
 class Works extends HookWidget {
-  const Works({super.key});
+  Works({super.key}) : pathsFuture = getPaths('works');
+
+  final Future<List<String>> pathsFuture;
 
   @override
   Widget build(BuildContext context) {
-    final paths = useFuture(getPaths('works'));
+    final paths = useFuture(pathsFuture);
     return paths.hasData
         ? DiscordInception(
             children: [

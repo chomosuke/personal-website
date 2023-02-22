@@ -5,13 +5,15 @@ import 'package:styled_widget/styled_widget.dart';
 import '../contents/skill.dart';
 
 class Skill extends HookWidget {
-  const Skill({super.key, required this.path});
+  Skill({super.key, required this.path})
+      : contentFuture = SkillContent.fromPath(path);
 
   final String path;
+  final Future<SkillContent> contentFuture;
 
   @override
   Widget build(BuildContext context) {
-    final content = useFuture(SkillContent.fromPath(path));
+    final content = useFuture(contentFuture);
     return (content.hasData
             ? Column(
                 children: [
@@ -27,6 +29,7 @@ class Skill extends HookWidget {
             : content.hasError
                 ? Text(content.error.toString())
                 : const Text('Loading').center())
-        .border(all: 1).decorated(color: Colors.white);
+        .border(all: 1)
+        .decorated(color: Colors.white);
   }
 }

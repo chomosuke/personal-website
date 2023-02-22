@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import 'components/tabs.dart';
 import 'pages/home.dart';
-import 'pages/skill.dart';
 import 'pages/skills.dart';
 import 'pages/work.dart';
 import 'pages/works.dart';
 
 void main() {
-  usePathUrlStrategy();
   runApp(const App());
 }
 
@@ -24,6 +21,8 @@ class App extends HookWidget {
     return MaterialApp.router(
       title: 'Richard Li',
       routerConfig: GoRouter(
+        initialLocation: '/',
+        debugLogDiagnostics: true,
         routes: [
           ShellRoute(
             builder: (context, state, child) {
@@ -68,50 +67,46 @@ class App extends HookWidget {
             },
             routes: [
               GoRoute(
-                  path: '/',
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                        child: const Home(),
-                        transitionsBuilder: (context, a, sa, child) => child,
+                path: '/',
+                pageBuilder: (context, state) => CustomTransitionPage(
+                  child: const Home(),
+                  transitionsBuilder: (context, a, sa, child) => child,
+                ),
+                routes: [
+                  GoRoute(
+                    path: 'skills',
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                      child: Skills(
+                        selected:
+                            state.queryParams['selected']?.split(',').toSet() ??
+                                {},
+                        onSelectChange: (selected) => context
+                            .go('/skills?selected=${selected.join(',')}'),
                       ),
-                  routes: [
-                    GoRoute(
-                      path: 'skills',
-                      pageBuilder: (context, state) => CustomTransitionPage(
-                        child: const Skills(),
-                        transitionsBuilder: (context, a, sa, child) => child,
-                      ),
-                      routes: [
-                        GoRoute(
-                          path: ':name',
-                          pageBuilder: (context, state) => CustomTransitionPage(
-                            child: Skill(path: state.fullpath!),
+                      transitionsBuilder: (context, a, sa, child) => child,
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'works',
+                    pageBuilder: (context, state) => CustomTransitionPage(
+                      child: Works(),
+                      transitionsBuilder: (context, a, sa, child) => child,
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: ':name',
+                        pageBuilder: (context, state) {
+                          return CustomTransitionPage(
+                            child: Work(path: 'works/${state.params['name']}'),
                             transitionsBuilder: (context, a, sa, child) =>
                                 child,
-                          ),
-                        ),
-                      ],
-                    ),
-                    GoRoute(
-                      path: 'works',
-                      pageBuilder: (context, state) => CustomTransitionPage(
-                        child: const Works(),
-                        transitionsBuilder: (context, a, sa, child) => child,
+                          );
+                        },
                       ),
-                      routes: [
-                        GoRoute(
-                          path: ':name',
-                          pageBuilder: (context, state) {
-                            return CustomTransitionPage(
-                              child:
-                                  Work(path: 'works/${state.params['name']}'),
-                              transitionsBuilder: (context, a, sa, child) =>
-                                  child,
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ]),
+                    ],
+                  ),
+                ],
+              ),
             ],
           )
         ],

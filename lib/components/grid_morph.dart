@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -10,31 +9,26 @@ class GridMorph extends HookWidget {
     super.key,
     required this.childrenCount,
     required this.childFactory,
-    this.maxClicked = 3,
   });
 
-  final Widget Function(
+  final GridMorphChild Function(
     BuildContext context,
     int index,
-    bool clicked,
     bool hovered,
   ) childFactory;
   final int childrenCount;
-  final int maxClicked;
 
   @override
   Widget build(BuildContext context) {
     final numCol = sqrt(childrenCount).ceil();
     final numRow = (childrenCount / numCol).ceil();
 
-    final clicked = useState<ListQueue<_IJ>>(ListQueue());
-    final hovered = useState<_IJ?>(null);
-
+    // initialize controllers
     final hoverControllersIJ = [
       <AnimationController>[],
       <AnimationController>[]
     ];
-    final clickControllersIJ = [
+    final selectControllersIJ = [
       <AnimationController>[],
       <AnimationController>[]
     ];
@@ -45,73 +39,35 @@ class GridMorph extends HookWidget {
         final hoverController = useAnimationController(
           duration: const Duration(milliseconds: 500),
         );
-        final clickController = useAnimationController(
+        final selectController = useAnimationController(
           duration: const Duration(milliseconds: 500),
         );
         final hoverAnimation = CurvedAnimation(
           parent: hoverController,
           curve: Curves.easeInOut,
         );
-        final clickAnimation = CurvedAnimation(
-          parent: clickController,
+        final selectAnimation = CurvedAnimation(
+          parent: selectController,
           curve: Curves.easeInOut,
         );
         final flex = 0.1 * useAnimation(hoverAnimation) +
-            2 * useAnimation(clickAnimation);
+            2 * useAnimation(selectAnimation);
 
         hoverControllersIJ[i].add(hoverController);
-        clickControllersIJ[i].add(clickController);
+        selectControllersIJ[i].add(selectController);
         flexFractionsIJ[i].add(((flex + 1) * 1000000).round());
       }
     }
 
     final hoverControllersI = hoverControllersIJ[0];
     final hoverControllersJ = hoverControllersIJ[1];
-    final clickControllersI = clickControllersIJ[0];
-    final clickControllersJ = clickControllersIJ[1];
+    final selectControllersI = selectControllersIJ[0];
+    final selectControllersJ = selectControllersIJ[1];
     final flexFractionsI = flexFractionsIJ[0];
     final flexFractionsJ = flexFractionsIJ[1];
 
-    void updateClicked() {
-      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-      clicked.notifyListeners();
-      final iClicked = List.filled(numRow, false);
-      final jClicked = List.filled(numCol, false);
-      for (final ij in clicked.value) {
-        iClicked[ij.i] = true;
-        jClicked[ij.j] = true;
-      }
-      for (var i = 0; i < numRow; i++) {
-        if (iClicked[i]) {
-          clickControllersI[i].forward();
-        } else {
-          clickControllersI[i].reverse();
-        }
-      }
-      for (var j = 0; j < numCol; j++) {
-        if (jClicked[j]) {
-          clickControllersJ[j].forward();
-        } else {
-          clickControllersJ[j].reverse();
-        }
-      }
-    }
-
-    void onUnclick(_IJ ij) {
-      clicked.value.remove(ij);
-      updateClicked();
-    }
-
-    void onClick(_IJ ij) {
-      if (!clicked.value.contains(ij)) {
-        clicked.value.addLast(ij);
-      }
-      while (clicked.value.length > maxClicked) {
-        clicked.value.removeFirst();
-      }
-      updateClicked();
-    }
-
+    // hover state
+    final hovered = useState<_IJ?>(null);
     void onHover(_IJ? ij) {
       if (hovered.value != null) {
         hoverControllersI[hovered.value!.i].reverse();
@@ -124,31 +80,54 @@ class GridMorph extends HookWidget {
       }
     }
 
+    // get all children and their status
+    final children = <GridMorphChild>[];
+    for (var i = 0; i < numRow; i++) {
+      for (var j = 0; j < numCol; j++) {
+        children.add(
+          childFactory(context, i * numCol + j, hovered.value == _IJ(i, j)),
+        );
+      }
+    }
+
+    // animate upon prop change
+    final iSelected = List.filled(numRow, false);
+    final jSelected = List.filled(numCol, false);
+    for (var i = 0; i < numRow; i++) {
+      for (var j = 0; j < numCol; j++) {
+        if (children[i * numCol + j].selected) {
+          iSelected[i] = true;
+          jSelected[j] = true;
+        }
+      }
+    }
+    for (var i = 0; i < numRow; i++) {
+      if (iSelected[i]) {
+          selectControllersI[i].forward();
+      } else {
+          selectControllersI[i].reverse();
+      }
+    }
+    for (var j = 0; j < numCol; j++) {
+      if (jSelected[j]) {
+          selectControllersJ[j].forward();
+      } else {
+          selectControllersJ[j].reverse();
+      }
+    }
+
     return Column(
       children: [
         for (var i = 0; i < numRow; i++)
           Row(
             children: [
               for (var j = 0; j < numCol; j++)
-                (clicked.value.contains(_IJ(i, j))
-                        ? childFactory(
-                            context,
-                            i * numCol + j,
-                            true,
-                            hovered.value == _IJ(i, j),
-                          ).gestures(
-                            onTap: () => onUnclick(_IJ(i, j)),
-                            behavior: HitTestBehavior.opaque,
-                          )
-                        : childFactory(
-                            context,
-                            i * numCol + j,
-                            false,
-                            hovered.value == _IJ(i, j),
-                          ).gestures(
-                            onTap: () => onClick(_IJ(i, j)),
-                            behavior: HitTestBehavior.opaque,
-                          ))
+                children[i * numCol + j]
+                    .widget
+                    .gestures(
+                      onTap: () => children[i * numCol + j].onClick(),
+                      behavior: HitTestBehavior.opaque,
+                    )
                     .mouseRegion(
                       onEnter: (_) => onHover(_IJ(i, j)),
                       onExit: (_) => onHover(null),
@@ -178,4 +157,16 @@ class _IJ {
 
   @override
   int get hashCode => i + j;
+}
+
+@immutable
+class GridMorphChild {
+  const GridMorphChild({
+    required this.widget,
+    required this.selected,
+    required this.onClick,
+  });
+  final Widget widget;
+  final bool selected;
+  final void Function() onClick;
 }
