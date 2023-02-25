@@ -55,23 +55,26 @@ class Skills extends HookWidget {
 
     return GridMorph(
       childrenCount: paths.length,
-      childFactory: (context, i, hovered) => GridMorphChild(
-        widget: Skill(path: paths[i % paths.length]),
-        selected: selectedIndex.value.contains(i),
-        onClick: () {
-          if (selectedIndex.value.contains(i)) {
-            selectedIndex.value.remove(i);
-          } else {
-            selectedIndex.value.addLast(i);
-            while (selectedIndex.value.length > 3) {
-              selectedIndex.value.removeFirst();
+      childFactory: (context, i, hovered) {
+        final selected = selectedIndex.value.contains(i);
+        return GridMorphChild(
+          widget: Skill(path: paths[i % paths.length], showDetail: selected),
+          selected: selected,
+          onClick: () {
+            if (selectedIndex.value.contains(i)) {
+              selectedIndex.value.remove(i);
+            } else {
+              selectedIndex.value.addLast(i);
+              while (selectedIndex.value.length > 3) {
+                selectedIndex.value.removeFirst();
+              }
             }
-          }
-          // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-          selectedIndex.notifyListeners();
-          onSelectChange(selectedFromIndex(paths, selectedIndex.value));
-        },
-      ),
+            // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+            selectedIndex.notifyListeners();
+            onSelectChange(selectedFromIndex(paths, selectedIndex.value));
+          },
+        );
+      },
     );
   }
 }

@@ -8,6 +8,7 @@ environment:
   sdk: '>=2.19.1 <3.0.0'
 
 dependencies:
+  boxy: ^2.0.8
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.0
@@ -15,6 +16,7 @@ dependencies:
     sdk: flutter
   fraction: ^4.1.4
   go_router: ^6.0.9
+  google_fonts: ^4.0.3
   styled_widget:
     git:
       url: https://github.com/ReinBentdal/styled_widget.git
@@ -28,6 +30,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - content/assets/
     - content/skills/
     - content/works/

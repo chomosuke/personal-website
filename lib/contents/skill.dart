@@ -7,7 +7,13 @@ class SkillContent {
     required this.name,
     required this.icon,
     required this.works,
+    required this.iconColor,
   });
+
+  final String name;
+  final AssetImage icon;
+  final List<String> works;
+  final Color iconColor;
 
   static Future<SkillContent> fromPath(String path) async {
     final text = await rootBundle.loadString('content/$path.md');
@@ -26,10 +32,7 @@ class SkillContent {
       name: lines[0].substring(2).replaceAll(r'\#', '#'),
       icon: AssetImage('content/$path.png'),
       works: works,
+      iconColor: Color(int.parse('66${lines[lines.length - 1]}', radix: 16)),
     );
   }
-
-  final String name;
-  final AssetImage icon;
-  final List<String> works;
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 abstract class SpanContent {}
@@ -17,7 +18,7 @@ class LinkSpanContent extends SpanContent {
 class WorkContent {
   WorkContent({
     required this.name,
-    // required this.screenshots,
+    required this.screenshot,
     // required this.summary,
     // required this.description,
   });
@@ -35,12 +36,12 @@ class WorkContent {
 
     return WorkContent(
       name: lines[0].substring(2),
-      // screenshots: [AssetImage('${path.substring(path.length - 3)}.png')],
+      screenshot: AssetImage('${path.substring(path.length - 3)}.png'),
     );
   }
 
   final String name;
-  // final List<AssetImage> screenshots;
+  final AssetImage screenshot;
   // final String summary;
   // final String description;
 }
