@@ -1,10 +1,10 @@
 # Associated Developer at Detector Inspector
 2022
 
-# Summary
+## Summary
 My first and only job where I worked with PHP, JavaScript, AWS and MySQL.
 
-# Description
+## Description
 - My main job consisted of maintaining our legacy [PHP](../skills/php.md) internal website written with [CakePHP](../skills/cakephp.md) that the company used to manage their bookings, technicians and finances etc.
 - I also worked with vanilla [JavaScript](../skills/javascript.md), [AWS](../skills/aws.md) and [MySQL](../skills/mysql.md).
 - During my time there, I worked on various efforts to improve our legacy system. Some notable examples are:
