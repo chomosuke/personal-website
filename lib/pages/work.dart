@@ -30,8 +30,11 @@ class Work extends HookWidget {
                     style: heading4,
                     color: const Color(0xCCFFB388),
                   )
-                      .padding(top: 20, left: 20)
-                      .alignment(Alignment.topLeft)
+                      .padding(top: 12, horizontal: 12)
+                      .fittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.topLeft,
+                      )
                       .height(72)
                       .border(top: 1),
                 ],
