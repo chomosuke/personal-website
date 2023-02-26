@@ -12,4 +12,4 @@ A Flutter Flex (i.e. Column or Row) that sizes itself to its main child in the c
 - To solve the problem for me and others, I decided to create a [Dart](../skills/dart.md) package.
 - The package would contain a widget called `FlexWithMainChild` that would lay out all its children in either a row or a column. The widget will then make sure its own size is the same as the main child.
 - By passing the children of the `FlexWithMainChild` to Flutter's built in `Flex` widget, I was able to achieve the desired functionality with relative ease while also maintaining many functionalities of the built-in `Flex` widget so that anyone using the built-in widget can have an easier time transitioning to my widget.
-- While my package only got 6 likes on [pub.dev](https://pub.dev/packages/flex_with_main_child), it did ended up helping me and 2 other people online achieving our desired outcome.
+- While my package only got 6 likes on [pub.dev](https://pub.dev/packages/flex_with_main_child), it did end up helping me and 2 other people online achieving our desired outcome.
