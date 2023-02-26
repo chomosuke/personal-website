@@ -8,19 +8,19 @@ import 'package:styled_widget/styled_widget.dart';
 class DiscordInception extends HookWidget {
   const DiscordInception({
     super.key,
-    required this.children,
+    required this.childFactory,
   });
 
-  final List<Widget> children;
+  final Widget Function(int) childFactory;
 
   @override
   Widget build(BuildContext context) {
     Widget rec(int layer, num length, BoxConstraints constraints) {
       final startingIndex = layer * 3;
       final cs = [
-        children[startingIndex % children.length],
-        children[(startingIndex + 1) % children.length],
-        children[(startingIndex + 2) % children.length],
+        childFactory(startingIndex),
+        childFactory(startingIndex + 1),
+        childFactory(startingIndex + 2),
       ];
       for (var i = 0; i < cs.length; i++) {
         cs[i] = cs[i]
@@ -28,7 +28,7 @@ class DiscordInception extends HookWidget {
             .height(constraints.maxHeight / 2)
             .fittedBox();
       }
-      if (length < 20) {
+      if (length < 8) {
         return cs[0];
       } else {
         return Column(
@@ -49,11 +49,11 @@ class DiscordInception extends HookWidget {
     final initLayer = useState(0);
     void scroll(double delta) {
       var newScale = scale.value * pow(2, delta);
-      while (newScale > 4) {
+      while (newScale > 2) {
         newScale /= 2;
         initLayer.value += 1;
       }
-      while (newScale < 2) {
+      while (newScale < 1) {
         newScale *= 2;
         initLayer.value -= 1;
       }

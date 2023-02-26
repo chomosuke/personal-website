@@ -15,6 +15,8 @@ class LinkSpanContent extends SpanContent {
   final String path;
 }
 
+final _workContentMem = <String, Future<WorkContent>>{};
+
 class WorkContent {
   WorkContent({
     required this.name,
@@ -23,21 +25,26 @@ class WorkContent {
     // required this.description,
   });
 
-  static Future<WorkContent> fromPath(String path) async {
-    final text = await rootBundle.loadString('content/$path.md');
-    final lines = const LineSplitter().convert(text);
+  static Future<WorkContent> fromPath(String path) {
+    if (_workContentMem[path] == null) {
+      _workContentMem[path] = () async {
+        final text = await rootBundle.loadString('content/$path.md');
+        final lines = const LineSplitter().convert(text);
 
-    // final points = <String>[];
-    // for (final line in lines.sublist(1)) {
-    //   var work = line.substring(line.indexOf(']'));
-    //   work = work.substring(3, work.length - 4);
-    //   points.add(work);
-    // }
+        // final points = <String>[];
+        // for (final line in lines.sublist(1)) {
+        //   var work = line.substring(line.indexOf(']'));
+        //   work = work.substring(3, work.length - 4);
+        //   points.add(work);
+        // }
 
-    return WorkContent(
-      name: lines[0].substring(2),
-      screenshot: AssetImage('content/$path.png'),
-    );
+        return WorkContent(
+          name: lines[0].substring(2),
+          screenshot: AssetImage('content/$path.png'),
+        );
+      }();
+    }
+    return _workContentMem[path]!;
   }
 
   final String name;
