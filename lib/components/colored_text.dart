@@ -1,37 +1,47 @@
 import 'package:boxy/boxy.dart';
 import 'package:flutter/material.dart';
 
+class ColoredTextStyle {
+  ColoredTextStyle({
+    required this.textStyle,
+    required this.topOffset,
+    required this.colorHeight,
+  });
+  final TextStyle textStyle;
+  final double topOffset;
+  final double colorHeight;
+}
+
 class ColoredText extends StatelessWidget {
   const ColoredText(
     this.data, {
     super.key,
     required this.color,
     required this.style,
-    required this.colorHeight,
-    required this.topOffset,
   });
 
   final Color color;
   final String data;
-  final TextStyle style;
-  final double colorHeight;
-  final double topOffset;
+  final ColoredTextStyle style;
   @override
   Widget build(BuildContext context) {
     return CustomBoxy(
-      delegate: ColoredTextDelegate(topOffset: topOffset, height: colorHeight),
+      delegate: ColoredTextDelegate(
+        topOffset: style.topOffset,
+        height: style.colorHeight,
+      ),
       children: [
         BoxyId(
           id: #color,
           child: Container(
             width: double.infinity,
-            height: colorHeight,
+            height: style.colorHeight,
             color: color,
           ),
         ),
         BoxyId(
           id: #text,
-          child: Text(data, style: style),
+          child: Text(data, style: style.textStyle),
         ),
       ],
     );

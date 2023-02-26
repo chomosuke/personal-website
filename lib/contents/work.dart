@@ -36,7 +36,7 @@ class WorkContent {
 
     return WorkContent(
       name: lines[0].substring(2),
-      screenshot: AssetImage('${path.substring(path.length - 3)}.png'),
+      screenshot: AssetImage('content/$path.png'),
     );
   }
 

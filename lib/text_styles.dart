@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ColoredTextStyle {
-  ColoredTextStyle({
-    required this.textStyle,
-    required this.topOffset,
-    required this.colorHeight,
-  });
-  final TextStyle textStyle;
-  final double topOffset;
-  final double colorHeight;
-}
+import 'components/colored_text.dart';
 
 final heading3 = ColoredTextStyle(
   textStyle: GoogleFonts.rubik(fontSize: 32, fontWeight: FontWeight.w500),
@@ -20,5 +11,10 @@ final heading3 = ColoredTextStyle(
 final label1 = ColoredTextStyle(
   textStyle: GoogleFonts.rubik(fontSize: 20),
   colorHeight: 11,
+  topOffset: 8.1,
+);
+final heading4 = ColoredTextStyle(
+  textStyle: GoogleFonts.comfortaa(fontSize: 24),
+  colorHeight: 13,
   topOffset: 8.1,
 );

@@ -28,9 +28,7 @@ class Skill extends HookWidget {
                   ColoredText(
                     content.data!.name,
                     color: content.data!.iconColor,
-                    style: label1.textStyle,
-                    colorHeight: label1.colorHeight,
-                    topOffset: label1.topOffset,
+                    style: label1,
                   ),
                 ],
               ).fittedBox(fit: BoxFit.scaleDown).center()

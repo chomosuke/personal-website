@@ -28,7 +28,7 @@ class DiscordInception extends HookWidget {
             .height(constraints.maxHeight / 2)
             .fittedBox();
       }
-      if (length < 2) {
+      if (length < 20) {
         return cs[0];
       } else {
         return Column(
