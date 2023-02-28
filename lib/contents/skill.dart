@@ -27,7 +27,7 @@ class SkillContent {
         for (final line in lines.sublist(1)) {
           if (line.length >= 2 && line.substring(0, 2) == '- ') {
             var work = line.substring(line.indexOf(']'));
-            work = work.substring(3, work.length - 4);
+            work = work.substring(5, work.length - 4);
             works.add(work);
           }
         }

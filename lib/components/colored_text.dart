@@ -63,6 +63,7 @@ class ColoredTextDelegate extends BoxyDelegate {
     color
       ..layout(BoxConstraints.tight(Size(textSize.width, height)))
       ..position(Offset(height * 0.45, topOffset + height * 0.26));
+      // ..position(Offset(0, topOffset));
 
     return textSize;
   }

@@ -36,10 +36,13 @@ class Skills extends HookWidget {
       if (!setEquals(selectedFromIndex(paths, selectedIndex.value), selected)) {
         // change selectedIndex upon prop change
         final selectedIndexFromPath = ListQueue<int>();
+        final visited = <String>{};
         for (var i = 0; i < paths.length; i++) {
-          if (selected.contains(paths[i].substring(7))) {
+          final name = paths[i].substring(7);
+          if (selected.contains(name) && !visited.contains(name)) {
             selectedIndexFromPath.add(i);
           }
+          visited.add(name);
         }
         selectedIndex.value = selectedIndexFromPath;
       }
