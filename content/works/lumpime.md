@@ -12,4 +12,4 @@ A website that help people track what anime they're watching and what new anime 
 - The requirement was to build a web app that allow people to search for anime using their genre, season released and keywords; And allow people to have lists of anime that they intend to watch, are currently watching and have finished watching.
 - I finish the web app in 5 days.
 - The technologies I've used to build this web app are: [Go](../skills/go.md), [Gin](../skills/gin.md), [MongoDB](../skills/mongodb.md) and [Flutter](../skills/flutter.md). I've never worked with Go or Gin before making this web app.
-- It is now hosted at [https://lumpime.chomosuke.com/](https://lumpime.chomosuke.com/).
+- It is now hosted at [https://lumpime.chomosuke.com/](https://lumpime.chomosuke.com/) as a [Docker](../skills/docker.md) container.

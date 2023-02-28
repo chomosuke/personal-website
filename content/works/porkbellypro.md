@@ -3,10 +3,10 @@
 
 [Source Code](https://github.com/chomosuke/IT-PROJECT-PorkBellyPro)
 
-# Summary
+## Summary
 A university group project which we had to develop a CRM based on a "client"'s requests.
 
-# Description
+## Description
 - In the university subject COMP30022 IT Project, we were required to form into teams of 5 and develop a CRM base on a "client"'s requirement.
 - The client was a Master of Computer science student who asked us to develop a simple CURD application that would store business cards with some key value fields.
 - We used [MongoDB](../skills/mongodb.md) as our database, [TypeScript](../skills/typescript.md), [Node.js](../skills/node-js.md) and [Express.js] for our backend, and [TypeScript](../skills/typescript.md) and [React.js](../skills/react-js.md) for our frontend.
