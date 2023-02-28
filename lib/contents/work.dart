@@ -40,7 +40,7 @@ class WorkContent {
 
         return WorkContent(
           name: lines[0].substring(2),
-          screenshot: AssetImage('content/$path.png'),
+          screenshot: AssetImage('content/assets/$path.png'),
         );
       }();
     }

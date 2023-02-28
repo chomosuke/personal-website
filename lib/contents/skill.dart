@@ -34,7 +34,7 @@ class SkillContent {
 
         return SkillContent(
           name: lines[0].substring(2).replaceAll(r'\#', '#'),
-          icon: AssetImage('content/$path.png'),
+          icon: AssetImage('content/assets/$path.png'),
           works: works,
           iconColor:
               Color(int.parse('66${lines[lines.length - 1]}', radix: 16)),

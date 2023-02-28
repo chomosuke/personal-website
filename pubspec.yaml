@@ -32,3 +32,6 @@ flutter:
   assets:
     - content/skills/
     - content/works/
+    - content/assets/
+    - content/assets/works
+    - content/assets/skills
