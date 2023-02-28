@@ -33,5 +33,5 @@ flutter:
     - content/skills/
     - content/works/
     - content/assets/
-    - content/assets/works
-    - content/assets/skills
+    - content/assets/works/
+    - content/assets/skills/
