@@ -13,10 +13,8 @@ class Tabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget decoratedChild(int i) => tabs[i]
-            .child
-            .padding(left: 32, right: 32, vertical: 4)
-            .decorated(
+    Widget decoratedChild(int i) =>
+        tabs[i].child.padding(left: 32, right: 32, vertical: 4).decorated(
           color: i == focusedTab ? Colors.white : const Color(0xFFF3F3F3),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40),
@@ -33,12 +31,16 @@ class Tabs extends StatelessWidget {
     return CustomMultiChildLayout(
       delegate: _TabsLayoutDelegate(height: 93, overlap: 16),
       children: [
-        for (var i = tabs.length - 1; i >= 0; i--)
-          if (i != focusedTab)
-            LayoutId(
-              id: i,
-              child: decoratedChild(i),
-            ),
+        for (var i = tabs.length - 1; i > focusedTab; i--)
+          LayoutId(
+            id: i,
+            child: decoratedChild(i),
+          ),
+        for (var i = 0; i < focusedTab; i++)
+          LayoutId(
+            id: i,
+            child: decoratedChild(i),
+          ),
         LayoutId(
           id: focusedTab,
           child: decoratedChild(focusedTab),
