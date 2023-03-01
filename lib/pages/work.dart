@@ -4,7 +4,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '../components/colored_text.dart';
 import '../contents/work.dart';
-import '../text_styles.dart';
+import '../styles.dart';
 
 class Work extends HookWidget {
   Work({super.key, required this.path})
@@ -28,7 +28,7 @@ class Work extends HookWidget {
                   ColoredText(
                     content.data!.name,
                     style: heading4,
-                    color: const Color(0xCCFFB388),
+                    color: primary03,
                   )
                       .padding(top: 12, horizontal: 12)
                       .fittedBox(

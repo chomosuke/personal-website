@@ -5,8 +5,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../components/colored_text.dart';
 import '../contents/skill.dart';
 import '../contents/work.dart';
-import '../text_styles.dart';
-import 'work.dart';
+import '../styles.dart';
 
 class Skill extends HookWidget {
   Skill({super.key, required this.path, this.showDetail = false}) {
@@ -77,7 +76,7 @@ class Skill extends HookWidget {
                         .expanded(),
                     ColoredText(
                       workContent.name,
-                      color: const Color(0xCCFFB388),
+                      color: primary03,
                       style: heading5,
                     )
                   ],

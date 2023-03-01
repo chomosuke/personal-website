@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'components/colored_text.dart';
 
+final display1 = GoogleFonts.yatraOne(fontSize: 128, height: 1);
+final heading1 = GoogleFonts.comfortaa(fontSize: 48);
 final heading3 = ColoredTextStyle(
   textStyle: GoogleFonts.rubik(fontSize: 32, fontWeight: FontWeight.w500),
   colorHeight: 17,
@@ -23,3 +25,7 @@ final label1 = ColoredTextStyle(
   colorHeight: 10,
   topOffset: 8.6,
 );
+
+const primary01 = Color(0xCCBEDAAA);
+const primary02 = Color(0xCCEBA7A7);
+const primary03 = Color(0xCCFFB388);
