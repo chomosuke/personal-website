@@ -46,7 +46,7 @@ class Tabs extends StatelessWidget {
           child: decoratedChild(focusedTab),
         ),
       ],
-    ).decorated(color: const Color(0xFF525252));
+    ).decorated(color: const Color(0xFF525252)).clipRect();
   }
 }
 

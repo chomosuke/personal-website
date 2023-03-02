@@ -1,4 +1,3 @@
-import 'package:boxy/flex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +16,38 @@ class Home extends HookWidget {
         children: [
           Column(
             children: [
-              Container(color: const Color(0xFFC6E2AF)).expanded(),
+              for (var i = 0; i < 20; i++) ...[
+                Row(
+                  children: [
+                    for (var j = 0; j < 20; j++) ...[
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFED9555),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ],
+                ),
+                const Spacer(),
+              ],
+            ],
+          )
+              .constrained(width: 400, height: 400)
+              .padding(all: 264)
+              .alignment(Alignment.topLeft),
+          Column(
+            children: [
+              ColoredBox(
+                color: const Color(0xFFC6E2AF),
+                child:
+                    Text('I code stuffs, all sorts of\nstuff', style: heading1)
+                        .padding(bottom: 84, left: 52)
+                        .alignment(Alignment.bottomLeft),
+              ).expanded(),
               SizedBox.fromSize(size: const Size(0, 48)),
               Row(
                 children: [
