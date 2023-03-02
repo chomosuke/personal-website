@@ -33,8 +33,8 @@ class App extends HookWidget {
     return MaterialApp.router(
       title: 'Richard Li',
       routerConfig: GoRouter(
-        initialLocation: '/',
-        debugLogDiagnostics: true,
+        initialLocation:
+            Uri.base.toString().replaceFirst('${Uri.base.origin}/#', ''),
         routes: [
           ShellRoute(
             builder: (context, state, child) {
@@ -114,7 +114,9 @@ class App extends HookWidget {
                         path: ':name',
                         pageBuilder: (context, state) {
                           return CustomTransitionPage(
-                            child: Work(path: 'works/${state.params['name']}'),
+                            child: !loading.hasData
+                                ? const Text('loading').center()
+                                : Work(path: 'works/${state.params['name']}'),
                             transitionsBuilder: (context, a, sa, child) =>
                                 child,
                           );
