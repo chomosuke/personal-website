@@ -14,6 +14,16 @@ class Home extends HookWidget {
     return LayoutBuilder(
       builder: (context, constraints) => Stack(
         children: [
+          const ColoredBox(color: Color(0xFFEFFFD1))
+              .constrained(
+                width: 945,
+                height: constraints.maxHeight * 0.85 - 224,
+              )
+              .padding(
+                right: 146,
+                top: 224,
+              )
+              .alignment(Alignment.topRight),
           Column(
             children: [
               for (var i = 0; i < 20; i++) ...[
