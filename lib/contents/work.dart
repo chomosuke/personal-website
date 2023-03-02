@@ -35,7 +35,7 @@ List<SpanContent> textToSpans(String text) {
     if (linkStr != null) {
       var link = textSpanStr.substring(0, textSpanStr.indexOf(')'));
       if (link.substring(0, 9) == '../skills') {
-        link = link.substring(3);
+        link = '/skills?selected=${link.substring(10, link.length - 3)}';
         spans.add(
           LinkSpanContent(
             linkStr,
@@ -43,7 +43,7 @@ List<SpanContent> textToSpans(String text) {
           ),
         );
       } else if (link.substring(0, 2) == './') {
-        link = 'works${link.substring(1)}';
+        link = '/works${link.substring(1, link.length - 3)}';
         spans.add(
           LinkSpanContent(
             linkStr,

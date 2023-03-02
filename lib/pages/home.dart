@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../contents/popup_button.dart';
+import '../components/popup_button.dart';
 import '../styles.dart';
 
 class Home extends HookWidget {
