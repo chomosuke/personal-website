@@ -19,7 +19,7 @@ class Work extends HookWidget {
         ? RichText(
             text: TextSpan(
               children: [
-                for (final point in content.description)
+                for (final point in content.description) ...[
                   for (final spanContent in point)
                     if (spanContent is TextSpanContent)
                       TextSpan(text: spanContent.text)
@@ -32,7 +32,9 @@ class Work extends HookWidget {
                       TextSpan(
                         text: spanContent.externLink,
                         style: const TextStyle(color: Colors.blue),
-                      )
+                      ),
+                    const TextSpan(text: '\n'),
+                ]
               ],
             ),
           )
