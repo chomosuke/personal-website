@@ -3,36 +3,29 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:styled_widget/styled_widget.dart';
 
 import '../components/grid_morph.dart';
 import '../contents/get_paths.dart';
 import 'skill.dart';
 
 class Skills extends HookWidget {
-  Skills({
+  const Skills({
     super.key,
     required this.selected,
     required this.onSelectChange,
-  }) : pathsFuture = getPaths('skills');
+  });
 
-  final Future<List<String>> pathsFuture;
   final Set<String> selected;
   final void Function(Set<String>) onSelectChange;
 
   @override
   Widget build(BuildContext context) {
-    final pathsSnapshot = useFuture(pathsFuture);
+    final paths = getPaths('skills');
     final selectedIndex = useState(ListQueue<int>());
     Set<String> selectedFromIndex(List<String> paths, Iterable<int> index) =>
         index.map((i) => paths[i % paths.length].substring(7)).toSet();
 
     useEffect(() {
-      if (!pathsSnapshot.hasData) {
-        return null;
-      }
-      final paths = pathsSnapshot.data!;
-
       if (!setEquals(selectedFromIndex(paths, selectedIndex.value), selected)) {
         // change selectedIndex upon prop change
         final selectedIndexFromPath = ListQueue<int>();
@@ -49,12 +42,6 @@ class Skills extends HookWidget {
 
       return null;
     });
-
-    if (!pathsSnapshot.hasData) {
-      return const Text('loading').center();
-    }
-
-    final paths = pathsSnapshot.data!;
 
     return GridMorph(
       childrenCount: paths.length,

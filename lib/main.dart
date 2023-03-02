@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import 'components/tabs.dart';
+import 'contents/get_paths.dart';
+import 'contents/skill.dart';
+import 'contents/work.dart';
 import 'pages/home.dart';
 import 'pages/skills.dart';
 import 'pages/work.dart';
@@ -18,6 +21,15 @@ class App extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loading = useFuture(
+      useMemoized(() async {
+        await populatePaths();
+        await populateSkills();
+        await populateWorks();
+        return 1;
+      }),
+    );
+
     return MaterialApp.router(
       title: 'Richard Li',
       routerConfig: GoRouter(
@@ -76,20 +88,25 @@ class App extends HookWidget {
                   GoRoute(
                     path: 'skills',
                     pageBuilder: (context, state) => CustomTransitionPage(
-                      child: Skills(
-                        selected:
-                            state.queryParams['selected']?.split(',').toSet() ??
-                                {},
-                        onSelectChange: (selected) => context
-                            .go('/skills?selected=${selected.join(',')}'),
-                      ),
+                      child: !loading.hasData
+                          ? const Text('loading').center()
+                          : Skills(
+                              selected: state.queryParams['selected']
+                                      ?.split(',')
+                                      .toSet() ??
+                                  {},
+                              onSelectChange: (selected) => context
+                                  .go('/skills?selected=${selected.join(',')}'),
+                            ),
                       transitionsBuilder: (context, a, sa, child) => child,
                     ),
                   ),
                   GoRoute(
                     path: 'works',
                     pageBuilder: (context, state) => CustomTransitionPage(
-                      child: Works(),
+                      child: !loading.hasData
+                          ? const Text('loading').center()
+                          : const Works(),
                       transitionsBuilder: (context, a, sa, child) => child,
                     ),
                     routes: [

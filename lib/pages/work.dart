@@ -7,40 +7,34 @@ import '../contents/work.dart';
 import '../styles.dart';
 
 class Work extends HookWidget {
-  Work({super.key, required this.path})
-      : contentFuture = WorkContent.fromPath(path);
+  const Work({super.key, required this.path});
 
   final String path;
-  final Future<WorkContent> contentFuture;
 
   @override
   Widget build(BuildContext context) {
-    final content = useFuture(contentFuture);
-    return (content.hasData
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Image(
-                    image: content.data!.screenshot,
-                    alignment: Alignment.topCenter,
-                    fit: BoxFit.cover,
-                  ).expanded(),
-                  ColoredText(
-                    content.data!.name,
-                    style: heading4,
-                    color: primary03,
-                  )
-                      .padding(top: 12, horizontal: 12)
-                      .fittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.topLeft,
-                      )
-                      .height(72)
-                      .border(top: 1),
-                ],
-              )
-            : const Text('loading').center())
-        .border(all: 1)
-        .decorated(color: Colors.white);
+    final content = WorkContent.fromPath(path);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Image(
+          image: content.screenshot,
+          alignment: Alignment.topCenter,
+          fit: BoxFit.cover,
+        ).expanded(),
+        ColoredText(
+          content.name,
+          style: heading4,
+          color: primary03,
+        )
+            .padding(top: 12, horizontal: 12)
+            .fittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.topLeft,
+            )
+            .height(72)
+            .border(top: 1),
+      ],
+    ).border(all: 1).decorated(color: Colors.white);
   }
 }

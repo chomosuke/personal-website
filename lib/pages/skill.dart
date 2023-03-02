@@ -8,50 +8,25 @@ import '../contents/work.dart';
 import '../styles.dart';
 
 class Skill extends HookWidget {
-  Skill({
+  const Skill({
     super.key,
     required this.path,
     this.showDetail = false,
     required this.onClose,
-  }) {
-    contentFuture = SkillContent.fromPath(path);
-    workContentsFuture = (() async {
-      final works = (await contentFuture).works;
-      final workContents = <WorkContent>[];
-      for (final workPath in works) {
-        workContents.add(await WorkContent.fromPath(workPath));
-      }
-      return workContents;
-    })();
-  }
+  });
 
   final bool showDetail;
   final String path;
   final void Function() onClose;
-  late final Future<SkillContent> contentFuture;
-  late final Future<List<WorkContent>> workContentsFuture;
 
   @override
   Widget build(BuildContext context) {
-    final contentSnapshot = useFuture(contentFuture);
-    if (!contentSnapshot.hasData) {
-      return (contentSnapshot.hasError
-              ? Text(contentSnapshot.error.toString())
-              : const Text('Loading').center())
-          .border(all: 1)
-          .decorated(color: Colors.white);
+    final content = SkillContent.fromPath(path);
+    final workContents = <WorkContent>[];
+    final works = content.works;
+    for (final workPath in works) {
+      workContents.add(WorkContent.fromPath(workPath));
     }
-    final content = contentSnapshot.data!;
-
-    final workContentsSnapshot = useFuture(workContentsFuture);
-    if (!workContentsSnapshot.hasData) {
-      return (workContentsSnapshot.hasError
-              ? Text(workContentsSnapshot.error.toString())
-              : const Text('Loading').center())
-          .border(all: 1)
-          .decorated(color: Colors.white);
-    }
-    final workContents = workContentsSnapshot.data!;
 
     Widget widget;
     if (showDetail) {
@@ -60,7 +35,7 @@ class Skill extends HookWidget {
           Row(
             children: [
               Image(
-                image: contentSnapshot.data!.icon,
+                image: content.icon,
                 filterQuality: FilterQuality.medium,
                 height: 32,
               ).padding(right: 12),
@@ -112,7 +87,7 @@ class Skill extends HookWidget {
       widget = Column(
         children: [
           Image(
-            image: contentSnapshot.data!.icon,
+            image: content.icon,
             filterQuality: FilterQuality.medium,
             height: 32,
           ).padding(bottom: 12),
