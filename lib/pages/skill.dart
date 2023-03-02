@@ -45,22 +45,16 @@ class Skill extends HookWidget {
                 style: heading3,
               ),
               const Spacer(),
-              Stack(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.close_rounded),
-                    onPressed: onClose,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2),
-                      borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    ),
-                    width: 32,
-                    height: 32,
-                  ).center().constrained(width: 40, height: 40),
-                ],
-              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2),
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                ),
+                width: 32,
+                height: 32,
+                alignment: Alignment.center,
+                child: const Icon(Icons.close_rounded),
+              ).gestures(onTap: onClose),
             ],
           ).padding(top: 18, horizontal: 18, bottom: 12),
           ListView(
