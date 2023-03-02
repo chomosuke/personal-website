@@ -8,7 +8,12 @@ import '../contents/work.dart';
 import '../styles.dart';
 
 class Skill extends HookWidget {
-  Skill({super.key, required this.path, this.showDetail = false}) {
+  Skill({
+    super.key,
+    required this.path,
+    this.showDetail = false,
+    required this.onClose,
+  }) {
     contentFuture = SkillContent.fromPath(path);
     workContentsFuture = (() async {
       final works = (await contentFuture).works;
@@ -22,6 +27,7 @@ class Skill extends HookWidget {
 
   final bool showDetail;
   final String path;
+  final void Function() onClose;
   late final Future<SkillContent> contentFuture;
   late final Future<List<WorkContent>> workContentsFuture;
 
@@ -63,8 +69,25 @@ class Skill extends HookWidget {
                 color: content.iconColor,
                 style: heading3,
               ),
+              const Spacer(),
+              Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.close_rounded),
+                    onPressed: onClose,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    ),
+                    width: 32,
+                    height: 32,
+                  ).center().constrained(width: 40, height: 40),
+                ],
+              ),
             ],
-          ).padding(top: 18, left: 18, bottom: 12),
+          ).padding(top: 18, horizontal: 18, bottom: 12),
           ListView(
             scrollDirection: Axis.horizontal,
             children: [

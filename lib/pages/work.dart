@@ -23,7 +23,7 @@ class Work extends HookWidget {
                   Image(
                     image: content.data!.screenshot,
                     alignment: Alignment.topCenter,
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                   ).expanded(),
                   ColoredText(
                     content.data!.name,
