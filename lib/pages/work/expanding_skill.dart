@@ -37,22 +37,26 @@ class ExpandingSkill extends HookWidget {
       ),
       portalFollower: Skill(
         path: path,
-        state: SkillState.detailed,
+        state: clicked.value ? SkillState.detailed : SkillState.button,
         animateFrom: SkillState.button,
         animationDuration: duration,
-        onClose: () {
+        onClose: () async {
+          await controller.reverse();
           clicked.value = false;
         },
-      ).constrained(
-        width: 500,
-        height: 500,
-      ).backgroundColor(Colors.white),
+      )
+          .constrained(
+            width: (size.value?.width ?? 0) + 500 * animation,
+            height: (size.value?.height ?? 0) + 500 * animation,
+          )
+          .backgroundColor(Colors.white),
       child: Skill(
         key: key,
         path: path,
         state: SkillState.button,
         onClick: () {
           clicked.value = true;
+          controller.forward();
         },
       ),
     );
