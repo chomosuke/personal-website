@@ -23,12 +23,16 @@ class Skill extends HookWidget {
     super.key,
     required this.path,
     required this.state,
+    this.animateFrom,
+    this.animationDuration = const Duration(seconds: 1),
     this.onClose,
     this.onClick,
   });
 
-  final SkillState state;
   final String path;
+  final SkillState state;
+  final SkillState? animateFrom;
+  final Duration animationDuration;
   final void Function()? onClose;
   final void Function()? onClick;
 

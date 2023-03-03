@@ -9,7 +9,7 @@ import '../../components/colored_text.dart';
 import '../../components/popup_button.dart';
 import '../../contents/work.dart';
 import '../../styles.dart';
-import '../skill/skill.dart';
+import 'expanding_skill.dart';
 
 class Work extends HookWidget {
   const Work({super.key, required this.path, this.showDetail = false});
@@ -31,9 +31,8 @@ class Work extends HookWidget {
                     else if (spanContent is LinkSpanContent)
                       if (spanContent.path.substring(0, 6) == 'skills')
                         WidgetSpan(
-                          child: Skill(
+                          child: ExpandingSkill(
                             path: spanContent.path,
-                            state: SkillState.button,
                           ),
                         )
                       else
