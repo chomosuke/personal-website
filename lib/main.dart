@@ -104,7 +104,7 @@ class App extends HookWidget {
                           path: 'skills',
                           pageBuilder: (context, state) => CustomTransitionPage(
                             child: !loading.hasData
-                                ? const Text('loading').center()
+                                ? const Text('loading...').center()
                                 : Skills(
                                     selected: state.queryParams['selected']
                                             ?.split(',')
@@ -122,7 +122,7 @@ class App extends HookWidget {
                           path: 'works',
                           pageBuilder: (context, state) => CustomTransitionPage(
                             child: !loading.hasData
-                                ? const Text('loading').center()
+                                ? const Text('loading...').center()
                                 : const Works(),
                             transitionsBuilder: (context, a, sa, child) =>
                                 child,
@@ -133,7 +133,7 @@ class App extends HookWidget {
                               pageBuilder: (context, state) {
                                 return CustomTransitionPage(
                                   child: !loading.hasData
-                                      ? const Text('loading').center()
+                                      ? const Text('loading...').center()
                                       : Work(
                                           path: 'works/${state.params['name']}',
                                           showDetail: true,
