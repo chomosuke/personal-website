@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 import '../components/grid_morph.dart';
 import '../contents/get_paths.dart';
@@ -50,7 +51,7 @@ class Skills extends HookWidget {
         return GridMorphChild(
           widget: Skill(
             path: paths[i % paths.length],
-            showDetail: selected,
+            state: selected ? SkillState.detailed : SkillState.iconText,
             onClose: () {
               selectedIndex.value.remove(i);
               // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
@@ -65,10 +66,10 @@ class Skills extends HookWidget {
               while (selectedIndex.value.length > 3) {
                 selectedIndex.value.removeFirst();
               }
+              // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+              selectedIndex.notifyListeners();
+              onSelectChange(selectedFromIndex(paths, selectedIndex.value));
             }
-            // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-            selectedIndex.notifyListeners();
-            onSelectChange(selectedFromIndex(paths, selectedIndex.value));
           },
         );
       },
