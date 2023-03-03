@@ -41,8 +41,8 @@ class PopupButton extends HookWidget {
           child: (size != null
                   ? Text(text, style: textStyle).center()
                   : Text(text, style: textStyle).padding(
-                      horizontal: 8,
-                      vertical: 4,
+                      horizontal: 6,
+                      vertical: 2,
                     ))
               .border(all: 2)
               .backgroundColor(Colors.white)
@@ -55,6 +55,7 @@ class PopupButton extends HookWidget {
           behavior: HitTestBehavior.opaque,
         )
         .mouseRegion(
+          cursor: SystemMouseCursors.click,
           onEnter: (_) => controller.forward(),
           onExit: (_) => controller.reverse(),
         );

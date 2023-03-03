@@ -84,6 +84,11 @@ class Work extends HookWidget {
                   .height(72)
                   .border(top: 1),
             ],
-          ).border(all: 1).decorated(color: Colors.white);
+          ).border(all: 1).decorated(color: Colors.white).gestures(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                context.go('/$path');
+              },
+            ).mouseRegion(cursor: SystemMouseCursors.click);
   }
 }

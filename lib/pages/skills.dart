@@ -58,6 +58,8 @@ class Skills extends HookWidget {
               selectedIndex.notifyListeners();
               onSelectChange(selectedFromIndex(paths, selectedIndex.value));
             },
+          ).mouseRegion(
+            cursor: selected ? MouseCursor.defer : SystemMouseCursors.click,
           ),
           selected: selected,
           onClick: () {

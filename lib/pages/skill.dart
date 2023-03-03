@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../components/colored_text.dart';
@@ -31,28 +32,31 @@ class Skill extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final content = SkillContent.fromPath(path);
-    final workContents = <WorkContent>[];
-    final works = content.works;
-    for (final workPath in works) {
-      workContents.add(WorkContent.fromPath(workPath));
-    }
 
     if (state == SkillState.detailed) {
       return Column(
         children: [
           Row(
             children: [
-              Image(
-                image: content.icon,
-                filterQuality: FilterQuality.medium,
-                height: 32,
-              ).padding(right: 12),
-              ColoredText(
-                content.name,
-                color: content.iconColor,
-                style: heading3,
-              ).padding(right: 16),
-              const Spacer(),
+              Row(
+                children: [
+                  Image(
+                    image: content.icon,
+                    filterQuality: FilterQuality.medium,
+                    height: 32,
+                  ).padding(right: 12),
+                  ColoredText(
+                    content.name,
+                    color: content.iconColor,
+                    style: heading3,
+                  ).padding(right: 16),
+                ],
+              )
+                  .fittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                  )
+                  .expanded(),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(width: 2),
@@ -62,25 +66,38 @@ class Skill extends HookWidget {
                 height: 32,
                 alignment: Alignment.center,
                 child: const Icon(Icons.close_rounded),
-              ).gestures(onTap: onClose),
+              )
+                  .gestures(onTap: onClose)
+                  .mouseRegion(cursor: SystemMouseCursors.click),
             ],
           ).padding(top: 18, horizontal: 18, bottom: 12),
           ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              for (final workContent in workContents)
-                Column(
-                  children: [
-                    Image(image: workContent.screenshot, fit: BoxFit.cover)
-                        .aspectRatio(aspectRatio: 116 / 100)
-                        .expanded(),
-                    ColoredText(
-                      workContent.name,
-                      color: primary03,
-                      style: heading5,
-                    )
-                  ],
-                ).border(all: 1),
+              for (final workPath in content.works)
+                () {
+                  final workContent = WorkContent.fromPath(workPath);
+                  return Column(
+                    children: [
+                      Image(image: workContent.screenshot, fit: BoxFit.cover)
+                          .aspectRatio(aspectRatio: 116 / 100)
+                          .expanded(),
+                      ColoredText(
+                        workContent.name,
+                        color: primary03,
+                        style: heading5,
+                      )
+                    ],
+                  )
+                      .gestures(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          context.go('/$workPath');
+                        },
+                      )
+                      .mouseRegion(cursor: SystemMouseCursors.click)
+                      .border(all: 1);
+                }(),
             ],
           ).expanded(),
         ],

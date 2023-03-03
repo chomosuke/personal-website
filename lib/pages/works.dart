@@ -23,12 +23,6 @@ class Works extends HookWidget {
         return Work(
           key: _globalKeys[i],
           path: paths[i % paths.length],
-        ).gestures(
-          key: ValueKey(i),
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            context.go('/${paths[i % paths.length]}');
-          },
         );
       },
     );
