@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -32,7 +35,7 @@ class Skill extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final content = SkillContent.fromPath(path);
-
+    final worksScrollController = useScrollController();
     if (state == SkillState.detailed) {
       return Column(
         children: [
@@ -71,34 +74,50 @@ class Skill extends HookWidget {
                   .mouseRegion(cursor: SystemMouseCursors.click),
             ],
           ).padding(top: 18, horizontal: 18, bottom: 12),
-          ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              for (final workPath in content.works)
-                () {
-                  final workContent = WorkContent.fromPath(workPath);
-                  return Column(
-                    children: [
-                      Image(image: workContent.screenshot, fit: BoxFit.cover)
-                          .aspectRatio(aspectRatio: 116 / 100)
-                          .expanded(),
-                      ColoredText(
-                        workContent.name,
-                        color: primary03,
-                        style: heading5,
-                      )
-                    ],
-                  )
-                      .gestures(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          context.go('/$workPath');
-                        },
-                      )
-                      .mouseRegion(cursor: SystemMouseCursors.click)
-                      .border(all: 1);
-                }(),
-            ],
+          Listener(
+            onPointerSignal: (signal) {
+              if (signal is PointerScrollEvent) {
+                final position = worksScrollController.position;
+                final newOffset = max(
+                  0.0,
+                  min(
+                    position.maxScrollExtent,
+                    position.pixels + signal.scrollDelta.dy / 5,
+                  ),
+                );
+                worksScrollController.jumpTo(newOffset);
+              }
+            },
+            child: ListView(
+              controller: worksScrollController,
+              scrollDirection: Axis.horizontal,
+              children: [
+                for (final workPath in content.works)
+                  () {
+                    final workContent = WorkContent.fromPath(workPath);
+                    return Column(
+                      children: [
+                        Image(image: workContent.screenshot, fit: BoxFit.cover)
+                            .aspectRatio(aspectRatio: 116 / 100)
+                            .expanded(),
+                        ColoredText(
+                          workContent.name,
+                          color: primary03,
+                          style: heading5,
+                        )
+                      ],
+                    )
+                        .gestures(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            context.go('/$workPath');
+                          },
+                        )
+                        .mouseRegion(cursor: SystemMouseCursors.click)
+                        .border(all: 1);
+                  }(),
+              ],
+            ),
           ).expanded(),
         ],
       ).border(all: 1);
