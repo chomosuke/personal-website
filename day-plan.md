@@ -1,3 +1,4 @@
-- Skills
-- Projects
-- ColoredText
+- Skill in work doesn't go out of screen
+- Animate skill from button & iconText to Detailed
+- Animate page change
+- Animate tab
