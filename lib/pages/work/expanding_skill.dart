@@ -6,14 +6,19 @@ import 'package:styled_widget/styled_widget.dart';
 import '../skill/skill.dart';
 
 class ExpandingSkill extends HookWidget {
-  const ExpandingSkill({super.key, required this.path});
+  const ExpandingSkill({
+    super.key,
+    required this.path,
+    required this.selected,
+    required this.onSelectChange,
+  });
 
   final String path;
+  final bool selected;
+  final void Function(bool) onSelectChange;
 
   @override
   Widget build(BuildContext context) {
-    final clicked = useState(false);
-
     const duration = Duration(milliseconds: 500);
     final controller = useAnimationController(duration: duration);
     final animation = useAnimation(
@@ -22,6 +27,19 @@ class ExpandingSkill extends HookWidget {
         curve: Curves.ease,
       ),
     );
+
+    final overlay = useState(false);
+    useValueChanged(selected, (s, void r) {
+      () async {
+        if (selected) {
+          overlay.value = true;
+          await controller.forward();
+        } else {
+          await controller.reverse();
+          overlay.value = false;
+        }
+      }();
+    });
 
     final key = useMemoized(GlobalKey.new);
     final size = useRef<Size?>(null);
@@ -42,20 +60,17 @@ class ExpandingSkill extends HookWidget {
     });
 
     return PortalTarget(
-      visible: clicked.value,
+      visible: overlay.value,
       anchor: Aligned(
         follower: alignment.value ?? Alignment.topLeft,
         target: alignment.value ?? Alignment.topLeft,
       ),
       portalFollower: Skill(
         path: path,
-        state: clicked.value ? SkillState.detailed : SkillState.button,
+        state: selected ? SkillState.detailed : SkillState.button,
         animateFrom: SkillState.button,
         animationDuration: duration,
-        onClose: () async {
-          await controller.reverse();
-          clicked.value = false;
-        },
+        onClose: () => onSelectChange(false),
       )
           .constrained(
             width: (size.value?.width ?? 0) + 500 * animation,
@@ -66,10 +81,7 @@ class ExpandingSkill extends HookWidget {
         key: key,
         path: path,
         state: SkillState.button,
-        onClick: () {
-          clicked.value = true;
-          controller.forward();
-        },
+        onClick: () => onSelectChange(true),
       ),
     );
   }

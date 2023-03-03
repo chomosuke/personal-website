@@ -20,6 +20,7 @@ class Work extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final content = WorkContent.fromPath(path);
+    final selectedSkill = useState<LinkSpanContent?>(null);
     return showDetail
         ? RichText(
             text: TextSpan(
@@ -33,6 +34,14 @@ class Work extends HookWidget {
                         WidgetSpan(
                           child: ExpandingSkill(
                             key: ValueKey(path + spanContent.path),
+                            selected: selectedSkill.value == spanContent,
+                            onSelectChange: (selected) {
+                              if (selected) {
+                                selectedSkill.value = spanContent;
+                              } else {
+                                selectedSkill.value = null;
+                              }
+                            },
                             path: spanContent.path,
                           ),
                         )
