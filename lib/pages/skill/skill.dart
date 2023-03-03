@@ -39,6 +39,7 @@ class Skill extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final content = SkillContent.fromPath(path);
+    final workPaths = content.works;
     final worksScrollController = useScrollController();
     if (state == SkillState.detailed) {
       return Column(
@@ -96,7 +97,7 @@ class Skill extends HookWidget {
               controller: worksScrollController,
               scrollDirection: Axis.horizontal,
               children: [
-                for (final workPath in content.works)
+                for (final workPath in workPaths)
                   () {
                     final workContent = WorkContent.fromPath(workPath);
                     return Column(

@@ -32,6 +32,7 @@ class Work extends HookWidget {
                       if (spanContent.path.substring(0, 6) == 'skills')
                         WidgetSpan(
                           child: ExpandingSkill(
+                            key: ValueKey(path + spanContent.path),
                             path: spanContent.path,
                           ),
                         )
