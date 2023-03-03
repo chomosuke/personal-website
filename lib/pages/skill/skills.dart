@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../components/grid_morph.dart';
-import '../contents/get_paths.dart';
+import '../../components/grid_morph.dart';
+import '../../contents/get_paths.dart';
 import 'skill.dart';
 
 class Skills extends HookWidget {

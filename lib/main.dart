@@ -8,9 +8,9 @@ import 'contents/get_paths.dart';
 import 'contents/skill.dart';
 import 'contents/work.dart';
 import 'pages/home.dart';
-import 'pages/skills.dart';
-import 'pages/work.dart';
-import 'pages/works.dart';
+import 'pages/skill/skills.dart';
+import 'pages/work/work.dart';
+import 'pages/work/works.dart';
 
 void main() {
   runApp(const App());

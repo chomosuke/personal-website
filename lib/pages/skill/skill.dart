@@ -6,11 +6,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../components/colored_text.dart';
-import '../components/popup_button.dart';
-import '../contents/skill.dart';
-import '../contents/work.dart';
-import '../styles.dart';
+import '../../components/colored_text.dart';
+import '../../components/popup_button.dart';
+import '../../contents/skill.dart';
+import '../../contents/work.dart';
+import '../../styles.dart';
 
 enum SkillState {
   button,
