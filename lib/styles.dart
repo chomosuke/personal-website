@@ -20,6 +20,10 @@ final heading5 = ColoredTextStyle(
   colorHeight: 6.2,
   topOffset: 4.8,
 );
+final heading5Underline = GoogleFonts.comfortaa(
+  fontSize: 12,
+  decoration: TextDecoration.underline,
+);
 final label1 = ColoredTextStyle(
   textStyle: GoogleFonts.rubik(fontSize: 20),
   colorHeight: 10,
