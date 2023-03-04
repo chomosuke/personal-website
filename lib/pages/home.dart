@@ -47,7 +47,8 @@ class Home extends HookWidget {
             ],
           )
               .constrained(width: 400, height: 400)
-              .padding(all: 264)
+              .fittedBox(fit: BoxFit.scaleDown)
+              .padding(top: 264, left: 264)
               .alignment(Alignment.topLeft),
           Column(
             children: [
@@ -104,6 +105,6 @@ class Home extends HookWidget {
           ).padding(top: 84, left: 72),
         ],
       ),
-    );
+    ).constrained(width: 1440, height: 1024).fittedBox();
   }
 }
