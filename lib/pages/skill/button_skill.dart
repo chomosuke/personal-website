@@ -80,7 +80,7 @@ class ButtonSkill extends HookWidget {
                     width: 32 * animation,
                     height: 32 * animation,
                     alignment: Alignment.center,
-                    child: const Icon(Icons.close_rounded),
+                    child: Icon(Icons.close_rounded, size: 24 * animation),
                   )
                       .gestures(onTap: onClose)
                       .mouseRegion(cursor: SystemMouseCursors.click),

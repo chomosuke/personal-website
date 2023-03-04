@@ -24,21 +24,15 @@ class ExpandingSkill extends HookWidget {
     const duration = Duration(milliseconds: 500);
     final controller = useAnimationController(duration: duration);
     final animation = useAnimation(
-      CurvedAnimation(
-        parent: controller,
-        curve: Curves.ease,
-      ),
+      CurvedAnimation(parent: controller, curve: Curves.ease),
     );
 
-    final overlay = useState(false);
     useValueChanged(selected, (s, void r) {
       () async {
         if (selected) {
-          overlay.value = true;
           await controller.forward();
         } else {
           await controller.reverse();
-          overlay.value = false;
         }
       }();
     });
@@ -62,7 +56,7 @@ class ExpandingSkill extends HookWidget {
     });
 
     return PortalTarget(
-      visible: overlay.value,
+      visible: animation > 0,
       anchor: Aligned(
         follower: alignment.value ?? Alignment.topLeft,
         target: alignment.value ?? Alignment.topLeft,

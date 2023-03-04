@@ -9,6 +9,7 @@ class GridMorph extends HookWidget {
     super.key,
     required this.childrenCount,
     required this.childFactory,
+    required this.animationDuration,
   });
 
   final GridMorphChild Function(
@@ -17,6 +18,7 @@ class GridMorph extends HookWidget {
     bool hovered,
   ) childFactory;
   final int childrenCount;
+  final Duration animationDuration;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +39,10 @@ class GridMorph extends HookWidget {
     for (var i = 0; i < 2; i++) {
       for (var j = 0; j < (i == 0 ? numRow : numCol); j++) {
         final hoverController = useAnimationController(
-          duration: const Duration(milliseconds: 500),
+          duration: animationDuration,
         );
         final selectController = useAnimationController(
-          duration: const Duration(milliseconds: 500),
+          duration: animationDuration,
         );
         final hoverAnimation = CurvedAnimation(
           parent: hoverController,
@@ -124,10 +126,6 @@ class GridMorph extends HookWidget {
               for (var j = 0; j < numCol; j++)
                 children[i * numCol + j]
                     .widget
-                    .gestures(
-                      onTap: () => children[i * numCol + j].onClick(),
-                      behavior: HitTestBehavior.opaque,
-                    )
                     .mouseRegion(
                       onEnter: (_) => onHover(_IJ(i, j)),
                       onExit: (_) => onHover(null),
@@ -164,9 +162,7 @@ class GridMorphChild {
   const GridMorphChild({
     required this.widget,
     required this.selected,
-    required this.onClick,
   });
   final Widget widget;
   final bool selected;
-  final void Function() onClick;
 }

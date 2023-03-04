@@ -44,12 +44,16 @@ class Skills extends HookWidget {
       return null;
     });
 
+    const duration = Duration(milliseconds: 500);
+
     return GridMorph(
+      animationDuration: duration,
       childrenCount: paths.length,
       childFactory: (context, i, hovered) {
         final selected = selectedIndex.value.contains(i);
         return GridMorphChild(
           widget: IconTextSkill(
+            animationDuration: duration,
             path: paths[i % paths.length],
             showDetail: selected,
             onClose: () {
@@ -58,21 +62,21 @@ class Skills extends HookWidget {
               selectedIndex.notifyListeners();
               onSelectChange(selectedFromIndex(paths, selectedIndex.value));
             },
+            onClick: () {
+              if (!selectedIndex.value.contains(i)) {
+                selectedIndex.value.addLast(i);
+                while (selectedIndex.value.length > 3) {
+                  selectedIndex.value.removeFirst();
+                }
+                // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+                selectedIndex.notifyListeners();
+                onSelectChange(selectedFromIndex(paths, selectedIndex.value));
+              }
+            },
           ).mouseRegion(
             cursor: selected ? MouseCursor.defer : SystemMouseCursors.click,
           ),
           selected: selected,
-          onClick: () {
-            if (!selectedIndex.value.contains(i)) {
-              selectedIndex.value.addLast(i);
-              while (selectedIndex.value.length > 3) {
-                selectedIndex.value.removeFirst();
-              }
-              // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-              selectedIndex.notifyListeners();
-              onSelectChange(selectedFromIndex(paths, selectedIndex.value));
-            }
-          },
         );
       },
     );
