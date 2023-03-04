@@ -33,6 +33,9 @@ class ExpandingSkill extends HookWidget {
       controller.reverse();
     }
 
+    const skillWidth = 400;
+    const skillHeight = 256;
+
     final key = useMemoized(GlobalKey.new);
     final size = useRef<Size?>(null);
     final alignment = useState<Alignment?>(null);
@@ -40,8 +43,8 @@ class ExpandingSkill extends HookWidget {
       size.value = (key.currentContext!.findRenderObject()! as RenderBox).size;
       final offset = (key.currentContext!.findRenderObject()! as RenderBox)
           .localToGlobal(Offset.zero);
-      if (offset.dx > MediaQuery.of(context).size.width - 600) {
-        if (offset.dy > MediaQuery.of(context).size.height - 600) {
+      if (offset.dx > MediaQuery.of(context).size.width - skillWidth) {
+        if (offset.dy > MediaQuery.of(context).size.height - skillHeight) {
           alignment.value = Alignment.bottomRight;
         } else {
           alignment.value = Alignment.topRight;
@@ -64,8 +67,8 @@ class ExpandingSkill extends HookWidget {
         onClose: () => onSelectChange(false),
       )
           .constrained(
-            width: (size.value?.width ?? 0) + 500 * animation,
-            height: (size.value?.height ?? 0) + 500 * animation,
+            width: (size.value?.width ?? 0) + skillWidth * animation,
+            height: (size.value?.height ?? 0) + skillHeight * animation,
           )
           .backgroundColor(Colors.white),
       child: ButtonSkill(
