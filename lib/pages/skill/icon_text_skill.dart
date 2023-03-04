@@ -53,7 +53,10 @@ class IconTextSkill extends HookWidget {
                 content.name,
                 color: content.iconColor,
                 style: heading3,
-              ).fittedBox(fit: BoxFit.fitHeight).height(20),
+              )
+                  .padding(horizontal: 24)
+                  .fittedBox(fit: BoxFit.fitHeight)
+                  .height(20),
             ],
           )
             .fittedBox(fit: BoxFit.scaleDown)
@@ -83,6 +86,7 @@ class IconTextSkill extends HookWidget {
                         color: content.iconColor,
                         style: heading3,
                       )
+                          .padding(horizontal: 24 * (1 - animation))
                           .fittedBox(fit: BoxFit.fitHeight)
                           .height(20 + 18 * animation)
                           .padding(right: 16 * animation),
