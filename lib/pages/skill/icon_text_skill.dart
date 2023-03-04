@@ -157,8 +157,8 @@ class _IconTextDelegate extends BoxyDelegate {
     child2.position(child2Pos);
 
     return Size(
-      child2Pos.dx + child2Size.width,
-      child2Pos.dy + child2Size.height,
+      max(child2Pos.dx + child2Size.width, child1Pos.dx + child1Size.width),
+      max(child2Pos.dy + child2Size.height, child1Pos.dy + child1Size.height),
     );
   }
 }
