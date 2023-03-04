@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../skill/skill.dart';
+import '../skill/button_skill.dart';
 
 class ExpandingSkill extends HookWidget {
   const ExpandingSkill({
@@ -11,11 +11,13 @@ class ExpandingSkill extends HookWidget {
     required this.path,
     required this.selected,
     required this.onSelectChange,
+    required this.textHeight,
   });
 
   final String path;
   final bool selected;
   final void Function(bool) onSelectChange;
+  final double textHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +67,10 @@ class ExpandingSkill extends HookWidget {
         follower: alignment.value ?? Alignment.topLeft,
         target: alignment.value ?? Alignment.topLeft,
       ),
-      portalFollower: Skill(
+      portalFollower: ButtonSkill(
+        textHeight: textHeight,
         path: path,
-        state: selected ? SkillState.detailed : SkillState.button,
-        animateFrom: SkillState.button,
-        animationDuration: duration,
+        animation: animation,
         onClose: () => onSelectChange(false),
       )
           .constrained(
@@ -77,10 +78,11 @@ class ExpandingSkill extends HookWidget {
             height: (size.value?.height ?? 0) + 500 * animation,
           )
           .backgroundColor(Colors.white),
-      child: Skill(
+      child: ButtonSkill(
+        textHeight: textHeight,
         key: key,
         path: path,
-        state: SkillState.button,
+        animation: 0,
         onClick: () => onSelectChange(true),
       ),
     );

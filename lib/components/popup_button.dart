@@ -6,17 +6,15 @@ import 'package:styled_widget/styled_widget.dart';
 class PopupButton extends HookWidget {
   const PopupButton({
     super.key,
-    required this.text,
-    required this.onClick,
+    required this.child,
     required this.color,
-    this.textStyle,
+    this.onClick,
     this.size,
     this.offset = const Offset(-4, -2),
   });
 
-  final void Function() onClick;
-  final String text;
-  final TextStyle? textStyle;
+  final void Function()? onClick;
+  final Widget child;
   final Size? size;
   final Color color;
   final Offset offset;
@@ -38,12 +36,7 @@ class PopupButton extends HookWidget {
         BoxyId(id: #color, child: Container(color: color)),
         BoxyId(
           id: #content,
-          child: (size != null
-                  ? Text(text, style: textStyle).center()
-                  : Text(text, style: textStyle).padding(
-                      horizontal: 6,
-                      vertical: 2,
-                    ))
+          child: (size != null ? child.center() : child)
               .border(all: 2)
               .backgroundColor(Colors.white)
               .translate(offset: offset * animation),

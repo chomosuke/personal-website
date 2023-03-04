@@ -62,23 +62,27 @@ class Home extends HookWidget {
               Row(
                 children: [
                   PopupButton(
-                    text: 'skills',
-                    textStyle: heading1,
                     size: const Size(400, 100),
                     color: primary02,
                     onClick: () {
                       context.go('/skills');
                     },
+                    child: Text(
+                      'skills',
+                      style: heading1,
+                    ),
                   ),
                   const Spacer(),
                   PopupButton(
-                    text: 'works',
-                    textStyle: heading1,
                     size: const Size(400, 100),
                     color: primary03,
                     onClick: () {
                       context.go('/works');
                     },
+                    child: Text(
+                      'works',
+                      style: heading1,
+                    ),
                   ),
                 ],
               ),

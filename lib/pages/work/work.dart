@@ -34,6 +34,7 @@ class Work extends HookWidget {
                         WidgetSpan(
                           child: ExpandingSkill(
                             key: ValueKey(path + spanContent.path),
+                            textHeight: 16,
                             selected: selectedSkill.value == spanContent,
                             onSelectChange: (selected) {
                               if (selected) {
@@ -48,11 +49,17 @@ class Work extends HookWidget {
                       else
                         WidgetSpan(
                           child: PopupButton(
-                            text: spanContent.text,
                             onClick: () {
                               context.go(spanContent.path);
                             },
                             color: primary03,
+                            child: Text(
+                              spanContent.text,
+                              style: heading3.textStyle,
+                            )
+                                .fittedBox(fit: BoxFit.fitHeight)
+                                .height(16)
+                                .padding(horizontal: 6, vertical: 2),
                           ),
                         )
                     else if (spanContent is ExternLinkSpanContent)

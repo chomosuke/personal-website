@@ -7,7 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '../../components/grid_morph.dart';
 import '../../contents/get_paths.dart';
-import 'skill.dart';
+import 'icon_text_skill.dart';
 
 class Skills extends HookWidget {
   const Skills({
@@ -49,9 +49,9 @@ class Skills extends HookWidget {
       childFactory: (context, i, hovered) {
         final selected = selectedIndex.value.contains(i);
         return GridMorphChild(
-          widget: Skill(
+          widget: IconTextSkill(
             path: paths[i % paths.length],
-            state: selected ? SkillState.detailed : SkillState.iconText,
+            showDetail: selected,
             onClose: () {
               selectedIndex.value.remove(i);
               // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
