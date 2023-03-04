@@ -38,7 +38,7 @@ class IconTextSkill extends HookWidget {
     }
 
     final animation = useAnimation(
-      CurvedAnimation(parent: controller, curve: Curves.linear),
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
 
     return animation == 0
@@ -64,10 +64,9 @@ class IconTextSkill extends HookWidget {
             children: [
               if (animation < 1)
                 Spacer(flex: (1000000 * (1 - animation)).ceil()),
-              Row(
+              CustomBoxy(
+                delegate: _TitleDelegate(1 - animation),
                 children: [
-                  if (animation < 1)
-                    Spacer(flex: (1000000 * (1 - animation)).ceil()),
                   CustomBoxy(
                     delegate: _IconTextDelegate(animation),
                     children: [
@@ -88,10 +87,7 @@ class IconTextSkill extends HookWidget {
                           .height(20 + 18 * animation)
                           .padding(right: 16 * animation),
                     ],
-                  ).fittedBox(
-                    fit: BoxFit.scaleDown,
-                  ),
-                  const Spacer(flex: 1000000),
+                  ).fittedBox(fit: BoxFit.scaleDown),
                   Container(
                     decoration: BoxDecoration(
                       border: Border.all(width: 2),
@@ -102,6 +98,7 @@ class IconTextSkill extends HookWidget {
                     alignment: Alignment.center,
                     child: Icon(Icons.close_rounded, size: 24 * animation),
                   )
+                      .opacity(animation)
                       .gestures(onTap: onClose)
                       .mouseRegion(cursor: SystemMouseCursors.click),
                 ],
@@ -121,44 +118,82 @@ class IconTextSkill extends HookWidget {
 
 class _IconTextDelegate extends BoxyDelegate {
   _IconTextDelegate(this.rowness);
-
   final double rowness;
   @override
   Size layout() {
     // assume only two children
-    final child1 = children.first;
-    final child2 = children.last;
+    final icon = children.first;
+    final text = children.last;
 
-    final child1Size = child1.layout(constraints);
-    final child2Size = child2.layout(constraints);
+    final iconSize = icon.layout(constraints);
+    final textSize = text.layout(constraints);
 
-    final child1PosCol = Offset(
-      max(0, child2Size.width - child1Size.width) / 2,
+    final iconPosCol = Offset(
+      max(0, textSize.width - iconSize.width) / 2,
       0,
     );
-    final child2PosCol = Offset(
-      max(0, child1Size.width - child2Size.width) / 2,
-      child1Size.height,
+    final textPosCol = Offset(
+      max(0, iconSize.width - textSize.width) / 2,
+      iconSize.height,
     );
 
-    final child1PosRow = Offset(
+    final iconPosRow = Offset(
       0,
-      max(0, child2Size.height - child1Size.height) / 2,
+      max(0, textSize.height - iconSize.height) / 2,
     );
-    final child2PosRow = Offset(
-      child1Size.width,
-      max(0, child1Size.height - child2Size.height) / 2,
+    final textPosRow = Offset(
+      iconSize.width,
+      max(0, iconSize.height - textSize.height) / 2,
     );
 
-    final child1Pos = child1PosRow * rowness + child1PosCol * (1 - rowness);
-    final child2Pos = child2PosRow * rowness + child2PosCol * (1 - rowness);
+    final iconPos = iconPosRow * rowness + iconPosCol * (1 - rowness);
+    final textPos = textPosRow * rowness + textPosCol * (1 - rowness);
 
-    child1.position(child1Pos);
-    child2.position(child2Pos);
+    icon.position(iconPos);
+    text.position(textPos);
 
     return Size(
-      max(child2Pos.dx + child2Size.width, child1Pos.dx + child1Size.width),
-      max(child2Pos.dy + child2Size.height, child1Pos.dy + child1Size.height),
+      max(textPos.dx + textSize.width, iconPos.dx + iconSize.width),
+      max(textPos.dy + textSize.height, iconPos.dy + iconSize.height),
+    );
+  }
+}
+
+class _TitleDelegate extends BoxyDelegate {
+  _TitleDelegate(this.centerness);
+  final double centerness;
+  @override
+  Size layout() {
+    final iconText = children[0];
+    final closeButton = children[1];
+
+    final closeButtonSize = closeButton.layout(constraints);
+    final closeButtonStart = constraints.maxWidth - closeButtonSize.width;
+    final iconTextSize = iconText.layout(
+      BoxConstraints(maxWidth: closeButtonStart),
+    );
+
+    final iconTextPos = Offset(
+      (closeButtonStart - iconTextSize.width) / 2 * centerness,
+      max(0, closeButtonSize.height - iconTextSize.height) / 2,
+    );
+    final closeButtonPos = Offset(
+      closeButtonStart,
+      max(0, iconTextSize.height - closeButtonSize.height) / 2,
+    );
+
+    iconText.position(iconTextPos);
+    closeButton.position(closeButtonPos);
+
+    return Size(
+      max(
+        closeButtonPos.dx + closeButtonSize.width,
+        iconTextPos.dx + iconTextSize.width,
+      ),
+      max(
+        closeButtonPos.dy + closeButtonSize.height,
+        iconTextPos.dy + iconTextSize.height,
+      ),
     );
   }
 }

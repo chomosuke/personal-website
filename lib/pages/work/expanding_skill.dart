@@ -24,18 +24,14 @@ class ExpandingSkill extends HookWidget {
     const duration = Duration(milliseconds: 500);
     final controller = useAnimationController(duration: duration);
     final animation = useAnimation(
-      CurvedAnimation(parent: controller, curve: Curves.ease),
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
 
-    useValueChanged(selected, (s, void r) {
-      () async {
-        if (selected) {
-          await controller.forward();
-        } else {
-          await controller.reverse();
-        }
-      }();
-    });
+    if (selected) {
+      controller.forward();
+    } else {
+      controller.reverse();
+    }
 
     final key = useMemoized(GlobalKey.new);
     final size = useRef<Size?>(null);
