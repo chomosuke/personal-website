@@ -10,14 +10,12 @@ class PopupButton extends HookWidget {
     required this.color,
     this.onClick,
     this.size,
-    this.offset = const Offset(-4, -2),
   });
 
   final void Function()? onClick;
   final Widget child;
   final Size? size;
   final Color color;
-  final Offset offset;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,12 @@ class PopupButton extends HookWidget {
           child: (size != null ? child.center() : child)
               .border(all: 2)
               .backgroundColor(Colors.white)
-              .translate(offset: offset * animation),
+              .translate(
+                offset: (size != null
+                        ? Offset(-0.1 * size!.height, -0.05 * size!.height)
+                        : const Offset(-4, -2)) *
+                    animation,
+              ),
         ),
       ],
     )
