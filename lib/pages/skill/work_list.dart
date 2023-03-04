@@ -14,15 +14,19 @@ class WorkList extends HookWidget {
   final List<String> workPaths;
   @override
   Widget build(BuildContext context) {
+    const padding = 8.0;
+    const borderThickness = 2.0;
     return HorizontalListView(
       children: [
-        for (final workPath in workPaths)
+        for (var i = 0; i < workPaths.length; i++)
           () {
-            final workContent = WorkContent.fromPath(workPath);
+            final workContent = WorkContent.fromPath(workPaths[i]);
             return Column(
               children: [
                 Image(image: workContent.screenshot, fit: BoxFit.cover)
                     .aspectRatio(aspectRatio: 116 / 100)
+                    .padding(bottom: borderThickness)
+                    .border(bottom: borderThickness)
                     .expanded(),
                 ColoredText(
                   workContent.name,
@@ -34,11 +38,17 @@ class WorkList extends HookWidget {
                 .gestures(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    context.go('/$workPath');
+                    context.go('/${workPaths[i]}');
                   },
                 )
                 .mouseRegion(cursor: SystemMouseCursors.click)
-                .border(all: 1);
+                .padding(all: borderThickness)
+                .border(all: borderThickness)
+                .padding(
+                  vertical: 2 * padding,
+                  left: i == 0 ? padding * 2 : padding,
+                  right: i == workPaths.length - 1 ? padding * 2 : padding,
+                );
           }(),
       ],
     );
