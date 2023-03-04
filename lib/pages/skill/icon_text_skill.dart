@@ -86,7 +86,7 @@ class IconTextSkill extends HookWidget {
                       )
                           .fittedBox(fit: BoxFit.fitHeight)
                           .height(20 + 18 * animation)
-                          .padding(right: 16),
+                          .padding(right: 16 * animation),
                     ],
                   ).fittedBox(
                     fit: BoxFit.scaleDown,
@@ -105,7 +105,11 @@ class IconTextSkill extends HookWidget {
                       .gestures(onTap: onClose)
                       .mouseRegion(cursor: SystemMouseCursors.click),
                 ],
-              ).padding(top: 18, horizontal: 18, bottom: 12),
+              ).padding(
+                top: 18 * animation,
+                horizontal: 18 * animation,
+                bottom: 12 * animation,
+              ),
               if (animation < 1)
                 Spacer(flex: (1000000 * (1 - animation)).ceil()),
               WorkList(workPaths: content.works)
