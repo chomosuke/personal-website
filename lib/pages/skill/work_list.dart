@@ -16,41 +16,67 @@ class WorkList extends HookWidget {
   Widget build(BuildContext context) {
     const padding = 8.0;
     const borderThickness = 2.0;
-    return HorizontalListView(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        for (var i = 0; i < workPaths.length; i++)
-          () {
-            final workContent = WorkContent.fromPath(workPaths[i]);
-            return Column(
-              children: [
-                Image(image: workContent.screenshot, fit: BoxFit.cover)
-                    .aspectRatio(aspectRatio: 116 / 100)
-                    .padding(bottom: borderThickness)
-                    .border(bottom: borderThickness)
-                    .expanded(),
-                ColoredText(
-                  workContent.name,
-                  color: primary03,
-                  style: heading5,
+        HorizontalListView(
+          children: [
+            for (var i = 0; i < workPaths.length; i++)
+              () {
+                final workContent = WorkContent.fromPath(workPaths[i]);
+                return Column(
+                  children: [
+                    Image(image: workContent.screenshot, fit: BoxFit.cover)
+                        .expanded(flex: 100),
+                    const ColoredBox(
+                      color: Colors.black,
+                      child: SizedBox.expand(),
+                    ).constrained(height: 2),
+                    ColoredText(
+                      workContent.name,
+                      color: primary03,
+                      style: heading5,
+                    )
+                        .padding(all: 8)
+                        .fittedBox()
+                        .expanded(flex: 24),
+                  ],
                 )
-              ],
-            )
-                .gestures(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    context.go('/${workPaths[i]}');
-                  },
-                )
-                .mouseRegion(cursor: SystemMouseCursors.click)
-                .padding(all: borderThickness)
-                .border(all: borderThickness)
-                .padding(
-                  vertical: 2 * padding,
-                  left: i == 0 ? padding * 2 : padding,
-                  right: i == workPaths.length - 1 ? padding * 2 : padding,
-                );
-          }(),
+                    .gestures(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        context.go('/${workPaths[i]}');
+                      },
+                    )
+                    .mouseRegion(cursor: SystemMouseCursors.click)
+                    .aspectRatio(aspectRatio: 116 / 124)
+                    .padding(all: borderThickness)
+                    .border(all: borderThickness)
+                    .padding(
+                      left: i == 0 ? 0 : padding,
+                      right: i == workPaths.length - 1 ? 0 : padding,
+                    );
+              }(),
+          ],
+        ).expanded(),
+        const SizedBox.square(dimension: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text('See all projects', style: heading5Underline)
+                .mouseRegion(cursor: SystemMouseCursors.click),
+            const Icon(
+              Icons.arrow_outward_rounded,
+              size: 16,
+            ).mouseRegion(cursor: SystemMouseCursors.click),
+          ],
+        ).gestures(
+          onTap: () {
+            context.go('/works');
+          },
+        ),
+        const SizedBox.square(dimension: 12),
       ],
-    );
+    ).padding(all: padding);
   }
 }
