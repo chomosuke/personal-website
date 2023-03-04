@@ -101,55 +101,40 @@ class App extends HookWidget {
                     routes: [
                       GoRoute(
                         path: '/',
-                        pageBuilder: (context, state) => CustomTransitionPage(
-                          child: const Home(),
-                          transitionsBuilder: (context, a, sa, child) => child,
-                        ),
+                        builder: (context, state) => const Home(),
                         routes: [
                           GoRoute(
                             path: 'skills',
-                            pageBuilder: (context, state) =>
-                                CustomTransitionPage(
-                              child: !loading.hasData
-                                  ? const Text('loading...').center()
-                                  : Skills(
-                                      selected: state.queryParams['selected']
-                                              ?.split(',')
-                                              .toSet() ??
-                                          {},
-                                      onSelectChange: (selected) => context.go(
-                                        '/skills?selected=${selected.join(',')}',
-                                      ),
-                                    ),
-                              transitionsBuilder: (context, a, sa, child) =>
-                                  child,
-                            ),
+                            builder: (context, state) => (!loading.hasData
+                                    ? const Text('loading...').center()
+                                    : Skills(
+                                        selected: state.queryParams['selected']
+                                                ?.split(',')
+                                                .toSet() ??
+                                            {},
+                                        onSelectChange: (selected) =>
+                                            context.go(
+                                          '/skills?selected=${selected.join(',')}',
+                                        ),
+                                      ))
+                                .backgroundColor(Colors.white),
                           ),
                           GoRoute(
                             path: 'works',
-                            pageBuilder: (context, state) =>
-                                CustomTransitionPage(
-                              child: !loading.hasData
-                                  ? const Text('loading...').center()
-                                  : const Works(),
-                              transitionsBuilder: (context, a, sa, child) =>
-                                  child,
-                            ),
+                            builder: (context, state) => (!loading.hasData
+                                    ? const Text('loading...').center()
+                                    : const Works())
+                                .backgroundColor(Colors.white),
                             routes: [
                               GoRoute(
                                 path: ':name',
-                                pageBuilder: (context, state) {
-                                  return CustomTransitionPage(
-                                    child: !loading.hasData
-                                        ? const Text('loading...').center()
-                                        : Work(
-                                            path:
-                                                'works/${state.params['name']}',
-                                            showDetail: true,
-                                          ),
-                                    transitionsBuilder:
-                                        (context, a, sa, child) => child,
-                                  );
+                                builder: (context, state) {
+                                  return (!loading.hasData
+                                      ? const Text('loading...').center()
+                                      : Work(
+                                          path: 'works/${state.params['name']}',
+                                          showDetail: true,
+                                        )).backgroundColor(Colors.white);
                                 },
                               ),
                             ],

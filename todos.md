@@ -1,3 +1,2 @@
-- Animate skill from button & iconText to Detailed
 - Animate page change
 - Animate tab

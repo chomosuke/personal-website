@@ -102,7 +102,6 @@ class Work extends HookWidget {
             ],
           )
             .border(all: 1)
-            .decorated(color: Colors.white)
             .gestures(
               behavior: HitTestBehavior.opaque,
               onTap: () {
