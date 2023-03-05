@@ -8,7 +8,7 @@ import 'components/tabs.dart';
 import 'contents/get_paths.dart';
 import 'contents/skill.dart';
 import 'contents/work.dart';
-import 'pages/home.dart';
+import 'pages/home/home.dart';
 import 'pages/skill/skills.dart';
 import 'pages/work/work.dart';
 import 'pages/work/works.dart';
