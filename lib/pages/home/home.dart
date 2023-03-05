@@ -78,33 +78,26 @@ class Home extends HookWidget {
           return Stack(
             children: [
               const ColoredBox(color: Color(0xFFEFFFD1))
-                  .constrained(
-                    width: width * 0.8,
-                    height: width * 0.8,
-                  )
-                  .padding(
-                    top: 100,
-                    horizontal: 32,
-                  )
+                  .constrained(width: width * 0.8, height: width * 0.8)
+                  .padding(top: 100, horizontal: 32)
                   .alignment(Alignment.topRight),
               const DottedGrid()
-                  .constrained(
-                    width: width * 0.6,
-                    maxHeight: width * 0.6,
+                  .constrained(width: width * 0.6, maxHeight: width * 0.6)
+                  .padding(
+                    top: min(180, width * 180 / 540),
+                    bottom: height * 0.48,
+                    left: min(120, width * 120 / 540),
                   )
-                  .padding(top: 100, bottom: height * 0.48)
-                  .alignment(Alignment.topRight),
+                  .alignment(Alignment.topLeft),
               const ColoredBox(
                 color: Color(0xFFC6E2AF),
                 child: SizedBox.expand(),
               )
                   .height(width * 0.5)
-                  .padding(
-                    left: width / 1600 * 480,
-                    top: 32,
-                  )
+                  .padding(left: width / 1600 * 480, top: 32)
                   .alignment(Alignment.topLeft),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   intro,
                   const Spacer(),
@@ -113,7 +106,7 @@ class Home extends HookWidget {
                   else
                     quirkySentence,
                   const Spacer(),
-                  buttons.fittedBox(fit: BoxFit.scaleDown),
+                  buttons.fittedBox(fit: BoxFit.scaleDown).center(),
                 ],
               ),
             ],
