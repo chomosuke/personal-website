@@ -23,7 +23,7 @@ class WorkContentDisplay extends HookWidget {
     final selectedSkill = useState<LinkSpanContent?>(null);
 
     const textHeight = 16.0;
-    const buttonPaddingTop = 2.0;
+    const buttonPaddingTop = 0.0;
 
     return LayoutBuilder(
       builder: (context, constraints) => Column(
@@ -58,8 +58,8 @@ class WorkContentDisplay extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('•  ', style: paragraph1),
-                RichText(
-                  text: TextSpan(
+                Text.rich(
+                  TextSpan(
                     children: [
                       for (final spanContent in point)
                         if (spanContent is TextSpanContent)
