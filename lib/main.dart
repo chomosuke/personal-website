@@ -31,6 +31,31 @@ class App extends HookWidget {
       }),
     );
 
+    Page<dynamic> Function(BuildContext context, GoRouterState state)
+        pageBuilder(
+      Widget Function(BuildContext context, GoRouterState state) childFactory,
+    ) {
+      return (context, state) => CustomTransitionPage(
+            transitionDuration: const Duration(milliseconds: 500),
+            reverseTransitionDuration: const Duration(milliseconds: 500),
+            child: childFactory(context, state),
+            transitionsBuilder: (
+              context,
+              animation,
+              secondaryAnimation,
+              child,
+            ) {
+              return FadeTransition(
+                opacity: animation,
+                child: (!loading.hasData
+                        ? const Text('loading...').center()
+                        : child)
+                    .backgroundColor(Colors.white),
+              );
+            },
+          );
+    }
+
     return Portal(
       child: loading.hasError
           ? Text(
@@ -101,41 +126,37 @@ class App extends HookWidget {
                     routes: [
                       GoRoute(
                         path: '/',
-                        builder: (context, state) => const Home(),
+                        pageBuilder:
+                            pageBuilder((context, state) => const Home()),
                         routes: [
                           GoRoute(
                             path: 'skills',
-                            builder: (context, state) => (!loading.hasData
-                                    ? const Text('loading...').center()
-                                    : Skills(
-                                        selected: state.queryParams['selected']
-                                                ?.split(',')
-                                                .toSet() ??
-                                            {},
-                                        onSelectChange: (selected) =>
-                                            context.go(
-                                          '/skills?selected=${selected.join(',')}',
-                                        ),
-                                      ))
-                                .backgroundColor(Colors.white),
+                            pageBuilder: pageBuilder(
+                              (context, state) => Skills(
+                                selected: state.queryParams['selected']
+                                        ?.split(',')
+                                        .toSet() ??
+                                    {},
+                                onSelectChange: (selected) => context.go(
+                                  '/skills?selected=${selected.join(',')}',
+                                ),
+                              ),
+                            ),
                           ),
                           GoRoute(
                             path: 'works',
-                            builder: (context, state) => (!loading.hasData
-                                    ? const Text('loading...').center()
-                                    : const Works())
-                                .backgroundColor(Colors.white),
+                            pageBuilder: pageBuilder(
+                              (context, state) => const Works(),
+                            ),
                             routes: [
                               GoRoute(
                                 path: ':name',
-                                builder: (context, state) {
-                                  return (!loading.hasData
-                                      ? const Text('loading...').center()
-                                      : Work(
-                                          path: 'works/${state.params['name']}',
-                                          showDetail: true,
-                                        )).backgroundColor(Colors.white);
-                                },
+                                pageBuilder: pageBuilder(
+                                  (context, state) => Work(
+                                    path: 'works/${state.params['name']}',
+                                    showDetail: true,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
