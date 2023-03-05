@@ -26,64 +26,69 @@ class WorkContentDisplay extends HookWidget {
     return LayoutBuilder(
       builder: (context, constraints) => SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image(image: content.screenshot).padding(all: 2).border(all: 2),
-            RichText(
-              text: TextSpan(
+            for (final point in content.description)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (final point in content.description) ...[
-                    for (final spanContent in point)
-                      if (spanContent is TextSpanContent)
-                        TextSpan(text: spanContent.text, style: paragraph1)
-                      else if (spanContent is LinkSpanContent)
-                        if (spanContent.path.substring(0, 6) == 'skills')
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: ExpandingSkill(
-                              key: ValueKey(path + spanContent.path),
-                              textHeight: textHeight,
-                              selected: selectedSkill.value == spanContent,
-                              onSelectChange: (selected) {
-                                if (selected) {
-                                  selectedSkill.value = spanContent;
-                                } else {
-                                  selectedSkill.value = null;
-                                }
-                              },
-                              path: spanContent.path,
-                            ).padding(top: buttonPaddingTop),
-                          )
-                        else
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: PopupButton(
-                              onClick: () {
-                                context.go(spanContent.path);
-                              },
-                              color: primary03,
-                              child: Text(
-                                spanContent.text,
-                                style: heading3.textStyle,
+                  Text('•  ', style: paragraph1),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        for (final spanContent in point)
+                          if (spanContent is TextSpanContent)
+                            TextSpan(text: spanContent.text, style: paragraph1)
+                          else if (spanContent is LinkSpanContent)
+                            if (spanContent.path.substring(0, 6) == 'skills')
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: ExpandingSkill(
+                                  key: ValueKey(path + spanContent.path),
+                                  textHeight: textHeight,
+                                  selected: selectedSkill.value == spanContent,
+                                  onSelectChange: (selected) {
+                                    if (selected) {
+                                      selectedSkill.value = spanContent;
+                                    } else {
+                                      selectedSkill.value = null;
+                                    }
+                                  },
+                                  path: spanContent.path,
+                                ).padding(top: buttonPaddingTop),
                               )
-                                  .fittedBox(fit: BoxFit.fitHeight)
-                                  .height(textHeight)
-                                  .padding(horizontal: 6, vertical: 2),
-                            ).padding(top: buttonPaddingTop),
-                          )
-                      else if (spanContent is ExternLinkSpanContent)
-                        TextSpan(
-                          text: spanContent.text,
-                          style: link,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchUrl(Uri.parse(spanContent.externLink));
-                            },
-                        ),
-                    const TextSpan(text: '\n'),
-                  ]
+                            else
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: PopupButton(
+                                  onClick: () {
+                                    context.go(spanContent.path);
+                                  },
+                                  color: primary03,
+                                  child: Text(
+                                    spanContent.text,
+                                    style: heading3.textStyle,
+                                  )
+                                      .fittedBox(fit: BoxFit.fitHeight)
+                                      .height(textHeight)
+                                      .padding(horizontal: 6, vertical: 2),
+                                ).padding(top: buttonPaddingTop),
+                              )
+                          else if (spanContent is ExternLinkSpanContent)
+                            TextSpan(
+                              text: spanContent.text,
+                              style: link,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  launchUrl(Uri.parse(spanContent.externLink));
+                                },
+                            ),
+                      ],
+                    ),
+                  ).expanded(),
                 ],
-              ),
-            )
+              ).padding(bottom: 6),
           ],
         ).padding(
           horizontal: constraints.maxWidth < 1200 / 0.8

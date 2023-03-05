@@ -29,10 +29,12 @@ final label1 = ColoredTextStyle(
   colorHeight: 10,
   topOffset: 8.6,
 );
-final paragraph1 = GoogleFonts.rubik(fontSize: 14, height: 2);
+
+const paragraphHeight = 1.6;
+final paragraph1 = GoogleFonts.rubik(fontSize: 14, height: paragraphHeight);
 final link = GoogleFonts.rubik(
   fontSize: 14,
-  height: 2,
+  height: paragraphHeight,
   color: const Color(0xFF0000EE),
   decoration: TextDecoration.underline,
 );
