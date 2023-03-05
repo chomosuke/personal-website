@@ -4,7 +4,6 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import 'components/tabs.dart';
 import 'contents/get_paths.dart';
 import 'contents/skill.dart';
 import 'contents/work.dart';
@@ -12,6 +11,8 @@ import 'pages/home/home.dart';
 import 'pages/skill/skills.dart';
 import 'pages/work/work.dart';
 import 'pages/work/works.dart';
+import 'styles.dart';
+import 'tabs.dart';
 
 void main() {
   runApp(const App());
@@ -74,31 +75,16 @@ class App extends HookWidget {
                     builder: (context, state, child) {
                       final tabs = [
                         TabElement(
-                          child: const Text(
-                            'Home',
-                            style: TextStyle(fontSize: 32),
-                          ),
-                          onTap: () {
-                            context.go('/');
-                          },
+                          child: Text('Home', style: heading2.textStyle),
+                          onTap: () => context.go('/'),
                         ),
                         TabElement(
-                          child: const Text(
-                            'Skills',
-                            style: TextStyle(fontSize: 32),
-                          ),
-                          onTap: () {
-                            context.go('/skills');
-                          },
+                          child: Text('Skills', style: heading2.textStyle),
+                          onTap: () => context.go('/skills'),
                         ),
                         TabElement(
-                          child: const Text(
-                            'Works',
-                            style: TextStyle(fontSize: 32),
-                          ),
-                          onTap: () {
-                            context.go('/works');
-                          },
+                          child: Text('Works', style: heading2.textStyle),
+                          onTap: () => context.go('/works'),
                         ),
                       ];
                       int pathToFocused(String path) {

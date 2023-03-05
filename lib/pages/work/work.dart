@@ -104,9 +104,7 @@ class Work extends HookWidget {
                   .border(all: 1)
                   .gestures(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      context.go('/$path');
-                    },
+                    onTap: () => context.go('/$path'),
                   )
                   .mouseRegion(cursor: SystemMouseCursors.click);
         },

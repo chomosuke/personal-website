@@ -91,9 +91,7 @@ class WorkContentDisplay extends HookWidget {
                             WidgetSpan(
                               alignment: PlaceholderAlignment.middle,
                               child: PopupButton(
-                                onClick: () {
-                                  context.go(spanContent.path);
-                                },
+                                onClick: () => context.go(spanContent.path),
                                 color: primary03,
                                 child: Text(
                                   spanContent.text,

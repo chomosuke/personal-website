@@ -47,9 +47,7 @@ class WorkList extends HookWidget {
                 )
                     .gestures(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        context.go('/${workPaths[i]}');
-                      },
+                      onTap: () => context.go('/${workPaths[i]}'),
                     )
                     .mouseRegion(cursor: SystemMouseCursors.click)
                     .aspectRatio(aspectRatio: 116 / 124)
@@ -75,9 +73,7 @@ class WorkList extends HookWidget {
           ],
         )
             .gestures(
-              onTap: () {
-                context.go('/works');
-              },
+              onTap: () => context.go('/works'),
             )
             .fittedBox(fit: BoxFit.scaleDown)
             .height(16 * seeAllProjectAnimation),

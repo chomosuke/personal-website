@@ -21,9 +21,7 @@ class Home extends HookWidget {
 
         final skillButton = PopupButton(
           color: primary02,
-          onClick: () {
-            context.go('/skills');
-          },
+          onClick: () => context.go('/skills'),
           child: Text(
             'skills',
             style: heading1,
@@ -32,9 +30,7 @@ class Home extends HookWidget {
 
         final worksButton = PopupButton(
           color: primary03,
-          onClick: () {
-            context.go('/works');
-          },
+          onClick: () => context.go('/works'),
           child: Text(
             'works',
             style: heading1,
@@ -162,10 +158,8 @@ class Home extends HookWidget {
                 .alignment(Alignment.topRight),
             const DottedGrid()
                 .constrained(
-                  maxWidth:
-                      400 + min(200, max(0, min(width - 1600, height - 1000))),
-                  maxHeight:
-                      400 + min(200, max(0, min(width - 1600, height - 1000))),
+                  maxWidth: 400 + min(200, max(0, width - 1600)),
+                  maxHeight: 400 + min(200, max(0, height - 1000)),
                 )
                 .padding(
                   top: min(200, height * 0.3),
