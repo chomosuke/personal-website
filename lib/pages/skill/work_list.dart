@@ -33,7 +33,7 @@ class WorkList extends HookWidget {
                       child: SizedBox.expand(),
                     ).constrained(height: 2),
                     ColoredText(
-                      workContent.name,
+                      workContent.shortName,
                       color: primary03,
                       style: heading5,
                     )

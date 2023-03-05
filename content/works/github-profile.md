@@ -2,6 +2,7 @@
 2023
 
 [Source Code](https://github.com/chomosuke/chomosuke/blob/master/update.py)
+[GitHub Profile](https://github.com/chomosuke)
 
 ## Summary
 A python script that updates my [GitHub Profile](https://github.com/chomosuke) daily.

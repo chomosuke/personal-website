@@ -2,6 +2,7 @@
 2018-2020
 
 [Source code](https://github.com/chomosuke/ProjectRocketC)
+[Google Play](https://play.google.com/store/apps/details?id=com.chomusukestudio.projectrocketc)
 
 ## Summary
 A simple time killer game about a rocket flying in space collecting stars and avoiding planet.
@@ -12,4 +13,4 @@ A simple time killer game about a rocket flying in space collecting stars and av
 - Following Android's [official developer guide](https://developer.android.com/guide), I completed most of the game's core functionality in [Java](../skills/java.md) in the first half of 2018 before porting it to [Kotlin](../skills/kotlin.md). I continued to improve the game during my free time until the end 2020.
 - I learned many of my programming fundamentals while making this game, such as the importance of good naming and coding style, the use of git as a version control system, and many principles and design patterns of object-oriented programming.
 - Because I didn't know game engine existed at the time, I wrote the entire game on top of [OpenGL](../skills/opengl.md). I later refactored out the graphics part of the game into a standalone mini game engine with the descriptive name: [PRC Android 2D game engine](./prc-android-2d-game-engine.md).
-- While the game didn't make any money as I had hoped, it did gain more than [1000 downloads on Google Play](https://play.google.com/store/apps/details?id=com.chomusukestudio.projectrocketc).
+- While the game didn't make any money as I had hoped, it did gain more than **1000** downloads on [Google Play](https://play.google.com/store/apps/details?id=com.chomusukestudio.projectrocketc).

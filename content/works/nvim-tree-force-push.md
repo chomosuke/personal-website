@@ -1,6 +1,8 @@
 # nvim-tree.lua force push recovery
 2023
 
+short name: nvim-tree force push recovery
+
 [Issue](https://github.com/nvim-tree/nvim-tree.lua/issues/1906)
 
 ## Summary

@@ -2,6 +2,7 @@
 2022
 
 [Source Code](https://github.com/chomosuke/chomosuke.com)
+[pub.dev](https://pub.dev/packages/flex_with_main_child)
 
 ## Summary
 A Flutter Flex (i.e. Column or Row) that sizes itself to its main child in the cross axis direction.

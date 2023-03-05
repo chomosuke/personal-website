@@ -28,7 +28,7 @@ class Work extends HookWidget {
                 fit: BoxFit.cover,
               ).expanded(),
               ColoredText(
-                content.name,
+                content.shortName,
                 style: heading4,
                 color: primary03,
               )

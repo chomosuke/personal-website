@@ -1,6 +1,8 @@
 # Process Scheduler Simulation in C
 2021
 
+short name: Process Scheduler
+
 [Source code](https://github.com/chomosuke/comp30023-project-1)
 
 ## Summary

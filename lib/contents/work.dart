@@ -97,8 +97,28 @@ Future<void> populateWorks() async {
         .toList();
     final description = descriptionLines.map(textToSpans).toList();
 
+    final name = lines[0].substring(2);
+    const shortNamePrefix = 'short name: ';
+    final shortName = lines.firstWhere(
+      (line) =>
+          line.length > shortNamePrefix.length &&
+          line.substring(0, shortNamePrefix.length) == shortNamePrefix,
+      orElse: () => shortNamePrefix + name,
+    ).substring(shortNamePrefix.length);
+
+    final quickLinks =
+        lines.where((line) => line.isNotEmpty && line[0] == '[').map((line) {
+      final textLink = line.split('](');
+      return ExternLinkSpanContent(
+        textLink[0].substring(1),
+        textLink[1].substring(0, textLink[1].length - 1),
+      );
+    }).toList();
+
     _workContentMem[path] = WorkContent(
-      name: lines[0].substring(2),
+      name: name,
+      shortName: shortName,
+      quickLinks: quickLinks,
       screenshot: AssetImage('content/assets/$path.png'),
       summary: lines[lines.indexOf('## Summary') + 1],
       description: description,
@@ -109,8 +129,10 @@ Future<void> populateWorks() async {
 class WorkContent {
   WorkContent({
     required this.name,
-    required this.screenshot,
+    required this.shortName,
+    required this.quickLinks,
     required this.summary,
+    required this.screenshot,
     required this.description,
   });
 
@@ -119,7 +141,9 @@ class WorkContent {
   }
 
   final String name;
-  final AssetImage screenshot;
+  final String shortName;
+  final List<ExternLinkSpanContent> quickLinks;
   final String summary;
+  final AssetImage screenshot;
   final List<List<SpanContent>> description;
 }

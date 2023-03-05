@@ -1,5 +1,9 @@
-# General committee of The University of Melbourne Competitive Programming Club
+# General Committee of The University of Melbourne Competitive Programming Club
 2020-2021
+
+short name: General Committee of UMCPC
+
+[Recording for one of the workshop](https://www.youtube.com/watch?v=tM_KfYcfS4M)
 
 ## Summary
 Hosted various workshops.
@@ -10,5 +14,3 @@ Hosted various workshops.
 - I had to thoroughly study and understand C++ to make sure there isn't any incorrect information in my workshop.
 - I also co-hosted the welcome workshop for second semester with another committee member.
 - Overall my workshops was received positively among our club members.
-
-[Recording for one of the workshop](https://www.youtube.com/watch?v=tM_KfYcfS4M)

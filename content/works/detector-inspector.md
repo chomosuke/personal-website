@@ -1,6 +1,8 @@
 # Associated Developer at Detector Inspector
 2022
 
+short name: Associated Developer
+
 ## Summary
 My first and only job where I worked with PHP, JavaScript, AWS and MySQL.
 
