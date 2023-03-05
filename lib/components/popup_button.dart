@@ -9,12 +9,10 @@ class PopupButton extends HookWidget {
     required this.child,
     required this.color,
     this.onClick,
-    this.size,
   });
 
   final void Function()? onClick;
   final Widget child;
-  final Size? size;
   final Color color;
 
   @override
@@ -28,20 +26,28 @@ class PopupButton extends HookWidget {
         curve: Curves.ease,
       ),
     );
+
+    final key = useMemoized(GlobalKey.new);
+    final offset = useRef<Offset?>(null);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final size = (key.currentContext!.findRenderObject()! as RenderBox).size;
+      final o =
+          size.height < 30 ? size.height * 0.1 : 3 + (size.height - 30) * 0.05;
+      offset.value = Offset(-2 * o, -o);
+    });
+
     return CustomBoxy(
-      delegate: _PopupButtonDelegate(size),
+      key: key,
+      delegate: _PopupButtonDelegate(),
       children: [
         BoxyId(id: #color, child: Container(color: color)),
         BoxyId(
           id: #content,
-          child: (size != null ? child.center() : child)
+          child: child
               .border(all: 2)
               .backgroundColor(Colors.white)
               .translate(
-                offset: (size != null
-                        ? Offset(-0.1 * size!.height, -0.05 * size!.height)
-                        : const Offset(-4, -2)) *
-                    animation,
+                offset: (offset.value ?? Offset.zero) * animation,
               ),
         ),
       ],
@@ -59,22 +65,14 @@ class PopupButton extends HookWidget {
 }
 
 class _PopupButtonDelegate extends BoxyDelegate {
-  _PopupButtonDelegate(this.size);
-  final Size? size;
+  _PopupButtonDelegate();
 
   @override
   Size layout() {
     final color = getChild(#color);
     final content = getChild(#content);
-    if (size != null) {
-      final s = size!;
-      color.layout(BoxConstraints.tight(s));
-      content.layout(BoxConstraints.tight(s));
-      return s;
-    } else {
-      final s = content.layout(constraints);
-      color.layout(BoxConstraints.tight(s));
-      return s;
-    }
+    final s = content.layout(constraints);
+    color.layout(BoxConstraints.tight(s));
+    return s;
   }
 }

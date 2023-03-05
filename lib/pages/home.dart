@@ -63,7 +63,6 @@ class Home extends HookWidget {
               Row(
                 children: [
                   PopupButton(
-                    size: const Size(400, 100),
                     color: primary02,
                     onClick: () {
                       context.go('/skills');
@@ -71,11 +70,10 @@ class Home extends HookWidget {
                     child: Text(
                       'skills',
                       style: heading1,
-                    ),
+                    ).center().constrained(width: 400, height: 100),
                   ),
                   const Spacer(),
                   PopupButton(
-                    size: const Size(400, 100),
                     color: primary03,
                     onClick: () {
                       context.go('/works');
@@ -83,7 +81,7 @@ class Home extends HookWidget {
                     child: Text(
                       'works',
                       style: heading1,
-                    ),
+                    ).center().constrained(width: 400, height: 100),
                   ),
                 ],
               ),
