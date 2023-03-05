@@ -148,19 +148,30 @@ class Home extends HookWidget {
 
         return Stack(
           children: [
-            const ColoredBox(color: Color(0xFFEFFFD1))
-                .constrained(
-                  width: 945,
-                  height: height * 0.85 - 224,
-                )
+            const ColoredBox(
+              color: Color(0xFFEFFFD1),
+              child: SizedBox.expand(),
+            )
+                .height(height * 0.85 - 224)
                 .padding(
                   right: 146,
-                  top: 224,
+                  top: min(224, height * 0.4),
+                  left: width / 1600 * 300,
+                  bottom: 0.1 * height * min(1, width / 1000),
                 )
                 .alignment(Alignment.topRight),
             const DottedGrid()
-                .constrained(maxWidth: 400, maxHeight: 400)
-                .padding(top: 200, left: 160, bottom: 100)
+                .constrained(
+                  maxWidth:
+                      400 + min(200, max(0, min(width - 1600, height - 1000))),
+                  maxHeight:
+                      400 + min(200, max(0, min(width - 1600, height - 1000))),
+                )
+                .padding(
+                  top: min(200, height * 0.3),
+                  left: min(160, height * 0.2),
+                  bottom: 100,
+                )
                 .alignment(Alignment.topLeft),
             ColoredBox(
               color: const Color(0xFFC6E2AF),
@@ -171,8 +182,7 @@ class Home extends HookWidget {
                       .alignment(Alignment.bottomLeft),
             )
                 .padding(
-                  bottom:
-                      width > 1000 ? 0.3 * height : 0.3 * height * width / 1000,
+                  bottom: 0.3 * height * min(1, width / 1000),
                   left: width / 1600 * 480,
                   top: 32,
                 )
@@ -194,6 +204,6 @@ class Home extends HookWidget {
           vertical: min(84, height / 600 * 84),
         );
       },
-    ).constrained(maxWidth: 1600, maxHeight: 1000).center();
+    ).constrained(maxWidth: 1800, maxHeight: 1200).center();
   }
 }
