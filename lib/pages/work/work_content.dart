@@ -26,9 +26,11 @@ class WorkContentDisplay extends HookWidget {
     return LayoutBuilder(
       builder: (context, constraints) => SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Image(image: content.screenshot).padding(all: 2).border(all: 2),
+            Image(image: content.screenshot, fit: BoxFit.contain)
+                .padding(all: 2)
+                .border(all: 2),
             for (final point in content.description)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +42,11 @@ class WorkContentDisplay extends HookWidget {
                         for (final spanContent in point)
                           if (spanContent is TextSpanContent)
                             TextSpan(text: spanContent.text, style: paragraph1)
+                          else if (spanContent is BoldTextSpanContent)
+                            TextSpan(
+                              text: spanContent.text,
+                              style: paragraph1Bold,
+                            )
                           else if (spanContent is LinkSpanContent)
                             if (spanContent.path.substring(0, 6) == 'skills')
                               WidgetSpan(

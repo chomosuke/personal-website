@@ -32,6 +32,11 @@ final label1 = ColoredTextStyle(
 
 const paragraphHeight = 1.6;
 final paragraph1 = GoogleFonts.rubik(fontSize: 14, height: paragraphHeight);
+final paragraph1Bold = GoogleFonts.rubik(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  height: paragraphHeight,
+);
 final link = GoogleFonts.rubik(
   fontSize: 14,
   height: paragraphHeight,

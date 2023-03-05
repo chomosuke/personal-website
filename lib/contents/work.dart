@@ -12,6 +12,11 @@ class TextSpanContent extends SpanContent {
   final String text;
 }
 
+class BoldTextSpanContent extends SpanContent {
+  BoldTextSpanContent(this.text);
+  final String text;
+}
+
 class LinkSpanContent extends SpanContent {
   LinkSpanContent(this.text, this.path);
   final String text;
@@ -65,7 +70,16 @@ List<SpanContent> textToSpans(String text) {
       linkStr = textSpanStr.substring(textSpanStr.lastIndexOf('[') + 1);
       textSpanStr = textSpanStr.substring(0, textSpanStr.lastIndexOf('['));
     }
-    spans.add(TextSpanContent(textSpanStr));
+
+    // detect boldness
+    final oddlyBold = textSpanStr.split('**');
+    for (var j = 0; j < oddlyBold.length; j++) {
+      if (j.isOdd) {
+        spans.add(BoldTextSpanContent(oddlyBold[j]));
+      } else {
+        spans.add(TextSpanContent(oddlyBold[j]));
+      }
+    }
   }
   return spans;
 }
