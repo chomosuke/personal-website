@@ -30,7 +30,28 @@ class WorkContentDisplay extends HookWidget {
           children: [
             Image(image: content.screenshot, fit: BoxFit.contain)
                 .padding(all: 2)
-                .border(all: 2),
+                .border(all: 2)
+                .constrained(maxHeight: 500)
+                .center(),
+            Row(
+              children: [
+                for (final quickLink in content.quickLinks)
+                  PopupButton(
+                    color: primary03,
+                    onClick: () {
+                      launchUrl(Uri.parse(quickLink.link));
+                    },
+                    child: Row(
+                      children: [
+                        if (quickLink.icon != null)
+                          Icon(quickLink.icon, size: 32).padding(right: 8),
+                        Text(quickLink.text, style: heading4.textStyle),
+                      ],
+                    ).padding(horizontal: 12).height(48),
+                  ).padding(right: 22, top: 15),
+              ],
+            ),
+            const SizedBox(width:0, height: 16),
             for (final point in content.description)
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,9 +119,9 @@ class WorkContentDisplay extends HookWidget {
               ).padding(bottom: 6),
           ],
         ).padding(
-          horizontal: constraints.maxWidth < 1200 / 0.8
+          horizontal: constraints.maxWidth < 1000 / 0.8
               ? 0.1 * constraints.maxWidth
-              : (constraints.maxWidth - 1200) / 2,
+              : (constraints.maxWidth - 1000) / 2,
         ),
       ),
     );

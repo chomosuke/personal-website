@@ -3,7 +3,7 @@
 
 short name: Process Scheduler
 
-[Source code](https://github.com/chomosuke/comp30023-project-1)
+[Source Code](https://github.com/chomosuke/comp30023-project-1)
 
 ## Summary
 One of my university assignment.

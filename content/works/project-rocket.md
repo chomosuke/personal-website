@@ -1,7 +1,7 @@
 # Project Rocket
 2018-2020
 
-[Source code](https://github.com/chomosuke/ProjectRocketC)
+[Source Code](https://github.com/chomosuke/ProjectRocketC)
 [Google Play](https://play.google.com/store/apps/details?id=com.chomusukestudio.projectrocketc)
 
 ## Summary

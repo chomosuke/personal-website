@@ -1,8 +1,8 @@
 # catballchard
 2021
 
-[Source code](https://github.com/chomosuke/catballchard)
-[Visit the Website](https://catballchard.chomosuke.com/)
+[Source Code](https://github.com/chomosuke/catballchard)
+[See it in Action](https://catballchard.chomosuke.com/)
 
 ## Summary
 A web app made with rust and flutter to store random photos with fun descriptions.

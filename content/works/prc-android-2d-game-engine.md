@@ -1,7 +1,7 @@
 # PRC Android 2D game engine
 2018-2020
 
-[Source code](https://github.com/chomosuke/PRCAndroid2DGameEngine)
+[Source Code](https://github.com/chomosuke/PRCAndroid2DGameEngine)
 
 ## Summary
 A 2D mini game engine for Android based on OpenGL ES.

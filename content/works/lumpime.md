@@ -2,7 +2,7 @@
 2022
 
 [Source Code](https://github.com/chomosuke/lumpime-tracker)
-[Visit the Website](https://lumpime.chomosuke.com/)
+[See it in Action](https://lumpime.chomosuke.com/)
 
 ## Summary
 A website that help people track what anime they're watching and what new anime to watch.
