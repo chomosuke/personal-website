@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:boxy/boxy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../components/colored_text.dart';
 import '../../contents/skill.dart';
 import '../../styles.dart';
+import 'contract_button.dart';
 import 'work_list.dart';
 
 class IconTextSkill extends HookWidget {
@@ -93,10 +93,7 @@ class IconTextSkill extends HookWidget {
                           .padding(right: 16 * animation),
                     ],
                   ).fittedBox(fit: BoxFit.scaleDown),
-                  Icon(PhosphorIcons.xSquare, size: 32 * animation)
-                      .opacity(animation)
-                      .gestures(onTap: onClose)
-                      .mouseRegion(cursor: SystemMouseCursors.click),
+                  ContractButton(onPressed: onClose, animation: animation),
                 ],
               ).padding(
                 top: 18 * animation,
