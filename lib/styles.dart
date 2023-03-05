@@ -29,6 +29,13 @@ final label1 = ColoredTextStyle(
   colorHeight: 10,
   topOffset: 8.6,
 );
+final paragraph1 = GoogleFonts.rubik(fontSize: 14, height: 2);
+final link = GoogleFonts.rubik(
+  fontSize: 14,
+  height: 2,
+  color: const Color(0xFF0000EE),
+  decoration: TextDecoration.underline,
+);
 
 const primary01 = Color(0xCCBEDAAA);
 const primary02 = Color(0xCCEBA7A7);
