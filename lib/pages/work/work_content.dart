@@ -33,25 +33,26 @@ class WorkContentDisplay extends HookWidget {
               .padding(all: 2)
               .border(all: 2)
               .center(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final quickLink in content.quickLinks)
-                PopupButton(
-                  color: primary03,
-                  onClick: () {
-                    launchUrl(Uri.parse(quickLink.link));
-                  },
-                  child: Row(
-                    children: [
-                      if (quickLink.icon != null)
-                        Icon(quickLink.icon, size: 32).padding(right: 8),
-                      Text(quickLink.text, style: heading4.textStyle),
-                    ],
-                  ).padding(horizontal: 12).height(48),
-                ).padding(right: 22, top: 15),
-            ],
-          ).fittedBox(fit: BoxFit.scaleDown, alignment: Alignment.centerLeft),
+          if (content.quickLinks.isNotEmpty)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final quickLink in content.quickLinks)
+                  PopupButton(
+                    color: primary03,
+                    onClick: () {
+                      launchUrl(Uri.parse(quickLink.link));
+                    },
+                    child: Row(
+                      children: [
+                        if (quickLink.icon != null)
+                          Icon(quickLink.icon, size: 32).padding(right: 8),
+                        Text(quickLink.text, style: heading4.textStyle),
+                      ],
+                    ).padding(horizontal: 12).height(48),
+                  ).padding(right: 22, top: 15),
+              ],
+            ).fittedBox(fit: BoxFit.scaleDown, alignment: Alignment.centerLeft),
           const SizedBox(width: 0, height: 16),
           for (final point in content.description)
             Row(

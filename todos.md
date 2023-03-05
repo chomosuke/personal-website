@@ -3,8 +3,8 @@
 	- padding 10%
 - Style home page
 - Animate page change
-<!-- progress -->
 - Animate & style tab
+<!-- progress -->
 - apply
 - Works hover
 - Work open animation
