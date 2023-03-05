@@ -5,6 +5,11 @@ import 'components/colored_text.dart';
 
 final display1 = GoogleFonts.yatraOne(fontSize: 128, height: 1);
 final heading1 = GoogleFonts.comfortaa(fontSize: 48);
+final heading2 = ColoredTextStyle(
+  textStyle: GoogleFonts.comfortaa(fontSize: 40),
+  colorHeight: 22,
+  topOffset: 13,
+);
 final heading3 = ColoredTextStyle(
   textStyle: GoogleFonts.rubik(fontSize: 32, fontWeight: FontWeight.w500),
   colorHeight: 17,

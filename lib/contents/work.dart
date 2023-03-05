@@ -130,6 +130,7 @@ Future<void> populateWorks() async {
 
     _workContentMem[path] = WorkContent(
       name: name,
+      time: lines[1],
       shortName: shortName,
       quickLinks: quickLinks,
       screenshot: AssetImage('content/assets/$path.png'),
@@ -142,6 +143,7 @@ Future<void> populateWorks() async {
 class WorkContent {
   WorkContent({
     required this.name,
+    required this.time,
     required this.shortName,
     required this.quickLinks,
     required this.summary,
@@ -154,6 +156,7 @@ class WorkContent {
   }
 
   final String name;
+  final String time;
   final String shortName;
   final List<QuickLinkContent> quickLinks;
   final String summary;
