@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -30,7 +32,6 @@ class WorkContentDisplay extends HookWidget {
           Image(image: content.screenshot, fit: BoxFit.contain)
               .padding(all: 2)
               .border(all: 2)
-              .constrained(maxHeight: 500)
               .center(),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -119,9 +120,8 @@ class WorkContentDisplay extends HookWidget {
             ).padding(bottom: 6),
         ],
       ).padding(
-        horizontal: constraints.maxWidth < 1000 / 0.8
-            ? 0.1 * constraints.maxWidth
-            : (constraints.maxWidth - 1000) / 2,
+        horizontal:
+            max(0.1 * constraints.maxWidth, (constraints.maxWidth - 1000) / 2),
       ),
     );
   }
