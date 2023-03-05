@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -75,15 +76,62 @@ class App extends HookWidget {
                     builder: (context, state, child) {
                       final tabs = [
                         TabElement(
-                          child: Text('Home', style: heading2.textStyle),
+                          childFactory: (animation) => Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Stack(
+                                children: [
+                                  SvgPicture.asset('content/assets/house.svg'),
+                                  SvgPicture.asset(
+                                    'content/assets/house-fill.svg',
+                                  ).opacity(animation),
+                                ],
+                              )
+                                  .constrained(width: 45, height: 45)
+                                  .padding(right: 4),
+                              Text('home', style: heading2.textStyle),
+                            ],
+                          ),
                           onTap: () => context.go('/'),
                         ),
                         TabElement(
-                          child: Text('Skills', style: heading2.textStyle),
+                          childFactory: (animation) => Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Stack(
+                                children: [
+                                  SvgPicture.asset('content/assets/brain.svg'),
+                                  SvgPicture.asset(
+                                    'content/assets/brain-fill.svg',
+                                  ).opacity(animation),
+                                ],
+                              )
+                                  .constrained(width: 45, height: 45)
+                                  .padding(right: 4),
+                              Text('skills', style: heading2.textStyle),
+                            ],
+                          ),
                           onTap: () => context.go('/skills'),
                         ),
                         TabElement(
-                          child: Text('Works', style: heading2.textStyle),
+                          childFactory: (animation) => Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Stack(
+                                children: [
+                                  SvgPicture.asset(
+                                    'content/assets/briefcase.svg',
+                                  ),
+                                  SvgPicture.asset(
+                                    'content/assets/briefcase-fill.svg',
+                                  ).opacity(animation),
+                                ],
+                              )
+                                  .constrained(width: 45, height: 45)
+                                  .padding(right: 4),
+                              Text('works', style: heading2.textStyle),
+                            ],
+                          ),
                           onTap: () => context.go('/works'),
                         ),
                       ];

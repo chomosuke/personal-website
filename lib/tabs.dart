@@ -87,9 +87,10 @@ class _DecoratedChild extends HookWidget {
       }
     });
 
-    return tabElement.child
-        .padding(horizontal: 48, top: 12 + 4 * (1 - hoverAnimation))
-        .height(74 + 4 * focusAnimation)
+    return tabElement
+        .childFactory(focusAnimation)
+        .padding(horizontal: 48, top: 4 + 8 * (1 - hoverAnimation))
+        .height(70 + 8 * focusAnimation)
         .decorated(
           color: focused ? Colors.white : const Color(0xFFF3F3F3),
           borderRadius: const BorderRadius.only(
@@ -106,7 +107,11 @@ class _DecoratedChild extends HookWidget {
         .gestures(onTap: tabElement.onTap)
         .mouseRegion(
           cursor: SystemMouseCursors.click,
-          onEnter: (_) => hoverController.forward(),
+          onEnter: (_) {
+            if (!focused) {
+              hoverController.forward();
+            }
+          },
           onExit: (_) => hoverController.reverse(),
         );
   }
@@ -141,7 +146,7 @@ class _TabsLayoutDelegate extends MultiChildLayoutDelegate {
 }
 
 class TabElement {
-  TabElement({required this.child, this.onTap});
-  final Widget child;
+  TabElement({required this.childFactory, this.onTap});
+  final Widget Function(double) childFactory;
   final void Function()? onTap;
 }
