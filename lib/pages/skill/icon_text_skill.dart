@@ -101,9 +101,11 @@ class IconTextSkill extends HookWidget {
                 bottom: 12 * animation,
               ),
               if (animation < 1)
-                Spacer(flex: (1000000 * (1 - animation)).ceil()),
-              WorkList(workPaths: content.works)
+                Spacer(flex: (500000 * (1 - animation)).ceil()),
+              WorkList(workPaths: content.works, animation: animation)
                   .expanded(flex: (1000000 * animation).ceil()),
+              if (animation < 1)
+                Spacer(flex: (500000 * (1 - animation)).ceil()),
             ],
           ).border(all: 1);
   }

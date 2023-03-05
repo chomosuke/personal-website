@@ -80,7 +80,8 @@ class ButtonSkill extends HookWidget {
                 horizontal: 18 * animation,
                 bottom: 12 * animation,
               ),
-              WorkList(workPaths: content.works).expanded(),
+              WorkList(workPaths: content.works, animation: animation)
+                  .expanded(),
             ],
           ).border(all: 2);
   }
