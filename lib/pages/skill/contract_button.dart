@@ -12,7 +12,11 @@ class ContractButton extends StatelessWidget {
   final double animation;
   @override
   Widget build(BuildContext context) => IconButton(
-        icon: Icon(PhosphorIcons.xSquare, size: 32 * animation),
+        icon: const Icon(PhosphorIcons.xSquare),
         onPressed: onPressed,
-      ).opacity(animation).mouseRegion(cursor: SystemMouseCursors.click);
+      )
+          .fittedBox()
+          .constrained(width: 40 * animation, height: 40 * animation)
+          .opacity(animation)
+          .mouseRegion(cursor: SystemMouseCursors.click);
 }
