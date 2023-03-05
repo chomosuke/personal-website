@@ -33,6 +33,7 @@ class ButtonSkill extends HookWidget {
         ? PopupButton(
             onClick: onClick,
             color: content.iconColor,
+            border: 1.2,
             child: Text(content.name, style: heading3.textStyle)
                 .fittedBox(fit: BoxFit.fitHeight)
                 .height(textHeight + (38 - textHeight) * animation)
@@ -83,6 +84,6 @@ class ButtonSkill extends HookWidget {
               WorkList(workPaths: content.works, animation: animation)
                   .expanded(),
             ],
-          ).border(all: 2);
+          ).border(all: 1.2 + 0.8 * animation);
   }
 }

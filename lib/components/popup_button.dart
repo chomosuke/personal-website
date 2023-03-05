@@ -9,11 +9,13 @@ class PopupButton extends HookWidget {
     required this.child,
     required this.color,
     this.onClick,
+    this.border = 2,
   });
 
   final void Function()? onClick;
   final Widget child;
   final Color color;
+  final double border;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class PopupButton extends HookWidget {
         BoxyId(
           id: #content,
           child: child
-              .border(all: 2)
+              .border(all: border)
               .backgroundColor(Colors.white)
               .translate(
                 offset: (offset.value ?? Offset.zero) * animation,
