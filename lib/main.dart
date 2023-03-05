@@ -148,6 +148,7 @@ class App extends HookWidget {
                       }
 
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Tabs(
                             focusedTab: pathToFocused(state.fullpath!),

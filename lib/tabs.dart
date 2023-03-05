@@ -1,3 +1,4 @@
+import 'package:boxy/boxy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -17,11 +18,11 @@ class Tabs extends HookWidget {
     final keys =
         useMemoized(() => [for (var i = 0; i < tabs.length; i++) GlobalKey()]);
 
-    return CustomMultiChildLayout(
+    return CustomBoxy(
       delegate: _TabsLayoutDelegate(height: 94, overlap: 12),
       children: [
         for (var i = tabs.length - 1; i > focusedTab; i--)
-          LayoutId(
+          BoxyId(
             id: i,
             child: _DecoratedChild(
               key: keys[i],
@@ -30,7 +31,7 @@ class Tabs extends HookWidget {
             ),
           ),
         for (var i = 0; i < focusedTab; i++)
-          LayoutId(
+          BoxyId(
             id: i,
             child: _DecoratedChild(
               key: keys[i],
@@ -38,7 +39,7 @@ class Tabs extends HookWidget {
               tabElement: tabs[i],
             ),
           ),
-        LayoutId(
+        BoxyId(
           id: focusedTab,
           child: _DecoratedChild(
             key: keys[focusedTab],
@@ -47,7 +48,10 @@ class Tabs extends HookWidget {
           ),
         ),
       ],
-    ).backgroundColor(const Color(0xFF4B4B4B)).clipRect();
+    )
+        .fittedBox(fit: BoxFit.scaleDown, alignment: Alignment.bottomLeft)
+        .backgroundColor(const Color(0xFF4B4B4B))
+        .clipRect();
   }
 }
 
@@ -117,32 +121,23 @@ class _DecoratedChild extends HookWidget {
   }
 }
 
-class _TabsLayoutDelegate extends MultiChildLayoutDelegate {
+class _TabsLayoutDelegate extends BoxyDelegate {
   _TabsLayoutDelegate({required this.height, required this.overlap});
 
   final double overlap;
   final double height;
 
   @override
-  Size getSize(BoxConstraints constraints) {
-    return Size(constraints.maxWidth, height);
-  }
-
-  @override
-  void performLayout(Size size) {
-    var i = 0;
+  Size layout() {
     var childPosX = 0.0;
-    while (hasChild(i)) {
-      final childSize = layoutChild(i, BoxConstraints.loose(size));
-      positionChild(i, Offset(childPosX, height - childSize.height));
+    for (var i = 0; hasChild(i); i++) {
+      final child = getChild(i);
+      final childSize = child.layout(constraints);
+      child.position(Offset(childPosX, height - childSize.height));
       childPosX += childSize.width - overlap;
-      i++;
     }
+    return Size(childPosX + overlap, height);
   }
-
-  @override
-  bool shouldRelayout(_TabsLayoutDelegate old) =>
-      old.height != height || old.overlap != overlap;
 }
 
 class TabElement {
