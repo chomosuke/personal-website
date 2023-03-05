@@ -50,7 +50,11 @@ class ExpandingSkill extends HookWidget {
           alignment.value = Alignment.topRight;
         }
       } else {
-        alignment.value = Alignment.topLeft;
+        if (offset.dy > MediaQuery.of(context).size.height - skillHeight) {
+          alignment.value = Alignment.bottomLeft;
+        } else {
+          alignment.value = Alignment.topLeft;
+        }
       }
     });
 
