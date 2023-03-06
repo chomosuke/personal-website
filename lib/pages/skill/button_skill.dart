@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 import '../../components/colored_text.dart';
 import '../../components/popup_button.dart';
@@ -45,11 +47,8 @@ class ButtonSkill extends HookWidget {
                 children: [
                   Row(
                     children: [
-                      Image(
-                        image: content.icon,
-                        filterQuality: FilterQuality.medium,
-                        height: 32 * animation,
-                      ).padding(right: 12 * animation),
+                      getIcon(content.iconPath, height: 32 * animation)
+                          .padding(right: 12 * animation),
                       ColoredText(
                         content.name,
                         color: Color.fromRGBO(
@@ -86,4 +85,10 @@ class ButtonSkill extends HookWidget {
             ],
           ).border(all: 1.2 + 0.8 * animation);
   }
+}
+
+Widget getIcon(String path, {required double height}) {
+  return path.contains('svg')
+      ? SvgPicture(AssetBytesLoader(path), height: height)
+      : Image.asset(path, filterQuality: FilterQuality.medium, height: height);
 }

@@ -8,6 +8,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../components/colored_text.dart';
 import '../../contents/skill.dart';
 import '../../styles.dart';
+import 'button_skill.dart';
 import 'contract_button.dart';
 import 'work_list.dart';
 
@@ -45,11 +46,7 @@ class IconTextSkill extends HookWidget {
     return animation == 0
         ? Column(
             children: [
-              Image(
-                image: content.icon,
-                filterQuality: FilterQuality.medium,
-                height: 32,
-              ).padding(bottom: 12),
+              getIcon(content.iconPath, height: 32).padding(bottom: 12),
               ColoredText(
                 content.name,
                 color: content.iconColor,
@@ -74,11 +71,7 @@ class IconTextSkill extends HookWidget {
                   CustomBoxy(
                     delegate: _IconTextDelegate(animation),
                     children: [
-                      Image(
-                        image: content.icon,
-                        filterQuality: FilterQuality.medium,
-                        height: 32,
-                      ).padding(
+                      getIcon(content.iconPath, height: 32).padding(
                         bottom: 12 * (1 - animation),
                         right: 12 * animation,
                       ),

@@ -1,0 +1,43 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:usvg="https://github.com/RazrFalcon/resvg" usvg:version="0.13.1">
+    <defs>
+        <clipPath id="B">
+            <path fill="#000000" stroke="none" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+        </clipPath>
+        <clipPath id="D">
+            <path fill="#000000" stroke="none" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+        </clipPath>
+        <clipPath id="F">
+            <path fill="#000000" stroke="none" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+        </clipPath>
+        <clipPath id="H">
+            <path fill="#000000" stroke="none" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+        </clipPath>
+        <linearGradient id="I" x1="566.635" y1="970.339" x2="685.65" y2="851.324" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1a237e" stop-opacity="0.4"/>
+            <stop offset="1" stop-color="#1a237e" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="K">
+            <path fill="#000000" stroke="none" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+        </clipPath>
+        <radialGradient id="L" cx="7824.659" cy="-2855.979" r="5082.889" fx="7824.659" fy="-2855.979" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.25 0 0 -0.25 -1812 -622.5)">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.1"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+    <g clip-path="url(#B)" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)">
+        <path fill="#39cefd" stroke="none" d="M 360.3 779.7 L 520 939.5 L 959.4 500 L 639.9 500 Z"/>
+    </g>
+    <g clip-path="url(#D)" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)">
+        <path fill="#39cefd" stroke="none" d="M 639.9 20.7 L 959.4 20.7 L 280.4 699.8 L 120.6 540 Z"/>
+    </g>
+    <g clip-path="url(#F)" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)">
+        <path fill="#03569b" stroke="none" d="M 520 939.5 L 639.9 1059.3 L 959.4 1059.3 L 679.8 779.7 Z"/>
+    </g>
+    <g clip-path="url(#H)" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)">
+        <path fill="url(#I)" stroke="none" d="M 757 857.4 L 679.8 779.7 L 520 939.5 Z"/>
+    </g>
+    <g clip-path="url(#K)" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)">
+        <path fill="#16b9fd" stroke="none" d="M 360.282 779.645 L 520.086 619.84 L 679.9 779.645 L 520.086 939.45 Z"/>
+    </g>
+    <path fill="url(#L)" stroke="none" transform="matrix(0.061615 0 0 0.061615 -1.430818 -1.2754)" d="M 959.4 500 L 679.8 779.7 L 959.4 1059.4 L 639.9 1059.4 L 360.2 779.7 L 639.9 500 L 959.4 500 Z M 639.9 20.7 L 120.6 540 L 280.4 699.8 L 959.4 20.7 L 639.9 20.7 Z"/>
+</svg>

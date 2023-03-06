@@ -4,6 +4,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:vector_graphics/vector_graphics_compat.dart';
 
 import 'contents/get_paths.dart';
 import 'contents/skill.dart';
@@ -81,9 +82,15 @@ class App extends HookWidget {
                             children: [
                               Stack(
                                 children: [
-                                  SvgPicture.asset('content/assets/house.svg'),
-                                  SvgPicture.asset(
-                                    'content/assets/house-fill.svg',
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/house.svg.vec',
+                                    ),
+                                  ),
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/house-fill.svg.vec',
+                                    ),
                                   ).opacity(animation),
                                 ],
                               )
@@ -100,9 +107,15 @@ class App extends HookWidget {
                             children: [
                               Stack(
                                 children: [
-                                  SvgPicture.asset('content/assets/brain.svg'),
-                                  SvgPicture.asset(
-                                    'content/assets/brain-fill.svg',
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/brain.svg.vec',
+                                    ),
+                                  ),
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/brain-fill.svg.vec',
+                                    ),
                                   ).opacity(animation),
                                 ],
                               )
@@ -119,11 +132,15 @@ class App extends HookWidget {
                             children: [
                               Stack(
                                 children: [
-                                  SvgPicture.asset(
-                                    'content/assets/briefcase.svg',
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/briefcase.svg.vec',
+                                    ),
                                   ),
-                                  SvgPicture.asset(
-                                    'content/assets/briefcase-fill.svg',
+                                  const SvgPicture(
+                                    AssetBytesLoader(
+                                      'content/assets/briefcase-fill.svg.vec',
+                                    ),
                                   ).opacity(animation),
                                 ],
                               )
