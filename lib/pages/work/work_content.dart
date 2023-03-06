@@ -58,11 +58,11 @@ class WorkContentDisplay extends HookWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('•  ', style: paragraph1),
+                Text('${'        ' * point.depth}•  ', style: paragraph1),
                 Text.rich(
                   TextSpan(
                     children: [
-                      for (final spanContent in point)
+                      for (final spanContent in point.content)
                         if (spanContent is TextSpanContent)
                           TextSpan(text: spanContent.text, style: paragraph1)
                         else if (spanContent is BoldTextSpanContent)

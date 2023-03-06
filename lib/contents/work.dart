@@ -39,7 +39,10 @@ class QuickLinkContent {
 
 final _workContentMem = <String, WorkContent>{};
 
-List<SpanContent> textToSpans(String text) {
+BulletPoint textToBulletPoints(String text) {
+  final depth = text.indexOf('- ');
+
+  text = text.substring(depth + 2);
   final textSpanStrs = text.split('](');
   final spans = <SpanContent>[];
   String? linkStr;
@@ -89,8 +92,10 @@ List<SpanContent> textToSpans(String text) {
       }
     }
   }
-  return spans;
+  return BulletPoint(spans, depth);
 }
+
+final isBulletPoint = RegExp(r'^\t*- ');
 
 Future<void> populateWorks() async {
   final paths = getPaths('works');
@@ -100,10 +105,9 @@ Future<void> populateWorks() async {
 
     final descriptionLines = lines
         .sublist(lines.indexOf('## Description') + 1)
-        .where((line) => line.length >= 2 && line.substring(0, 2) == '- ')
-        .map((line) => line.substring(2))
+        .where(isBulletPoint.hasMatch)
         .toList();
-    final description = descriptionLines.map(textToSpans).toList();
+    final description = descriptionLines.map(textToBulletPoints).toList();
 
     final name = lines[0].substring(2);
     const shortNamePrefix = 'short name: ';
@@ -161,5 +165,11 @@ class WorkContent {
   final List<QuickLinkContent> quickLinks;
   final String summary;
   final AssetImage screenshot;
-  final List<List<SpanContent>> description;
+  final List<BulletPoint> description;
+}
+
+class BulletPoint {
+  BulletPoint(this.content, this.depth);
+  final List<SpanContent> content;
+  final int depth;
 }
