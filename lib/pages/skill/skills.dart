@@ -65,7 +65,8 @@ class Skills extends HookWidget {
             onClick: () {
               if (!selectedIndex.value.contains(i)) {
                 selectedIndex.value.addLast(i);
-                while (selectedIndex.value.length > 3) {
+                while (selectedIndex.value.length >
+                    (MediaQuery.of(context).size.width / 900).ceil()) {
                   selectedIndex.value.removeFirst();
                 }
                 // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
