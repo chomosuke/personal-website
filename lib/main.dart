@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,8 @@ import 'styles.dart';
 import 'tabs.dart';
 
 void main() {
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const App());
 }
 
@@ -27,9 +30,13 @@ class App extends HookWidget {
   Widget build(BuildContext context) {
     final loading = useFuture(
       useMemoized(() async {
-        await populatePaths();
-        await populateSkills();
-        await populateWorks();
+        try {
+          await populatePaths();
+          await populateSkills();
+          await populateWorks();
+        } finally {
+          FlutterNativeSplash.remove();
+        }
         return 1;
       }),
     );
