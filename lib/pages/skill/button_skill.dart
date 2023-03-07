@@ -9,7 +9,7 @@ import '../../components/popup_button.dart';
 import '../../contents/skill.dart';
 import '../../styles.dart';
 import 'contract_button.dart';
-import 'work_list.dart';
+import 'skill_description.dart';
 
 class ButtonSkill extends HookWidget {
   const ButtonSkill({
@@ -80,9 +80,8 @@ class ButtonSkill extends HookWidget {
               ).padding(
                 top: 18 * animation,
                 horizontal: 18 * animation,
-                bottom: 12 * animation,
               ),
-              WorkList(workPaths: content.works, animation: animation)
+              SkillDescription(content: content, animation: animation)
                   .expanded(),
             ],
           ).border(all: 1.2 + 0.8 * animation);

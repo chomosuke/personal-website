@@ -113,9 +113,7 @@ Future<void> populateWorks() async {
     const shortNamePrefix = 'short name: ';
     final shortName = lines
         .firstWhere(
-          (line) =>
-              line.length > shortNamePrefix.length &&
-              line.substring(0, shortNamePrefix.length) == shortNamePrefix,
+          (line) => line.startsWith(shortNamePrefix),
           orElse: () => shortNamePrefix + name,
         )
         .substring(shortNamePrefix.length);
