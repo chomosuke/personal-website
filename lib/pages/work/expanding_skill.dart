@@ -35,7 +35,7 @@ class ExpandingSkill extends HookWidget {
     }
 
     const skillWidth = 400;
-    const skillHeight = 256;
+    const skillHeight = 300;
 
     final key = useMemoized(GlobalKey.new);
     final size = useRef<Size?>(null);
@@ -44,8 +44,12 @@ class ExpandingSkill extends HookWidget {
       size.value = (key.currentContext!.findRenderObject()! as RenderBox).size;
       final offset = (key.currentContext!.findRenderObject()! as RenderBox)
           .localToGlobal(Offset.zero);
-      if (offset.dx > MediaQuery.of(context).size.width - skillWidth) {
-        if (offset.dy > MediaQuery.of(context).size.height - skillHeight) {
+      if (offset.dx >
+          MediaQuery.of(context).size.width - skillWidth - size.value!.width) {
+        if (offset.dy >
+            MediaQuery.of(context).size.height -
+                skillHeight -
+                size.value!.height) {
           alignment.value = Alignment.bottomRight;
         } else {
           alignment.value = Alignment.topRight;
