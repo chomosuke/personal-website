@@ -10,7 +10,7 @@ RUN flutter precache --web
 WORKDIR /home/root/app
 COPY ./ ./
 RUN flutter pub get
-RUN flutter build web
+RUN flutter build web --web-renderer canvaskit --release
 
 FROM busybox:1 AS server
 WORKDIR /app
