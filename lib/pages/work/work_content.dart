@@ -76,6 +76,7 @@ class WorkContentDisplay extends HookWidget {
                               alignment: PlaceholderAlignment.middle,
                               child: ExpandingSkill(
                                 key: ValueKey(path + spanContent.path),
+                                content: spanContent,
                                 textHeight: textHeight,
                                 selected: selectedSkill.value == spanContent,
                                 onSelectChange: (selected) {
@@ -85,7 +86,6 @@ class WorkContentDisplay extends HookWidget {
                                     selectedSkill.value = null;
                                   }
                                 },
-                                path: spanContent.path,
                               ).padding(top: buttonPaddingTop),
                             )
                           else

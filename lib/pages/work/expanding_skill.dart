@@ -3,18 +3,19 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '../../contents/work.dart';
 import '../skill/button_skill.dart';
 
 class ExpandingSkill extends HookWidget {
   const ExpandingSkill({
     super.key,
-    required this.path,
+    required this.content,
     required this.selected,
     required this.onSelectChange,
     required this.textHeight,
   });
 
-  final String path;
+  final LinkSpanContent content;
   final bool selected;
   final void Function(bool) onSelectChange;
   final double textHeight;
@@ -65,8 +66,9 @@ class ExpandingSkill extends HookWidget {
         target: alignment.value ?? Alignment.topLeft,
       ),
       portalFollower: ButtonSkill(
+        buttonText: content.text,
+        path: content.path,
         textHeight: textHeight,
-        path: path,
         animation: animation,
         onClose: () => onSelectChange(false),
       )
@@ -76,9 +78,10 @@ class ExpandingSkill extends HookWidget {
           )
           .backgroundColor(Colors.white),
       child: ButtonSkill(
-        textHeight: textHeight,
+        buttonText: content.text,
         key: key,
-        path: path,
+        path: content.path,
+        textHeight: textHeight,
         animation: 0,
         onClick: () => onSelectChange(true),
       ),

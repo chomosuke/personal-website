@@ -16,6 +16,7 @@ class ButtonSkill extends HookWidget {
     super.key,
     required this.path,
     required this.animation,
+    required this.buttonText,
     required this.textHeight,
     this.onClose,
     this.onClick,
@@ -23,9 +24,10 @@ class ButtonSkill extends HookWidget {
 
   final String path;
   final double animation;
+  final String buttonText;
+  final double textHeight;
   final void Function()? onClose;
   final void Function()? onClick;
-  final double textHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class ButtonSkill extends HookWidget {
             onClick: onClick,
             color: content.iconColor,
             border: 1.2,
-            child: Text(content.name, style: heading3.textStyle)
+            child: Text(buttonText, style: heading3.textStyle)
                 .fittedBox(fit: BoxFit.fitHeight)
                 .height(textHeight + (38 - textHeight) * animation)
                 .padding(horizontal: 6, vertical: 2),
