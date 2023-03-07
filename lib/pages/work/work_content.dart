@@ -52,7 +52,10 @@ class WorkContentDisplay extends HookWidget {
                     ).padding(horizontal: 12).height(48),
                   ).padding(right: 22, top: 15),
               ],
-            ).fittedBox(fit: BoxFit.scaleDown, alignment: Alignment.centerLeft),
+            ).constrained(minWidth: 500).fittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                ),
           const SizedBox(width: 0, height: 16),
           for (final point in content.description)
             Row(

@@ -22,6 +22,15 @@ class Work extends HookWidget {
           final content = WorkContent.fromPath(path);
           final detailLeftPadding = min(102.0, 0.1 * constraints.maxWidth);
           final detailRightPadding = min(64.0, 0.1 * constraints.maxWidth);
+
+          final summary = Text(
+            content.summary,
+            style: heading4.textStyle,
+          ).padding(
+            left: detailLeftPadding,
+            right: detailRightPadding,
+            bottom: 24,
+          );
           return showDetail
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -70,11 +79,10 @@ class Work extends HookWidget {
                           right: detailRightPadding,
                           bottom: 16,
                         ),
-                    Text(content.summary, style: heading4.textStyle).padding(
-                      left: detailLeftPadding,
-                      right: detailRightPadding,
-                      bottom: 24,
-                    ),
+                    if (MediaQuery.of(context).size.width < 700)
+                      summary.width(700).fittedBox()
+                    else
+                      summary,
                     WorkContentDisplay(path: path),
                     const SizedBox(width: 0, height: 64),
                   ],
