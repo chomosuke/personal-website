@@ -40,22 +40,20 @@ class ExpandingSkill extends HookWidget {
     final key = useMemoized(GlobalKey.new);
     final size = useRef<Size?>(null);
     final alignment = useState<Alignment?>(null);
+    final windowSize = MediaQuery.of(context).size;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       size.value = (key.currentContext!.findRenderObject()! as RenderBox).size;
+
       final offset = (key.currentContext!.findRenderObject()! as RenderBox)
           .localToGlobal(Offset.zero);
-      if (offset.dx >
-          MediaQuery.of(context).size.width - skillWidth - size.value!.width) {
-        if (offset.dy >
-            MediaQuery.of(context).size.height -
-                skillHeight -
-                size.value!.height) {
+      if (offset.dx > windowSize.width - skillWidth - size.value!.width) {
+        if (offset.dy > windowSize.height - skillHeight - size.value!.height) {
           alignment.value = Alignment.bottomRight;
         } else {
           alignment.value = Alignment.topRight;
         }
       } else {
-        if (offset.dy > MediaQuery.of(context).size.height - skillHeight) {
+        if (offset.dy > windowSize.height - skillHeight) {
           alignment.value = Alignment.bottomLeft;
         } else {
           alignment.value = Alignment.topLeft;
@@ -63,12 +61,17 @@ class ExpandingSkill extends HookWidget {
       }
     });
 
+    final windowsTooSmall = windowSize.height < skillHeight * 2 ||
+        windowSize.width < skillWidth * 2;
+
     return PortalTarget(
       visible: animation > 0,
-      anchor: Aligned(
-        follower: alignment.value ?? Alignment.topLeft,
-        target: alignment.value ?? Alignment.topLeft,
-      ),
+      anchor: windowsTooSmall
+          ? const Filled()
+          : Aligned(
+              follower: alignment.value ?? Alignment.topLeft,
+              target: alignment.value ?? Alignment.topLeft,
+            ),
       portalFollower: ButtonSkill(
         buttonText: content.text,
         path: content.path,
@@ -80,7 +83,11 @@ class ExpandingSkill extends HookWidget {
             width: (size.value?.width ?? 0) + skillWidth * animation,
             height: (size.value?.height ?? 0) + skillHeight * animation,
           )
-          .backgroundColor(Colors.white),
+          .backgroundColor(Colors.white)
+          .center(
+            widthFactor: windowsTooSmall ? null : 1,
+            heightFactor: windowsTooSmall ? null : 1,
+          ),
       child: ButtonSkill(
         buttonText: content.text,
         key: key,
