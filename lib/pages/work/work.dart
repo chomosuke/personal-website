@@ -94,7 +94,7 @@ class Work extends HookWidget {
                       image: content.screenshot,
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,
-                    ).expanded(),
+                    ).padding(top: 1, horizontal: 1).expanded(),
                     ColoredText(
                       content.shortName,
                       style: heading4,
@@ -106,7 +106,7 @@ class Work extends HookWidget {
                           alignment: Alignment.topLeft,
                         )
                         .height(72)
-                        .border(top: 1),
+                        .border(top: 2),
                   ],
                 )
                   .border(all: 1)

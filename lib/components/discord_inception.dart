@@ -33,11 +33,16 @@ class DiscordInception extends HookWidget {
       } else {
         return Column(
           children: [
-            Row(children: [cs[0].expanded(), cs[1].expanded()]).expanded(),
+            Row(
+              children: [
+                cs[0].expanded(),
+                cs[1].expanded(),
+              ],
+            ).expanded(),
             Row(
               children: [
                 cs[2].expanded(),
-                rec(layer + 1, length / 2, constraints).expanded()
+                rec(layer + 1, length / 2, constraints).expanded(),
               ],
             ).expanded(),
           ],
