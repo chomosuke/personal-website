@@ -73,15 +73,7 @@ class DiscordInception extends HookWidget {
       },
       child: GestureDetector(
         onPanUpdate: (details) {
-          final dx = details.delta.dx;
-          final dy = details.delta.dy;
-          final sqSum = dx < 0
-              ? -pow(dx, 2)
-              : pow(dx, 2) + dy < 0
-                  ? -pow(dy, 2)
-                  : pow(dy, 2);
-          final r = sqSum < 0 ? sqrt(-sqSum) : -sqrt(sqSum);
-          scroll(r / 100);
+          scroll(-(details.delta.dx + details.delta.dy) / 150);
         },
         behavior: HitTestBehavior.opaque,
         child: LayoutBuilder(

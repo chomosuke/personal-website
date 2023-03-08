@@ -1,2 +1,0 @@
-- fix border on work page.
-- Work hover feedbacks
