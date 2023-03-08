@@ -12,6 +12,13 @@ class HorizontalListView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final worksScrollController = useScrollController();
+
+    var scrollConfiguration = ScrollConfiguration.of(context);
+    scrollConfiguration = scrollConfiguration.copyWith(
+      dragDevices:
+          scrollConfiguration.dragDevices.union({PointerDeviceKind.mouse}),
+    );
+
     return Listener(
       onPointerSignal: (signal) {
         if (signal is PointerScrollEvent) {
@@ -20,16 +27,19 @@ class HorizontalListView extends HookWidget {
             0.0,
             min(
               position.maxScrollExtent,
-              position.pixels + signal.scrollDelta.dy / 5,
+              position.pixels + signal.scrollDelta.dy / 2,
             ),
           );
           worksScrollController.jumpTo(newOffset);
         }
       },
-      child: ListView(
-        controller: worksScrollController,
-        scrollDirection: Axis.horizontal,
-        children: children,
+      child: ScrollConfiguration(
+        behavior: scrollConfiguration,
+        child: ListView(
+          controller: worksScrollController,
+          scrollDirection: Axis.horizontal,
+          children: children,
+        ),
       ),
     );
   }
