@@ -71,8 +71,9 @@ class DiscordInception extends HookWidget {
     );
     final residualScroll = useRef(0.0);
 
-    final scale = useState(1.0);
-    final initLayer = useState(0);
+    // without useRef, it'll complain about setstate being called while building
+    final scale = useRef(1.0);
+    final initLayer = useRef(0);
     double calcScale() =>
         scale.value * pow(2, residualScroll.value * toTargetAnimation);
     void updateInitLayer() {
@@ -100,12 +101,16 @@ class DiscordInception extends HookWidget {
       return calcScale();
     }
 
+    // for now this serve the sole purpose as markNeedsBuild
+    final scroll = useState(0.0);
     return Listener(
       onPointerSignal: (signal) {
         if (signal is PointerScrollEvent) {
           // for every scroll event: animationController is resetted and the
           // residualScroll & scale is updated.
           final delta = signal.scrollDelta.dy / 500;
+          scroll.value += delta;
+
           setScale(getScale());
           residualScroll
             ..value *= 1 - toTargetAnimation
@@ -119,6 +124,8 @@ class DiscordInception extends HookWidget {
       child: GestureDetector(
         onPanUpdate: (details) {
           final delta = -(details.delta.dx + details.delta.dy) / 150;
+          scroll.value += delta;
+
           setScale(getScale() * pow(2, delta));
           residualScroll.value = 0;
         },
