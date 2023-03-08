@@ -94,7 +94,7 @@ class Work extends HookWidget {
                       image: content.screenshot,
                       alignment: Alignment.topCenter,
                       fit: BoxFit.cover,
-                    ).padding(top: 1, horizontal: 1).expanded(),
+                    ).expanded(),
                     ColoredText(
                       content.shortName,
                       style: heading4,
@@ -109,7 +109,6 @@ class Work extends HookWidget {
                         .border(top: 2),
                   ],
                 )
-                  .border(all: 1)
                   .gestures(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => context.go('/$path'),

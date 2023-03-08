@@ -22,12 +22,6 @@ class DiscordInception extends HookWidget {
         childFactory(startingIndex + 1),
         childFactory(startingIndex + 2),
       ];
-      for (var i = 0; i < cs.length; i++) {
-        cs[i] = cs[i]
-            .width(constraints.maxWidth / 2)
-            .height(constraints.maxHeight / 2)
-            .fittedBox();
-      }
       if (length < 8) {
         return cs[0];
       } else {
@@ -36,17 +30,33 @@ class DiscordInception extends HookWidget {
             Row(
               children: [
                 cs[0].expanded(),
-                cs[1].expanded(),
+                Container(color: Colors.black, width: 2),
+                cs[1].aspectRatio(
+                  aspectRatio: constraints.maxWidth / constraints.maxHeight,
+                ), // extra aspectRatio to match the vertical seperator
               ],
             ).expanded(),
+            Container(color: Colors.black, height: 2),
             Row(
               children: [
                 cs[2].expanded(),
-                rec(layer + 1, length / 2, constraints).expanded(),
+                Container(color: Colors.black, width: 2),
+                rec(
+                  layer + 1,
+                  length / 2,
+                  constraints,
+                ).aspectRatio(
+                  aspectRatio: constraints.maxWidth / constraints.maxHeight,
+                ),
               ],
             ).expanded(),
           ],
-        );
+        )
+            .constrained(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+            )
+            .fittedBox();
       }
     }
 
