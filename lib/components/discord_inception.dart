@@ -50,40 +50,75 @@ class DiscordInception extends HookWidget {
       }
     }
 
+    final toTargetAnimationController = useAnimationController(
+      duration: const Duration(milliseconds: 300),
+    );
+    final toTargetAnimation = useAnimation(
+      CurvedAnimation(
+        parent: toTargetAnimationController,
+        curve: Curves.easeOut,
+      ),
+    );
+    final residualScroll = useRef(0.0);
+
     final scale = useState(1.0);
     final initLayer = useState(0);
-    void scroll(double delta) {
-      var newScale = scale.value * pow(2, delta);
-      while (newScale > 2) {
-        newScale /= 2;
+    double calcScale() =>
+        scale.value * pow(2, residualScroll.value * toTargetAnimation);
+    void updateInitLayer() {
+      while (calcScale() > 2) {
+        scale.value /= 2;
         initLayer.value += 1;
       }
-      while (newScale < 1) {
-        newScale *= 2;
+      while (calcScale() < 1) {
+        scale.value *= 2;
         initLayer.value -= 1;
       }
-      scale.value = newScale;
+    }
+
+    int getInitLayer() {
+      updateInitLayer();
+      return initLayer.value;
+    }
+
+    void setScale(double value) {
+      scale.value = value;
+    }
+
+    double getScale() {
+      updateInitLayer();
+      return calcScale();
     }
 
     return Listener(
       onPointerSignal: (signal) {
         if (signal is PointerScrollEvent) {
-          scroll(signal.scrollDelta.dy / 500);
+          // for every scroll event: animationController is resetted and the
+          // residualScroll & scale is updated.
+          final delta = signal.scrollDelta.dy / 500;
+          setScale(getScale());
+          residualScroll
+            ..value *= 1 - toTargetAnimation
+            ..value += delta;
+          if (!(toTargetAnimationController.status == AnimationStatus.forward &&
+              toTargetAnimation == 0)) {
+            toTargetAnimationController.forward(from: 0);
+          }
         }
       },
       child: GestureDetector(
         onPanUpdate: (details) {
-          scroll(-(details.delta.dx + details.delta.dy) / 150);
+          final delta = -(details.delta.dx + details.delta.dy) / 150;
+          setScale(getScale() * pow(2, delta));
+          residualScroll.value = 0;
         },
         behavior: HitTestBehavior.opaque,
         child: LayoutBuilder(
           builder: (context, constraint) => rec(
-            initLayer.value,
-            max(constraint.maxWidth, constraint.maxHeight) * scale.value,
+            getInitLayer(),
+            max(constraint.maxWidth, constraint.maxHeight) * getScale(),
             constraint,
-          )
-              .scale(all: scale.value, alignment: Alignment.bottomRight)
-              .clipRect(),
+          ).scale(all: getScale(), alignment: Alignment.bottomRight).clipRect(),
         ),
       ),
     );
