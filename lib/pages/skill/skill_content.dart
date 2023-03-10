@@ -12,8 +12,8 @@ import '../../contents/skill.dart';
 import '../../contents/work.dart';
 import '../../styles.dart';
 
-class SkillDescription extends HookWidget {
-  const SkillDescription({
+class SkillContentDisplay extends HookWidget {
+  const SkillContentDisplay({
     super.key,
     required this.content,
     this.animation = 1,

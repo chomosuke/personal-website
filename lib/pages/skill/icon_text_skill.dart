@@ -10,7 +10,7 @@ import '../../contents/skill.dart';
 import '../../styles.dart';
 import 'button_skill.dart';
 import 'contract_button.dart';
-import 'skill_description.dart';
+import 'skill_content.dart';
 
 class IconTextSkill extends HookWidget {
   const IconTextSkill({
@@ -94,7 +94,7 @@ class IconTextSkill extends HookWidget {
               ),
               if (animation < 1)
                 Spacer(flex: (500000 * (1 - animation)).ceil()),
-              SkillDescription(content: content, animation: animation)
+              SkillContentDisplay(content: content, animation: animation)
                   .expanded(flex: (1000000 * animation).ceil()),
               if (animation < 1)
                 Spacer(flex: (500000 * (1 - animation)).ceil()),
