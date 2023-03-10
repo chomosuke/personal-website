@@ -57,9 +57,9 @@ class SkillContentDisplay extends HookWidget {
                       return Column(
                         children: [
                           Image(
-                                  image: workContent.screenshot,
-                                  fit: BoxFit.cover)
-                              .expanded(flex: 100),
+                            image: workContent.screenshot,
+                            fit: BoxFit.cover,
+                          ).expanded(flex: 100),
                           const ColoredBox(
                             color: Colors.black,
                             child: SizedBox.expand(),

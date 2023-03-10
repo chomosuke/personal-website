@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,10 @@ class Skills extends HookWidget {
               if (!selectedIndex.value.contains(i)) {
                 selectedIndex.value.addLast(i);
                 while (selectedIndex.value.length >
-                    (MediaQuery.of(context).size.width / 900).ceil()) {
+                    min(
+                      MediaQuery.of(context).size.width / 900,
+                      MediaQuery.of(context).size.height / 800,
+                    ).ceil()) {
                   selectedIndex.value.removeFirst();
                 }
                 // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
