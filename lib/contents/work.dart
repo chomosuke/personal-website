@@ -18,6 +18,11 @@ class BoldTextSpanContent extends SpanContent {
   final String text;
 }
 
+class CodeSpanContent extends SpanContent {
+  CodeSpanContent(this.text);
+  final String text;
+}
+
 class LinkSpanContent extends SpanContent {
   LinkSpanContent(this.text, this.path);
   final String text;
@@ -88,7 +93,14 @@ BulletPoint textToBulletPoints(String text) {
       if (j.isOdd) {
         spans.add(BoldTextSpanContent(oddlyBold[j]));
       } else {
-        spans.add(TextSpanContent(oddlyBold[j]));
+        final oddlyCode = oddlyBold[j].split('`');
+        for (var k = 0; k < oddlyCode.length; k++) {
+          if (k.isOdd) {
+            spans.add(CodeSpanContent(oddlyCode[k]));
+          } else {
+            spans.add(TextSpanContent(oddlyCode[k]));
+          }
+        }
       }
     }
   }

@@ -39,6 +39,7 @@ final label1 = ColoredTextStyle(
   topOffset: 8.6,
 );
 
+final paragraph1Code = GoogleFonts.rubik(fontSize: 14);
 const paragraphHeight = 1.6;
 final paragraph1 = GoogleFonts.rubik(fontSize: 14, height: paragraphHeight);
 final paragraph1Bold = GoogleFonts.rubik(

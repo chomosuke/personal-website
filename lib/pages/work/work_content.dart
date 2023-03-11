@@ -73,6 +73,23 @@ class WorkContentDisplay extends HookWidget {
                             text: spanContent.text,
                             style: paragraph1Bold,
                           )
+                        else if (spanContent is CodeSpanContent)
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Text(
+                              spanContent.text,
+                              style: paragraph1Code,
+                            )
+                                .padding(horizontal: 6, vertical: 2)
+                                .decorated(
+                                  color:
+                                      const Color.fromRGBO(175, 184, 193, 0.2),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(6),
+                                  ),
+                                )
+                                .padding(top: 1),
+                          )
                         else if (spanContent is LinkSpanContent)
                           if (spanContent.path.substring(0, 6) == 'skills')
                             WidgetSpan(
