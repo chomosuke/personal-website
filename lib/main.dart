@@ -174,10 +174,37 @@ class App extends HookWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Tabs(
-                            focusedTab: pathToFocused(state.fullpath!),
-                            tabs: tabs,
-                          ),
+                          Row(
+                            children: [
+                              Tabs(
+                                focusedTab: pathToFocused(state.fullpath!),
+                                tabs: tabs,
+                              )
+                                  .alignment(Alignment.bottomLeft)
+                                  .height(94)
+                                  .fittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    alignment: Alignment.bottomLeft,
+                                  ),
+                              const Spacer(),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Richard',
+                                    style: heading4.textStyle
+                                        .apply(color: Colors.white),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Image.asset(
+                                    'content/assets/logo.png',
+                                    height: 60,
+                                    width: 60,
+                                  ).clipOval(),
+                                ],
+                              ),
+                              const SizedBox(width: 16),
+                            ],
+                          ).backgroundColor(const Color(0xFF4B4B4B)).clipRect(),
                           child.expanded(),
                         ],
                       ).material();

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:boxy/boxy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,7 +21,7 @@ class Tabs extends HookWidget {
         useMemoized(() => [for (var i = 0; i < tabs.length; i++) GlobalKey()]);
 
     return CustomBoxy(
-      delegate: _TabsLayoutDelegate(height: 94, overlap: 12),
+      delegate: _TabsLayoutDelegate(overlap: 12),
       children: [
         for (var i = tabs.length - 1; i > focusedTab; i--)
           BoxyId(
@@ -48,10 +50,7 @@ class Tabs extends HookWidget {
           ),
         ),
       ],
-    )
-        .fittedBox(fit: BoxFit.scaleDown, alignment: Alignment.bottomLeft)
-        .backgroundColor(const Color(0xFF4B4B4B))
-        .clipRect();
+    );
   }
 }
 
@@ -122,19 +121,19 @@ class _DecoratedChild extends HookWidget {
 }
 
 class _TabsLayoutDelegate extends BoxyDelegate {
-  _TabsLayoutDelegate({required this.height, required this.overlap});
-
+  _TabsLayoutDelegate({required this.overlap});
   final double overlap;
-  final double height;
-
   @override
   Size layout() {
-    var childPosX = 0.0;
+    final sizes = <Size>[];
     for (var i = 0; hasChild(i); i++) {
-      final child = getChild(i);
-      final childSize = child.layout(constraints);
-      child.position(Offset(childPosX, height - childSize.height));
-      childPosX += childSize.width - overlap;
+      sizes.add(getChild(i).layout(constraints.loosen()));
+    }
+    var childPosX = 0.0;
+    final height = sizes.map((s) => s.height).reduce(max);
+    for (var i = 0; hasChild(i); i++) {
+      getChild(i).position(Offset(childPosX, height - sizes[i].height));
+      childPosX += sizes[i].width - overlap;
     }
     return Size(childPosX + overlap, height);
   }

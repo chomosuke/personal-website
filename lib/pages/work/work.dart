@@ -137,8 +137,11 @@ class Work extends HookWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text('view project', style: heading4Underline)
-                              .padding(bottom: 1),
+                          Text(
+                            'view project',
+                            style: heading5.textStyle
+                                .apply(decoration: TextDecoration.underline),
+                          ).padding(bottom: 1),
                           const Icon(
                             PhosphorIcons.arrowLineUpRight,
                             size: 26,

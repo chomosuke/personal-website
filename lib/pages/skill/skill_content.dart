@@ -90,8 +90,11 @@ class SkillContentDisplay extends HookWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('See all projects', style: heading5Underline)
-                      .mouseRegion(cursor: SystemMouseCursors.click),
+                  Text(
+                    'See all projects',
+                    style: heading5.textStyle
+                        .apply(decoration: TextDecoration.underline),
+                  ).mouseRegion(cursor: SystemMouseCursors.click),
                   const Icon(
                     PhosphorIcons.arrowLineUpRight,
                     size: 16,
