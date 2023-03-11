@@ -155,6 +155,9 @@ class Work extends HookWidget {
                   ).expanded(),
                   Flex(
                     direction: horiTitleTime ? Axis.horizontal : Axis.vertical,
+                    crossAxisAlignment: horiTitleTime
+                        ? CrossAxisAlignment.center
+                        : CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ColoredText(
