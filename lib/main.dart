@@ -172,75 +172,78 @@ class App extends HookWidget {
                         }
                       }
 
+                      final tabsWidget = Tabs(
+                        focusedTab: pathToFocused(state.fullpath!),
+                        tabs: tabs,
+                      ).alignment(Alignment.bottomLeft).height(94).fittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.bottomLeft,
+                          );
+
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
-                            children: [
-                              Tabs(
-                                focusedTab: pathToFocused(state.fullpath!),
-                                tabs: tabs,
-                              )
-                                  .alignment(Alignment.bottomLeft)
-                                  .height(94)
-                                  .fittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.bottomLeft,
-                                  ),
-                              const Spacer(),
-                              PopupMenuButton(
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Richard',
-                                      style: heading4.textStyle
-                                          .apply(color: Colors.white),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Image.asset(
-                                      'content/assets/logo.png',
-                                      height: 60,
-                                      width: 60,
-                                    ).clipOval(),
-                                  ],
-                                ),
-                                onSelected: (selected) {
-                                  switch (selected) {
-                                    case #linkedIn:
-                                      launchUrlString(
-                                        'https://www.linkedin.com/in/shuang-li-bba020181/',
-                                      );
-                                      break;
-                                    case #gitHub:
-                                      launchUrlString(
-                                        'https://github.com/chomosuke',
-                                      );
-                                      break;
-                                    case #resume:
-                                      launchUrlString(
-                                        'https://github.com/chomosuke/resume/raw/master/resume.pdf',
-                                      );
-                                      break;
-                                  }
-                                },
-                                itemBuilder: (context) => [
-                                  const PopupMenuItem(
-                                    value: #linkedIn,
-                                    child: Text('LinkedIn'),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: #gitHub,
-                                    child: Text('GitHub'),
-                                  ),
-                                  const PopupMenuItem(
-                                    value: #resume,
-                                    child: Text('Resume'),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 16),
-                            ],
-                          ).backgroundColor(const Color(0xFF4B4B4B)).clipRect(),
+                          (MediaQuery.of(context).size.width < 950
+                                  ? tabsWidget
+                                  : Row(
+                                      children: [
+                                        tabsWidget,
+                                        const Spacer(),
+                                        PopupMenuButton(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Richard',
+                                                style: heading4.textStyle
+                                                    .apply(color: Colors.white),
+                                              ),
+                                              const SizedBox(width: 12),
+                                              Image.asset(
+                                                'content/assets/logo.png',
+                                                height: 60,
+                                                width: 60,
+                                              ).clipOval(),
+                                            ],
+                                          ),
+                                          onSelected: (selected) {
+                                            switch (selected) {
+                                              case #linkedIn:
+                                                launchUrlString(
+                                                  'https://www.linkedin.com/in/shuang-li-bba020181/',
+                                                );
+                                                break;
+                                              case #gitHub:
+                                                launchUrlString(
+                                                  'https://github.com/chomosuke',
+                                                );
+                                                break;
+                                              case #resume:
+                                                launchUrlString(
+                                                  'https://github.com/chomosuke/resume/raw/master/resume.pdf',
+                                                );
+                                                break;
+                                            }
+                                          },
+                                          itemBuilder: (context) => [
+                                            const PopupMenuItem(
+                                              value: #linkedIn,
+                                              child: Text('LinkedIn'),
+                                            ),
+                                            const PopupMenuItem(
+                                              value: #gitHub,
+                                              child: Text('GitHub'),
+                                            ),
+                                            const PopupMenuItem(
+                                              value: #resume,
+                                              child: Text('Resume'),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(width: 16),
+                                      ],
+                                    ))
+                              .backgroundColor(const Color(0xFF4B4B4B))
+                              .clipRect(),
                           child.expanded(),
                         ],
                       ).material();
