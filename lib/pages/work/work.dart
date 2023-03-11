@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:boxy/flex.dart';
 import 'package:flutter/material.dart';
@@ -101,10 +102,53 @@ class Work extends HookWidget {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Image(
-                    image: content.screenshot,
-                    alignment: Alignment.topCenter,
-                    fit: BoxFit.cover,
+                  Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      ImageFiltered(
+                        imageFilter: ImageFilter.blur(
+                          sigmaX: 5 * hoverAnimation,
+                          sigmaY: 5 * hoverAnimation,
+                        ),
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image(
+                              image: content.screenshot,
+                              alignment: Alignment.topCenter,
+                              fit: BoxFit.cover,
+                            ),
+                            ColoredBox(
+                              color: Color.fromRGBO(
+                                255,
+                                255,
+                                255,
+                                hoverAnimation * 0.4,
+                              ),
+                            )
+                          ],
+                        ),
+                      ).clipRect(),
+                      Text(content.summary, style: heading2.textStyle)
+                          .opacity(hoverAnimation)
+                          .center()
+                          .fractionallySizedBox(widthFactor: 0.8),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('view project', style: heading4Underline)
+                              .padding(bottom: 1),
+                          const Icon(
+                            PhosphorIcons.arrowLineUpRight,
+                            size: 26,
+                          ),
+                        ],
+                      )
+                          .padding(all: 8)
+                          .alignment(Alignment.bottomRight)
+                          .opacity(hoverAnimation),
+                    ],
                   ).expanded(),
                   Flex(
                     direction: horiTitleTime ? Axis.horizontal : Axis.vertical,
@@ -118,12 +162,12 @@ class Work extends HookWidget {
                       if (horiTitleTime)
                         const Spacer()
                       else
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 6),
                       Text(content.time, style: heading4.textStyle)
                           .fittedBox(fit: BoxFit.scaleDown),
                     ],
                   )
-                      .padding(all: horiTitleTime ? 12 : 4)
+                      .padding(all: horiTitleTime ? 12 : 6)
                       .alignment(Alignment.topLeft)
                       .height(72)
                       .border(top: 2),

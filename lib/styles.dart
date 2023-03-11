@@ -20,6 +20,10 @@ final heading4 = ColoredTextStyle(
   colorHeight: 13,
   topOffset: 8.1,
 );
+final heading4Underline = GoogleFonts.comfortaa(
+  fontSize: 24,
+  decoration: TextDecoration.underline,
+);
 final heading5 = ColoredTextStyle(
   textStyle: GoogleFonts.comfortaa(fontSize: 12),
   colorHeight: 6.2,

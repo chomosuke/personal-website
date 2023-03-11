@@ -5,7 +5,7 @@
 [GitHub Profile](https://github.com/chomosuke)
 
 ## Summary
-A python script that updates my [GitHub Profile](https://github.com/chomosuke) daily.
+A python script that updates my GitHub Profile daily.
 
 ## Description
 - GitHub allow its users to display a markdown file in their profile.
