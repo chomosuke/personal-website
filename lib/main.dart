@@ -5,6 +5,7 @@ import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:vector_graphics/vector_graphics_compat.dart';
 
 import 'contents/get_paths.dart';
@@ -187,19 +188,54 @@ class App extends HookWidget {
                                     alignment: Alignment.bottomLeft,
                                   ),
                               const Spacer(),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Richard',
-                                    style: heading4.textStyle
-                                        .apply(color: Colors.white),
+                              PopupMenuButton(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Richard',
+                                      style: heading4.textStyle
+                                          .apply(color: Colors.white),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Image.asset(
+                                      'content/assets/logo.png',
+                                      height: 60,
+                                      width: 60,
+                                    ).clipOval(),
+                                  ],
+                                ),
+                                onSelected: (selected) {
+                                  switch (selected) {
+                                    case #linkedIn:
+                                      launchUrlString(
+                                        'https://www.linkedin.com/in/shuang-li-bba020181/',
+                                      );
+                                      break;
+                                    case #gitHub:
+                                      launchUrlString(
+                                        'https://github.com/chomosuke',
+                                      );
+                                      break;
+                                    case #resume:
+                                      launchUrlString(
+                                        'https://github.com/chomosuke/resume/raw/master/resume.pdf',
+                                      );
+                                      break;
+                                  }
+                                },
+                                itemBuilder: (context) => [
+                                  const PopupMenuItem(
+                                    value: #linkedIn,
+                                    child: Text('LinkedIn'),
                                   ),
-                                  const SizedBox(width: 12),
-                                  Image.asset(
-                                    'content/assets/logo.png',
-                                    height: 60,
-                                    width: 60,
-                                  ).clipOval(),
+                                  const PopupMenuItem(
+                                    value: #gitHub,
+                                    child: Text('GitHub'),
+                                  ),
+                                  const PopupMenuItem(
+                                    value: #resume,
+                                    child: Text('Resume'),
+                                  ),
                                 ],
                               ),
                               const SizedBox(width: 16),

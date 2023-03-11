@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../components/popup_button.dart';
 import '../../contents/work.dart';
@@ -41,7 +41,7 @@ class WorkContentDisplay extends HookWidget {
                   PopupButton(
                     color: primary03,
                     onClick: () {
-                      launchUrl(Uri.parse(quickLink.link));
+                      launchUrlString(quickLink.link);
                     },
                     child: Row(
                       children: [
@@ -129,7 +129,7 @@ class WorkContentDisplay extends HookWidget {
                             style: link,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                launchUrl(Uri.parse(spanContent.externLink));
+                                launchUrlString(spanContent.externLink);
                               },
                           ),
                     ],
