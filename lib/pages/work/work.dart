@@ -96,7 +96,7 @@ class Work extends HookWidget {
                   else
                     summary,
                   WorkContentDisplay(path: path),
-                  const SizedBox(width: 0, height: 64),
+                  SizedBox(height: constraints.maxHeight / 3),
                 ],
               ).scrollable()
             : Column(
