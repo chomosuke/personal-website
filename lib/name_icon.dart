@@ -20,11 +20,6 @@ class NameIcon extends HookWidget {
     );
     return PortalTarget(
       visible: animation != 0,
-      anchor: const Aligned(
-        target: Alignment.topLeft,
-        follower: Alignment.topLeft,
-        offset: Offset(-16, 0),
-      ),
       portalFollower: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -39,16 +34,16 @@ class NameIcon extends HookWidget {
               ),
             ],
           )
-              .padding(all: 16)
+              .padding(vertical: 16, left: 16, right: 40)
               .gestures(
                 onTap: controller.reverse,
                 behavior: HitTestBehavior.opaque,
               )
               .mouseRegion(cursor: SystemMouseCursors.click),
           const ColoredBox(color: Colors.black)
-              .constrained(width: 100, height: 2),
+              .constrained(width: 140, height: 2),
           Text('GitHub', style: heading4.textStyle)
-              .padding(top: 16, bottom: 8, left: 40, right: 16)
+              .padding(top: 16, bottom: 8, horizontal: 40)
               .gestures(
                 onTap: () => launchUrlString(
                   'https://github.com/chomosuke',
@@ -57,7 +52,7 @@ class NameIcon extends HookWidget {
               )
               .mouseRegion(cursor: SystemMouseCursors.click),
           Text('LinkedIn', style: heading4.textStyle)
-              .padding(vertical: 8, bottom: 8, left: 40, right: 16)
+              .padding(vertical: 8, horizontal: 40)
               .gestures(
                 onTap: () => launchUrlString(
                   'https://www.linkedin.com/in/shuang-li-bba020181/',
@@ -66,7 +61,7 @@ class NameIcon extends HookWidget {
               )
               .mouseRegion(cursor: SystemMouseCursors.click),
           Text('Resumé', style: heading4.textStyle)
-              .padding(top: 8, bottom: 16, left: 40, right: 16)
+              .padding(top: 8, bottom: 16, horizontal: 40)
               .gestures(
                 onTap: () => launchUrlString(
                   'https://github.com/chomosuke/resume/raw/master/resume.pdf',
@@ -75,18 +70,25 @@ class NameIcon extends HookWidget {
               )
               .mouseRegion(cursor: SystemMouseCursors.click),
         ],
-      ).decorated(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
-        ),
-        boxShadow: [
-          const BoxShadow(
-            blurRadius: 2,
-            spreadRadius: 1,
-          ),
-        ],
-      ).opacity(animation),
+      )
+          .decorated(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20),
+            ),
+            boxShadow: [
+              const BoxShadow(
+                blurRadius: 2,
+                spreadRadius: 1,
+              ),
+            ],
+          ).padding(right: 52, top: 18)
+          .alignment(Alignment.topRight)
+          .gestures(
+            onTap: animation == 1 ? controller.reverse : null,
+            behavior: animation == 1 ? HitTestBehavior.opaque : null,
+          )
+          .opacity(animation),
       child: Row(
         children: [
           const Icon(PhosphorIcons.caretDown, color: Colors.white),

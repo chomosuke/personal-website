@@ -189,7 +189,7 @@ class App extends HookWidget {
                                       children: [
                                         tabsWidget,
                                         const Spacer(),
-                                        NameIcon(),
+                                        const NameIcon(),
                                         const SizedBox(width: 16),
                                       ],
                                     ))
