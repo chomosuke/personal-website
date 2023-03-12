@@ -85,8 +85,8 @@ class NameIcon extends HookWidget {
           ).padding(right: 52, top: 18)
           .alignment(Alignment.topRight)
           .gestures(
-            onTap: animation == 1 ? controller.reverse : null,
-            behavior: animation == 1 ? HitTestBehavior.opaque : null,
+            onTap: controller.reverse,
+            behavior: HitTestBehavior.opaque,
           )
           .opacity(animation),
       child: Row(
