@@ -139,7 +139,7 @@ class Work extends HookWidget {
                         children: [
                           Text(
                             'view project',
-                            style: heading5.textStyle
+                            style: heading4.textStyle
                                 .apply(decoration: TextDecoration.underline),
                           ).padding(bottom: 1),
                           const Icon(
