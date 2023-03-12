@@ -114,6 +114,7 @@ class WorkContentDisplay extends HookWidget {
                               child: PopupButton(
                                 onClick: () => context.go(spanContent.path),
                                 color: primary03,
+                                border: 1.2,
                                 child: Text(
                                   spanContent.text,
                                   style: heading3.textStyle,
