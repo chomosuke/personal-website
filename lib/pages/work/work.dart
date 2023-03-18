@@ -138,7 +138,7 @@ class Work extends HookWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            'view project',
+                            'view details',
                             style: heading4.textStyle
                                 .apply(decoration: TextDecoration.underline),
                           ).padding(bottom: 1),

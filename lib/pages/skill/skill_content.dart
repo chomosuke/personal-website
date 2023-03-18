@@ -27,7 +27,7 @@ class SkillContentDisplay extends HookWidget {
         const padding = 8.0;
         const borderThickness = 2.0;
 
-        final seeAllProjectAnimation = max(0.0, (animation - 0.5) * 2);
+        final seeAllWorksAnimation = max(0.0, (animation - 0.5) * 2);
 
         final workPaths = content.works;
 
@@ -86,12 +86,12 @@ class SkillContentDisplay extends HookWidget {
                     }(),
                 ],
               ).fractionallySizedBox(widthFactor: animation).expanded(),
-              SizedBox.square(dimension: 12 * seeAllProjectAnimation),
+              SizedBox.square(dimension: 12 * seeAllWorksAnimation),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'See all projects',
+                    'See all works',
                     style: heading5.textStyle
                         .apply(decoration: TextDecoration.underline),
                   ).mouseRegion(cursor: SystemMouseCursors.click),
@@ -105,8 +105,8 @@ class SkillContentDisplay extends HookWidget {
                     onTap: () => context.go('/works'),
                   )
                   .fittedBox(fit: BoxFit.scaleDown)
-                  .height(16 * seeAllProjectAnimation),
-              SizedBox.square(dimension: 12 * seeAllProjectAnimation),
+                  .height(16 * seeAllWorksAnimation),
+              SizedBox.square(dimension: 12 * seeAllWorksAnimation),
             ] else
               const SizedBox.shrink().expanded()
           ],
