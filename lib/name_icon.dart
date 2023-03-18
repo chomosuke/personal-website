@@ -18,59 +18,61 @@ class NameIcon extends HookWidget {
     final animation = useAnimation(
       CurvedAnimation(parent: controller, curve: Curves.ease),
     );
+
+    Widget decorate(Widget child, void Function() onTap) {
+      return child
+          .center()
+          .gestures(onTap: onTap, behavior: HitTestBehavior.opaque)
+          .mouseRegion(cursor: SystemMouseCursors.click)
+          .ripple();
+    }
+
     return PortalTarget(
       visible: animation != 0,
       portalFollower: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(PhosphorIcons.caretUp),
-              const SizedBox(width: 8),
-              Text(
-                'Richard',
-                style: heading4.textStyle,
-              ),
-            ],
-          )
-              .padding(vertical: 16, left: 16, right: 40)
-              .gestures(
-                onTap: controller.reverse,
-                behavior: HitTestBehavior.opaque,
-              )
-              .mouseRegion(cursor: SystemMouseCursors.click),
+          decorate(
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(PhosphorIcons.caretUp),
+                const SizedBox(width: 8),
+                Text(
+                  'Richard',
+                  style: heading4.textStyle,
+                ),
+              ],
+            ).padding(vertical: 16, left: 8, right: 32),
+            controller.reverse,
+          ),
           const ColoredBox(color: Colors.black)
-              .constrained(width: 140, height: 2),
-          Text('GitHub', style: heading4.textStyle)
-              .padding(top: 16, bottom: 8, horizontal: 40)
-              .gestures(
-                onTap: () => launchUrlString(
-                  'https://github.com/chomosuke',
-                ),
-                behavior: HitTestBehavior.opaque,
-              )
-              .mouseRegion(cursor: SystemMouseCursors.click),
-          Text('LinkedIn', style: heading4.textStyle)
-              .padding(vertical: 8, horizontal: 40)
-              .gestures(
-                onTap: () => launchUrlString(
-                  'https://www.linkedin.com/in/shuang-li-bba020181/',
-                ),
-                behavior: HitTestBehavior.opaque,
-              )
-              .mouseRegion(cursor: SystemMouseCursors.click),
-          Text('Resumé', style: heading4.textStyle)
-              .padding(top: 8, bottom: 16, horizontal: 40)
-              .gestures(
-                onTap: () => launchUrlString(
-                  'https://github.com/chomosuke/resume/raw/master/resume.pdf',
-                ),
-                behavior: HitTestBehavior.opaque,
-              )
-              .mouseRegion(cursor: SystemMouseCursors.click),
+              .constrained(width: 128, height: 2)
+              .center(),
+          decorate(
+            Text('GitHub', style: heading4.textStyle)
+                .padding(top: 16, bottom: 8),
+            () => launchUrlString(
+              'https://github.com/chomosuke',
+            ),
+          ),
+          decorate(
+            Text('LinkedIn', style: heading4.textStyle).padding(vertical: 8),
+            () => launchUrlString(
+              'https://www.linkedin.com/in/shuang-li-bba020181/',
+            ),
+          ),
+          decorate(
+            Text('Resumé', style: heading4.textStyle)
+                .padding(top: 8, bottom: 16),
+            () => launchUrlString(
+              'https://github.com/chomosuke/resume/raw/master/resume.pdf',
+            ),
+          ),
         ],
       )
+          .width(168)
           .decorated(
             color: Colors.white,
             borderRadius: const BorderRadius.all(
@@ -82,7 +84,8 @@ class NameIcon extends HookWidget {
                 spreadRadius: 1,
               ),
             ],
-          ).padding(right: 52, top: 18)
+          )
+          .padding(right: 76, top: 18)
           .alignment(Alignment.topRight)
           .gestures(
             onTap: controller.reverse,
@@ -97,7 +100,7 @@ class NameIcon extends HookWidget {
             'Richard',
             style: heading4.textStyle.apply(color: Colors.white),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 32),
           Image.asset(
             'content/assets/logo.png',
             height: 60,
