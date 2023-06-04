@@ -14,4 +14,4 @@ A NeoVim plugin that implement Vim keybindings for the built-in terminal buffer 
 - I also had to invent various heuristics to guess if all keys emitted has been processed by the shell and reflected in the cursor's position.
 - In the end, I was able to make NeoVim's terminal buffer behave almost identical to the rest of NeoVim.
 - I announced my plugin on Reddit and received positive [reviews](https://www.reddit.com/r/neovim/comments/10h01dw/termeditnvim_making_vim_key_bindings_work_in/).
-- The plugin also received more than **70 stars** on GitHub.
+- The plugin also received more than **100 stars** on GitHub.
