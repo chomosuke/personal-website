@@ -2,6 +2,7 @@
 2021
 
 [Source Code](https://github.com/chomosuke/IT-PROJECT-PorkBellyPro)
+[See it in Action](https://porkbellypro.chomosuke.com/)
 
 ## Summary
 A university group project which we had to develop a CRM based on a "client"'s requests.
