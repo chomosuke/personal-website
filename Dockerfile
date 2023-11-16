@@ -9,7 +9,7 @@ RUN flutter precache --web
 # build
 WORKDIR /home/root/app
 COPY ./ ./
-RUN flutter pub get --enforce-lockfile
+RUN flutter pub get
 RUN flutter build web --web-renderer canvaskit --release
 
 FROM busybox:1 AS server
