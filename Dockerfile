@@ -3,7 +3,7 @@ FROM debian:bullseye AS builder
 RUN apt-get update && apt-get install -y curl git unzip xz-utils zip
 USER root
 WORKDIR /home/root
-RUN git clone --depth 1 --branch stable https://github.com/flutter/flutter.git
+RUN git clone --depth 1 --branch 3.7.12 https://github.com/flutter/flutter.git
 ENV PATH $PATH:/home/root/flutter/bin
 RUN flutter precache --web
 # build
